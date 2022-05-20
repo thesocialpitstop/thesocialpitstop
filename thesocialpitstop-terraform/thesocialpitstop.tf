@@ -101,3 +101,104 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = true
   }
 }
+
+# DynamoDB
+resource "aws_dynamodb_table" "db" {
+  name           = "the-social-pitstop"
+  read_capacity  = 5
+  write_capacity = 5
+  hash_key       = "UserID"
+  range_key      = "ItemType"
+
+  attribute {
+    name = "UserID"
+    type = "S"
+  }
+
+  attribute {
+    name = "ItemType"
+    type = "S"
+  }
+
+  attribute {
+    name = "Tags"
+    type = "S"
+  }
+
+  # ttl {
+  #   attribute_name = "TimeToExist"
+  #   enabled        = false
+  # }
+
+  global_secondary_index {
+    name               = "ItemTypeIndex"
+    hash_key           = "ItemType"
+    range_key          = "Tags"
+    write_capacity     = 5
+    read_capacity      = 5
+    projection_type    = "ALL"
+  }
+
+  tags = {
+    Name        = "the-social-pitstop"
+    Environment = "production"
+  }
+}
+
+# AppSync
+resource "aws_iam_role" "example" {
+  name = "example"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "appsync.amazonaws.com"
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "example" {
+  name = "example"
+  role = aws_iam_role.example.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "dynamodb:*"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${aws_dynamodb_table.db.arn}"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_appsync_graphql_api" "api" {
+  authentication_type = "API_KEY"
+  name                = "tf_appsync_example"
+}
+
+resource "aws_appsync_datasource" "datasource" {
+  api_id           = aws_appsync_graphql_api.api.id
+  name             = "TheSocialPitstop"
+  service_role_arn = aws_iam_role.example.arn
+  type             = "AMAZON_DYNAMODB"
+
+  dynamodb_config {
+    table_name = aws_dynamodb_table.db.name
+  }
+}
