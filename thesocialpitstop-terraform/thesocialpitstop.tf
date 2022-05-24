@@ -105,23 +105,28 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 # DynamoDB
 resource "aws_dynamodb_table" "db" {
   name           = "the-social-pitstop"
-  read_capacity  = 5
-  write_capacity = 5
-  hash_key       = "UserID"
-  range_key      = "ItemType"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "user_id"
+  range_key      = "item_type"
 
   attribute {
-    name = "UserID"
+    name = "user_id"
     type = "S"
   }
 
   attribute {
-    name = "ItemType"
+    name = "item_type"
     type = "S"
   }
 
   attribute {
-    name = "Tags"
+    name = "name"
+    type = "S"
+  }
+
+  attribute {
+    name = "category"
     type = "S"
   }
 
@@ -131,11 +136,20 @@ resource "aws_dynamodb_table" "db" {
   # }
 
   global_secondary_index {
-    name               = "ItemTypeIndex"
-    hash_key           = "ItemType"
-    range_key          = "Tags"
-    write_capacity     = 5
-    read_capacity      = 5
+    name               = "name_index"
+    hash_key           = "item_type"
+    range_key          = "name"
+    write_capacity     = 1
+    read_capacity      = 1
+    projection_type    = "ALL"
+  }
+
+  global_secondary_index {
+    name               = "category_index"
+    hash_key           = "item_type"
+    range_key          = "category"
+    write_capacity     = 1
+    read_capacity      = 1
     projection_type    = "ALL"
   }
 
@@ -179,7 +193,8 @@ resource "aws_iam_role_policy" "example" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${aws_dynamodb_table.db.arn}"
+        "${aws_dynamodb_table.db.arn}",
+        "${aws_dynamodb_table.db.arn}/index/*"
       ]
     }
   ]
@@ -189,7 +204,7 @@ EOF
 
 resource "aws_appsync_graphql_api" "api" {
   authentication_type = "API_KEY"
-  name                = "tf_appsync_example"
+  name                = "TSP API"
 }
 
 resource "aws_appsync_datasource" "datasource" {
