@@ -4,7 +4,7 @@ import { router } from 'next/router'
 import Link  from 'next/Link';
 import { Button, TextField } from "@mui/material";
 
-export const SearchInput = ({onStateChange}) => {
+const SearchInput = ({onStateChange}) => {
 
     const SearchInputDiv = styled.div`
         display: flex;
@@ -75,3 +75,5 @@ export const SearchInput = ({onStateChange}) => {
     </SearchInputDiv>      
     </>);
 }
+
+export default SearchInput;

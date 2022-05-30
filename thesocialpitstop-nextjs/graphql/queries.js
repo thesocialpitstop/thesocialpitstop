@@ -31,6 +31,7 @@ query MyQuery($category: String!, $item_type: String!) {
       name
       user_id
       item_type
+      details
     }
   }
 }

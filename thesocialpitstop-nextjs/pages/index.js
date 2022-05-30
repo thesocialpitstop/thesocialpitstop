@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import ItemComponent from './categories/item_component';
-import beach from "../public/beach-cleanup.webp"
+import ItemComponent from '../styles/item_component';
 import CsrItem from '../components/home_page/csr_item';
 
 const Title = styled.h1`
@@ -11,7 +10,6 @@ const CarouselSection = styled.div`
   display: grid;
   align-content: center;
   height: 480px;
-  background-color: red;
   background-image: url('/beach-cleanup.webp');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -94,7 +92,7 @@ const csrList = [
   }
 ]
 
-const csrItems = csrList.map((content) =>     <CsrItem item={content}></CsrItem> );
+const csrItems = csrList.map((content) =>     <CsrItem key={content.title} item={content}></CsrItem> );
 //--------- UPCOMING SECTION ---------
 
 export default function HomePage() {

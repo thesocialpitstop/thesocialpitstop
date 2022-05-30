@@ -25,15 +25,15 @@ const CsrItem = (content) => {
     
     <ItemDiv>
         <Title>
-            {content.item.title}
+            {content?.item.title}
         </Title>
         <CustomImage 
-            src={content.item.image_url}
+            src={content?.item.image_url}
             width={128}
             height={128}
             />
         <Description>
-            {content.item.description}
+            {content?.item.description}
         </Description>
     </ItemDiv>
     

@@ -31,4 +31,4 @@ const categories = [
     },
   ]
 
-  export {categories} 
+  export default categories;
