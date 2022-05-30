@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   styledComponents: true,
   images: {
-    domains: ['blogassets.singsaver.com.sg']
+    domains: ['blogassets.singsaver.com.sg','s.gravatar.com']
   }
 }
 
