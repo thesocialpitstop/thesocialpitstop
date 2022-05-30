@@ -1,52 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import {
+  Nav,
   NavbarContainer,
-  LeftContainer,
-  RightContainer,
-  NavbarExtendedContainer,
-  NavbarInnerContainer,
-  NavbarLinkContainer,
-  NavbarLink,
-  Logo,
-  OpenLinksButton,
-  NavbarLinkExtended,
+  NavLogo,
+  MobileIcon,
+  NavBtn,
+  NavLinkItem,
 } from "./navbar.style";
 
-function Navbar() {
-  const [extendNavbar, setExtendNavbar] = useState(false);
+import { FaBars } from "react-icons/fa";
+import { BsUpload, BsSearch } from "react-icons/bs";
+import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0";
 
+const Navbar = ({ toggle }) => {
+  const menuId = "main-menu";
+  const { user, error, isLoading } = useUser();
+  const link = user ? "/api/auth/logout" : "/api/auth/login";
   return (
-    <NavbarContainer extendNavbar={extendNavbar}>
-      <NavbarInnerContainer>
-        <LeftContainer>
-          <NavbarLinkContainer>
-            <Logo src="/icons/logo.png"></Logo>
-            <NavbarLink href="/"> Home</NavbarLink>
-            <NavbarLink href="/categories"> Categories</NavbarLink>
-            <NavbarLink href="/contact"> Contact Us</NavbarLink>
-            <NavbarLink href="/about"> About Us</NavbarLink>
-            <OpenLinksButton
-              onClick={() => {
-                setExtendNavbar((curr) => !curr);
-              }}
-            >
-              {extendNavbar ? <>&#10005;</> : <> &#8801;</>}
-            </OpenLinksButton>
-          </NavbarLinkContainer>
-        </LeftContainer>
-        <RightContainer>
-        </RightContainer>
-      </NavbarInnerContainer>
-      {extendNavbar && (
-        <NavbarExtendedContainer>
-          <NavbarLinkExtended href="/"> Home</NavbarLinkExtended>
-          <NavbarLinkExtended href="/categories"> Categories</NavbarLinkExtended>
-          <NavbarLinkExtended href="/contact"> Contact Us</NavbarLinkExtended>
-          <NavbarLinkExtended href="/about"> About Us</NavbarLinkExtended>
-        </NavbarExtendedContainer>
-      )}
-    </NavbarContainer>
+    <>
+      <Nav>
+        <NavbarContainer>
+          <MobileIcon onClick={toggle}>
+            <FaBars />
+          </MobileIcon>
+          <NavLogo href="/">The Social Pitstop</NavLogo>
+          <NavBtn>
+            <Link href="/categories" passHref>
+              <NavLinkItem>CATEGORIES</NavLinkItem>
+            </Link>
+            <Link href="/explore" passHref>
+              <NavLinkItem>ABOUT US</NavLinkItem>
+            </Link>                        
+            <Link href={link} passHref>
+              {user ? <NavLinkItem>LOGOUT</NavLinkItem> : <NavLinkItem>LOGIN</NavLinkItem>}
+            </Link>
+          </NavBtn>
+        </NavbarContainer>
+      </Nav>
+    </>
   );
-}
+};
 
 export default Navbar;
