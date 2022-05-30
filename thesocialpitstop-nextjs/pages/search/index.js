@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY } from '../../graphql/queries';
+import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY, QUERY_WITH_NAME_PREFIX } from '../../graphql/queries';
 import  SearchInput from '../../components/search/search_input';
 import  SearchItem from '../../components/search/search_item';
 import { useQuery } from "@apollo/client";
@@ -88,25 +88,37 @@ const SearchPage = () => {
   const router = useRouter();
   const { query } = router.query;
 
-  const withSearch = useQuery(LOAD_PROFILE_CATEGORY, {
+  const withCategorySearch = useQuery(LOAD_PROFILE_CATEGORY, {
     variables: {
       category: router.query.category,
       item_type: "SOO-PROFILE"
     }
   });
 
+  const withPrefixSearch = useQuery(QUERY_WITH_NAME_PREFIX, {
+    variables: {
+      prefix: router.query.query
+    }
+  })
+
   const loadAll = useQuery(LOAD_ALL_PROFILES);
-  const queryParams = router.query.category == undefined ? loadAll : withSearch;
+  const queryParams = router.query.category == undefined ? loadAll : withCategorySearch;
+  if(router.query.query != undefined) {
+    queryParams = withPrefixSearch;
+  }
   const { data: data, loading: loading, error: error } = queryParams;
 
   useEffect(() => {
     if(data){
-      if(router.query.category == undefined) {
+      if(router.query.query != undefined) {
+        console.log(data);
+        setItems(data.queryItemWithNamePrefix.items)
+      } else if (router.query.category == undefined) {
         console.log(data)
-        setItems(data.listWithItemType.items)
-      } else {
-        console.log(data)
-        setItems(data.queryItemWithCategory.items)
+        setItems(data.listWithItemType.items);
+      } else if(router.query.category != undefined) {
+        console.log(data);
+        setItems(data.queryItemWithCategory.items);
       }
     }
   }, [data])

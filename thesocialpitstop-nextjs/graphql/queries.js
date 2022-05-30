@@ -37,6 +37,25 @@ query MyQuery($category: String!, $item_type: String!) {
 }
 `;
 
+export const QUERY_WITH_NAME_PREFIX = gql`
+query MyQuery($prefix: String!){
+  queryItemWithNamePrefix(item_type: "SOO-PROFILE", name_prefix: $prefix) {
+    items {
+      address
+      category
+      contact_num
+      datetime
+      details
+      email
+      item_type
+      name
+      user_id
+    }
+  }
+}
+
+`
+
 export const LOAD_PROFILE = gql`
 query MyQuery($pk: String!, $item_type: String!) {
   getItem(item_type: $item_type, user_id: $pk) {
