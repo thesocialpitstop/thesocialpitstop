@@ -4,14 +4,27 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { LOAD_PROFILE } from '../../graphql/queries';
 import styled from 'styled-components';
-export default function ProfileID() {
+
+const Title = styled.h1`
+font-family: Montserrat, sans-serif;
+font-size: xx-large;
+`;
+
+const DetailsDiv = styled.div``;
+const ItemTitle = styled.div`
+font-family: Montserrat, sans-serif;
+color: gray;
+`;
+
+const ItemDetail = styled.div`
+font-family: Montserrat, sans-serif;
+font-size: large;
+`;
+const ProfileID = () => {
     const [profileData, setProfileData] = useState();
     const router = useRouter();
     const { user, error, isLoading } = useUser();
     const { id } = router.query;
-    useEffect(() => {
-        console.log(user)
-    }, [])
     const withSearch = useQuery(LOAD_PROFILE, {
         variables: {
           pk: id,
@@ -23,42 +36,28 @@ export default function ProfileID() {
 
     const { data, loading, profileError } = queryParams;
     useEffect(() => {
-    if(data) {
-        console.log(data.getItem);
-        setProfileData(data.getItem)
-    }
+        if(data) {
+            console.log(data.getItem);
+            setProfileData(data.getItem)
+        }
     },[data])
 
-    const Title = styled.h1`
-        font-family: Montserrat, sans-serif;
-        font-size: xx-large;
-    `;
-
-    const DetailsDiv = styled.div``;
-    const ItemTitle = styled.div`
-        font-family: Montserrat, sans-serif;
-        color: gray;
-    `;
-
-    const ItemDetail = styled.div`
-        font-family: Montserrat, sans-serif;
-        font-size: large;
-    `;
 
   return (
     <>
         <Title>
-            {profileData.name}
+            {/* {profileData.item.name} */}
+            hello
         </Title>
         <DetailsDiv>
             <ItemTitle>Category</ItemTitle>
-                <ItemDetail>{profileData.category}</ItemDetail>
+                <ItemDetail>{profileData?.category}</ItemDetail>
             <ItemTitle>Address</ItemTitle>
-                <ItemDetail>{profileData.address}</ItemDetail>
+                <ItemDetail>{profileData?.address}</ItemDetail>
             <ItemTitle>Contact No.</ItemTitle>
-                <ItemDetail>{profileData.contact_num}</ItemDetail>
+                <ItemDetail>{profileData?.contact_num}</ItemDetail>
             <ItemTitle>Details</ItemTitle>
-                <ItemDetail>{profileData.details}</ItemDetail>
+                <ItemDetail>{profileData?.details}</ItemDetail>
             <ItemTitle>Website</ItemTitle>
                 <ItemDetail>www.mysoo.com</ItemDetail>
 
@@ -67,3 +66,5 @@ export default function ProfileID() {
 
     );
 }
+
+export default ProfileID;

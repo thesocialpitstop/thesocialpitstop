@@ -2,11 +2,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY } from '../../graphql/queries';
-import { SearchInput } from './search_input';
-import { SearchItem } from './search_item';
+import  SearchInput from '../../components/search/search_input';
+import  SearchItem from '../../components/search/search_item';
 import { useQuery } from "@apollo/client";
 import { Button, TextField } from '@mui/material';
 import Link from 'next/link';
+import SearchCategoryList from '../../components/search/search_category_list';
 
 const mockSearchResults = [
   {
@@ -37,6 +38,9 @@ const mockSearchResults = [
 ]
 
 const SearchPageDiv = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+
   @media (min-width: 768px) {
     padding-left: 200px;
     padding-right: 200px;
@@ -68,8 +72,12 @@ height: 100%;
 width: 100%;
 `;
 
+const CategorySectionDiv = styled.div``;
+
+const SearchBarItemsDiv = styled.div``;
+
 const mockSearchComponent = mockSearchResults.map((item) => 
-  <SearchItem item={item}></SearchItem>
+  <SearchItem key={item.name} item={item}></SearchItem>
 );
 
 const SearchPage = () => {
@@ -105,7 +113,7 @@ const SearchPage = () => {
 
   const searchItems = items.map((content) => {
     return (
-      <SearchItem item={content}></SearchItem>
+      <SearchItem key={content.name} item={content}></SearchItem>
     );
   });
 
@@ -116,16 +124,20 @@ const SearchPage = () => {
 
   return (
     <SearchPageDiv>
-      {router.query.category}
-      <SearchSectionDiv>
-        <NameInput onChange={handleChange}/> 
-          <Link href={`/search?${textInput}`}>
-            <SearchButton variant="contained">🔎</SearchButton>
-          </Link>
-      </SearchSectionDiv>
-      <ResultsItemsDiv>
-        {searchItems}
-      </ResultsItemsDiv>
+      <CategorySectionDiv>
+        <SearchCategoryList/>
+      </CategorySectionDiv>
+      <SearchBarItemsDiv>
+        <SearchSectionDiv>
+          <NameInput onChange={handleChange}/> 
+            <Link href={`/search?query=${textInput}`}>
+              <SearchButton variant="contained">🔎</SearchButton>
+            </Link>
+        </SearchSectionDiv>
+        <ResultsItemsDiv>
+          {searchItems}
+        </ResultsItemsDiv>
+      </SearchBarItemsDiv>
     </SearchPageDiv>
 
   )

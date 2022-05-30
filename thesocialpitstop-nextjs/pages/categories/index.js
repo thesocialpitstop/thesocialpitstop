@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components'
-import { categories } from './category_list';
-import { ItemComponent } from './item_component'
+import categories from '../../graphql/category_list';
+import ItemComponent from '../../styles/item_component'
 
 const TitleDiv = styled.div`
   background-color: #EEA47FFF;
@@ -33,8 +33,7 @@ const ItemGrid = styled.div`
 
 
 const listCategories = categories.map((item) => 
-<ItemComponent item={item}></ItemComponent>
-
+  <ItemComponent key={item.name} item={item}></ItemComponent>
 );
 
 export default function CategoriesPage() {
