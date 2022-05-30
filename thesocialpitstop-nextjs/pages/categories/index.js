@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components'
 import { categories } from './category_list';
 import { ItemComponent } from './item_component'
@@ -32,7 +33,8 @@ const ItemGrid = styled.div`
 
 
 const listCategories = categories.map((item) => 
-  <ItemComponent item={item}></ItemComponent>
+<ItemComponent item={item}></ItemComponent>
+
 );
 
 export default function CategoriesPage() {

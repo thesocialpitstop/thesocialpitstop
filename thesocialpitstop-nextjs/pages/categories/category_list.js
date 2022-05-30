@@ -1,7 +1,7 @@
 const categories = [
     {
       name: "Education & Training",
-      value: "education-and-training",
+      value: "Education",
       icon: "/icons/edu.png"
     },
     {
