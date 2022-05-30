@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY, QUERY_WITH_NAME_PREFIX } from '../../graphql/queries';
-import  SearchInput from '../../components/search/search_input';
 import  SearchItem from '../../components/search/search_item';
 import { useQuery } from "@apollo/client";
 import { Button, TextField } from '@mui/material';
