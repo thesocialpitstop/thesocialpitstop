@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY } from '../../graphql/queries';
-import  SearchInput from './search_input';
+import  SearchInput from '../../components/search/search_input';
 import  SearchItem from '../../components/search/search_item';
 import { useQuery } from "@apollo/client";
 import { Button, TextField } from '@mui/material';
 import Link from 'next/link';
-import SearchCategoryList from './search_category_list';
+import SearchCategoryList from '../../components/search/search_category_list';
 
 const mockSearchResults = [
   {

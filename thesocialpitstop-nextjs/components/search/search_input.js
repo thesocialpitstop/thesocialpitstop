@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { router } from 'next/router'
-import Link  from 'next/Link';
+import Link from 'next/Link';
 import { Button, TextField } from "@mui/material";
 
 const SearchInput = ({onStateChange}) => {
