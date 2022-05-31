@@ -1,46 +1,23 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { LOAD_ALL_PROFILES, LOAD_PROFILE_CATEGORY, QUERY_WITH_NAME_PREFIX } from '../../graphql/queries';
+import { 
+  LOAD_ALL_PROFILES, 
+  LOAD_PROFILE_CATEGORY, 
+  QUERY_WITH_NAME_PREFIX 
+} from '../../graphql/queries';
 import  SearchItem from '../../components/search/search_item';
 import { useQuery } from "@apollo/client";
-import { Button, TextField } from '@mui/material';
 import Link from 'next/link';
 import SearchCategoryList from '../../components/search/search_category_list';
-import { SearchPageDiv,ResultsItemsDiv,SearchSectionDiv,NameInput,SearchButton,CategorySectionDiv,SearchBarItemsDiv } from '../../components/search/index.style';
-
-const mockSearchResults = [
-  {
-    name: "My Social Enterprise",
-    description: "We are Social Enterprise",
-    imageurl:"/icons/edu.png"
-  },
-  {
-    name: "My Social Enterprise",
-    description: "We are Social Enterprise",
-    imageurl:"/icons/edu.png"
-  },
-  {
-    name: "My Social Enterprise",
-    description: "We are Social Enterprise",
-    imageurl:"/icons/edu.png"
-  },
-  {
-    name: "My Social Enterprise",
-    description: "We are Social Enterprise",
-    imageurl:"/icons/edu.png"
-  },
-  {
-    name: "My Social Enterprise",
-    description: "We are Social Enterprise",
-    imageurl:"/icons/edu.png"
-  },
-]
-
-
-const mockSearchComponent = mockSearchResults.map((item) => 
-  <SearchItem key={item.name} item={item}></SearchItem>
-);
+import { 
+  SearchPageDiv,
+  ResultsItemsDiv,
+  SearchSectionDiv,
+  NameInput,
+  SearchButton,
+  CategorySectionDiv,
+  SearchBarItemsDiv 
+} from '../../components/search/index.style';
 
 const SearchPage = () => {
 
@@ -92,7 +69,6 @@ const SearchPage = () => {
   });
 
   const handleChange = e => {
-    console.log(e.target.value);
     setTextInput(e.target.value);
   }
 
