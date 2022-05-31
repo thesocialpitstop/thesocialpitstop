@@ -141,7 +141,7 @@ const SearchPage = () => {
       <SearchBarItemsDiv>
         <SearchSectionDiv>
           <NameInput onChange={handleChange}/> 
-            <Link href={`/search?query=${textInput}`}>
+            <Link href={textInput==""?`/search`:`/search?query=${textInput}`}>
               <SearchButton variant="contained">🔎</SearchButton>
             </Link>
         </SearchSectionDiv>
