@@ -2,7 +2,8 @@ import Link from "next/link";
 import styled from "styled-components"
 
 const items = [
-    "Education", "F&B"
+    "Education", 
+    "F&B"
 ]
 
 const CategoryList = items.map((content) => {
