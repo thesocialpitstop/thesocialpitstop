@@ -2,7 +2,8 @@ import React from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import Image from 'next/image';
-export default function Profile() {
+
+const Profile = () =>  {
   const { user, error, isLoading } = useUser();
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -17,3 +18,5 @@ export default function Profile() {
     )
   );
 }
+
+export default Profile;

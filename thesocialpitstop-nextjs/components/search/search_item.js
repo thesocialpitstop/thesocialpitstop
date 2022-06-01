@@ -16,7 +16,7 @@ const SearchItemTitle = styled.a`
         color: #7f75ae;
     }
 `;
-const SearchItemImage = styled.image``;
+const SearchItemImage = styled.div``;
 const SearchItemDescription = styled.div`
 `;
 const SearchItemAddress = styled.div``;

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 
 const RegisterPage = () => {
@@ -38,9 +38,18 @@ const RegisterPage = () => {
                         <TextField
                             required
                             id="standard-required"
-                            label="Required"
+                            label="Email"
                             variant="standard"
+                            type="email"
+                            name="email"
                         />
+                        <Button 
+                            variant="contained" 
+                            type="submit" 
+                            disable={isSubmitting}
+                            >
+                                Submit
+                        </Button>
                     </form>
                 )}
 
