@@ -3,25 +3,24 @@ import styled from "styled-components";
 
 export const SearchPageDiv = styled.div`
   display: grid;
-  grid-auto-flow: column;
-
-  @media (min-width: 768px) {
-    padding-left: 200px;
-    padding-right: 200px;
+  max-width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 768px) {
+    padding: 15px;
   }
 `;
 
 export const ResultsItemsDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   grid-gap: 2rem;
+  @media (min-width: 768px) {
+    grid-template-columns: 20% 80%;
+  }
 `;
 
 export const SearchSectionDiv = styled.div`
   display: grid;
   grid-template-columns: 80% 20%;
-  grid-template-rows: 50% 50%;
-  grid-gap: 2rem;
 `;
 
 export const NameInput = styled(TextField)`
@@ -36,6 +35,10 @@ export const SearchButton = styled(Button)`
   width: 100%;
 `;
 
-export const CategorySectionDiv = styled.div``;
+export const CategorySectionDiv = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;
 
 export const SearchBarItemsDiv = styled.div``;

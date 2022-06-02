@@ -74,19 +74,22 @@ const SearchPage = () => {
 
   return (
     <SearchPageDiv>
-      <CategorySectionDiv>
-        <SearchCategoryList/>
-      </CategorySectionDiv>
       <SearchBarItemsDiv>
         <SearchSectionDiv>
           <NameInput onChange={handleChange}/> 
-            <Link href={textInput==""?`/search`:`/search?query=${textInput}`}>
+          <Link href={textInput==""?`/search`:`/search?query=${textInput}`}>
               <SearchButton variant="contained">🔎</SearchButton>
-            </Link>
+          </Link>
         </SearchSectionDiv>
         <ResultsItemsDiv>
-          {searchItems}
+          <CategorySectionDiv>
+            <SearchCategoryList/>
+          </CategorySectionDiv>
+          <div>
+            {searchItems}
+          </div>
         </ResultsItemsDiv>
+
       </SearchBarItemsDiv>
     </SearchPageDiv>
 
