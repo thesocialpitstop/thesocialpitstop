@@ -1,13 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components"
+import categories from "../../options/categories";
 
-const items = [
-    "Education", 
-    "F&B"
-]
-
-const CategoryList = items.map((content) => {
-    return <Link key={content} href={`/search?category=${content}`}>{content}</Link>
+const CategoryList = categories.map((content) => {
+    return <Link key={content.name} href={`/search?category=${content.value}`}>{content.name}</Link>
 })
 
 const CategoryListDiv = styled.div`

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components'
-import categories from '../../graphql/category_list';
+import categories from '../../options/categories';
 import ItemComponent from '../../styles/item_component'
 
 const TitleDiv = styled.div`
@@ -25,7 +25,7 @@ const Subtitle = styled.h3`
 
 const ItemGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));  
+  grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));  
   grid-template-rows: repeat(2, 150px);
   grid-column: 1;
 
