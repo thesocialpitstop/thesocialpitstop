@@ -46,7 +46,7 @@ const theme = {
 export default function App({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
-      <UserProvider loginUrl="/foo/api/auth/login" profileUrl="/foo/api/auth/me">
+      <UserProvider loginUrl="/api/auth/login" profileUrl="/api/auth/me">
         <Layout>
           <GlobalStyle />
           <ThemeProvider theme={theme}>
