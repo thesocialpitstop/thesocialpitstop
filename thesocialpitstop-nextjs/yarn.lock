@@ -2385,6 +2385,11 @@ quick-lru@^5.1.1:
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
+react-animated-show-more@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-animated-show-more/-/react-animated-show-more-1.0.2.tgz#51701bb9f362256d597cd680ac9995fe66403635"
+  integrity sha512-o49oIUDrMGHfW1/AFYy0sjJQ0Ezks+W4IOD7Ko6N6U6Q3fWLPrPM40SSmg/GXKlm80Ae0+8FJdb/QgiBbgfGoQ==
+
 react-dom@18.1.0:
   version "18.1.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"

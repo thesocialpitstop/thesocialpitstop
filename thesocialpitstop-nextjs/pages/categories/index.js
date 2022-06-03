@@ -28,7 +28,6 @@ const ItemGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));  
   grid-template-rows: repeat(2, 150px);
   grid-column: 1;
-
 `;
 
 

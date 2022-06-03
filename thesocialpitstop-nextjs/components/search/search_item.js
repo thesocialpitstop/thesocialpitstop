@@ -10,29 +10,30 @@ import {
     SearchItemTextSection,
     SearchItemImageSection
 } from './search_item.style';
+import { Card } from "@mui/material";
 
 const SearchItem = (props) => {
     return(
-            <SearchItemDiv>
-                <SearchItemTextSection>
-                    <Link href={`/profile/${props?.item.user_id}`} passHref>
+        <Card>
+            <Link href={`/profile/${props?.item.user_id}`} passHref>
+                <SearchItemDiv>
+                    <SearchItemImage>
+                        <Image src="/icons/edu.png" width="64" height="64"></Image>
+                    </SearchItemImage>
+                    <SearchItemTextSection>
                         <SearchItemTitle>
                             {props?.item.name}   
                         </SearchItemTitle>
-                    </Link>
-                    <SearchItemAddress>
-                        {props?.item.address}
-                    </SearchItemAddress>
-                    <SearchItemDescription>
-                        {props?.item.details}
-                    </SearchItemDescription>
-                </SearchItemTextSection>
-                <SearchItemImage>
-                    <Link href={`/profile/${props?.item.user_id}`} passHref>
-                        <Image src="/icons/edu.png" width="64" height="64"></Image>
-                    </Link>
-                </SearchItemImage>
-            </SearchItemDiv>
+                        <SearchItemAddress>
+                            {props?.item.address}
+                        </SearchItemAddress>
+                        <SearchItemDescription>
+                            {props?.item.details}
+                        </SearchItemDescription>
+                    </SearchItemTextSection>
+                </SearchItemDiv>
+            </Link>
+        </Card>
     );
 }
 

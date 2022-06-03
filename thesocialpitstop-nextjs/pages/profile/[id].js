@@ -7,11 +7,16 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { LOAD_PROFILE } from '../../graphql/queries';
 import { 
+    ProfilePage,
     DetailsDiv,
     Title,
     ItemTitle,
-    ItemDetail
+    ItemDetail,
+    TitleDiv,
+    Subtitle
 } from '../../components/profile/[id].style';
+import Image from 'next/image';
+import profileImage from '../../public/beach-cleanup.webp';
 
 
 const ProfileID = () => {
@@ -37,10 +42,22 @@ const ProfileID = () => {
 
 
   return (
-    <>
-        <Title>
-            {profileData?.name}
-        </Title>
+    <ProfilePage>
+        <Image 
+            src={profileImage} 
+            alt="profile_picture" 
+            layout="responsive" 
+            quality={100}
+        />
+        <TitleDiv>
+            <Title>
+                {profileData?.name}
+            </Title>
+            <Subtitle>
+                {profileData?.details}
+            </Subtitle>
+        </TitleDiv>
+
         <DetailsDiv>
             <ItemTitle>Category</ItemTitle>
                 <ItemDetail>{profileData?.category}</ItemDetail>
@@ -48,12 +65,10 @@ const ProfileID = () => {
                 <ItemDetail>{profileData?.address}</ItemDetail>
             <ItemTitle>Contact No.</ItemTitle>
                 <ItemDetail>{profileData?.contact_num}</ItemDetail>
-            <ItemTitle>Details</ItemTitle>
-                <ItemDetail>{profileData?.details}</ItemDetail>
             <ItemTitle>Website</ItemTitle>
-                <ItemDetail>www.mysoo.com</ItemDetail>
+                <ItemDetail><a href={"mailto:" + profileData?.email}>{profileData?.email}</a></ItemDetail>
         </DetailsDiv>
-    </>
+    </ProfilePage>
 
     );
 }
