@@ -15,9 +15,13 @@ import {
   SearchSectionDiv,
   NameInput,
   SearchButton,
-  CategorySectionDiv,
-  SearchBarItemsDiv 
+  CategorySidebarDiv,
+  CategoryDropdownDiv,
+  SearchBarItemsDiv,
+  ResultListDiv
 } from '../../components/search/index.style';
+import { DemoToggle } from '../../components/search/demo_toggle';
+import AnimatedShowMore from 'react-animated-show-more';
 
 const SearchPage = () => {
 
@@ -76,21 +80,25 @@ const SearchPage = () => {
     <SearchPageDiv>
       <SearchBarItemsDiv>
         <SearchSectionDiv>
-          <NameInput onChange={handleChange}/> 
-          <Link href={textInput==""?`/search`:`/search?query=${textInput}`}>
-              <SearchButton variant="contained">🔎</SearchButton>
+          <NameInput onChange={handleChange} label="Search"/> 
+          <Link href={textInput==undefined?`/search`:`/search?query=${textInput}`}>
+              <SearchButton variant="contained">SEARCH</SearchButton>
           </Link>
         </SearchSectionDiv>
-        <ResultsItemsDiv>
-          <CategorySectionDiv>
-            <SearchCategoryList/>
-          </CategorySectionDiv>
-          <div>
-            {searchItems}
-          </div>
-        </ResultsItemsDiv>
-
       </SearchBarItemsDiv>
+      <ResultsItemsDiv>
+        <CategoryDropdownDiv>
+          <AnimatedShowMore toggle={DemoToggle} height={150}>
+            <SearchCategoryList/>
+          </AnimatedShowMore>
+        </CategoryDropdownDiv>
+        <CategorySidebarDiv>
+          <SearchCategoryList/>
+        </CategorySidebarDiv>
+        <ResultListDiv>
+          {searchItems}
+        </ResultListDiv>
+      </ResultsItemsDiv>
     </SearchPageDiv>
 
   )

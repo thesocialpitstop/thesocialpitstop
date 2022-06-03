@@ -1,10 +1,14 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-export const SearchItemDiv = styled.div`
-    display: flex;
-    justify-content: space-between;
+export const SearchItemDiv = styled.a`
+    display: grid;
+    text-decoration: none;
+    grid-template-columns: 1fr 3fr;
     font-family: Montserrat, sans-serif;
+    @media (max-width: 768px) {
+        padding-top: 4px;
+    }
 `;
 
 export const SearchItemTitle = styled.a`
@@ -13,9 +17,12 @@ export const SearchItemTitle = styled.a`
 
     :hover {
         color: #7f75ae;
+        text-decoration: underline;
     }
 `;
-export const SearchItemImage = styled.div``;
+export const SearchItemImage = styled.div`
+    text-align: center;
+`;
 export const SearchItemDescription = styled.div`
 `;
 export const SearchItemAddress = styled.div``;
