@@ -10,11 +10,12 @@ const Profile = () =>  {
   if (!user) return <Link href="/api/auth/login"><a>Login</a></Link>;
   return (
     user && (
-      <PageDiv>
+      <>
         <Image src="../public/beach-cleanup.webp" alt={user.name} width={64} height={64}/>
-        <h2>{user.name}</h2>
+          <h2>{user.name}</h2>
         <p>{user.email}</p>
-      </PageDiv>
+      </>
+
     )
   );
 }
