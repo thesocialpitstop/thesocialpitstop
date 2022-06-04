@@ -31,8 +31,8 @@ const SearchCategoryList = () => {
         <>
             <CategoryTitle>Categories</CategoryTitle>
             <CategoryListDiv>
-                    {CategoryList}
-                </CategoryListDiv>
+                {CategoryList}
+            </CategoryListDiv>
         </>
     )
 }
