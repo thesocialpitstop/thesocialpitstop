@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 export const SearchItemDiv = styled.a`
     display: grid;
-    text-decoration: none;
     grid-template-columns: 1fr 3fr;
     font-family: Montserrat, sans-serif;
+    //TRBL
     @media (max-width: 768px) {
         padding-top: 4px;
     }
@@ -14,7 +14,6 @@ export const SearchItemDiv = styled.a`
 export const SearchItemTitle = styled.a`
     text-decoration: none;
     font-size: larger;
-
     :hover {
         color: #7f75ae;
         text-decoration: underline;

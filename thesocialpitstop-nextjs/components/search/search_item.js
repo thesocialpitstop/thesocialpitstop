@@ -14,8 +14,8 @@ import { Card } from "@mui/material";
 
 const SearchItem = (props) => {
     return(
-        <Card>
-            <Link href={`/profile/${props?.item.user_id}`} passHref>
+        <Link href={`/profile/${props?.item.user_id}`} passHref>
+            <Card>
                 <SearchItemDiv>
                     <SearchItemImage>
                         <Image src="/icons/edu.png" width="64" height="64"></Image>
@@ -32,8 +32,9 @@ const SearchItem = (props) => {
                         </SearchItemDescription>
                     </SearchItemTextSection>
                 </SearchItemDiv>
-            </Link>
-        </Card>
+            </Card>
+        </Link>
+
     );
 }
 
