@@ -10,7 +10,7 @@ const CategoryItem = styled.div`
 `;
 
 const CategoryList = categories.map((content) => {
-    return <CategoryItem>
+    return <CategoryItem key={content.name}>
         <Link 
                 key={content.name} 
                 href={`/search?category=${content.value}`}

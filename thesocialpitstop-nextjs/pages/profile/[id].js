@@ -50,7 +50,7 @@ const ProfileID = () => {
     ]
 
     const pastCsrItems = pastCsrFakeData.map((content) => {
-        return <PastCsrItem>{content.name}</PastCsrItem>
+        return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
     })
 
 
