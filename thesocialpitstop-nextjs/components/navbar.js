@@ -29,7 +29,7 @@ const Navbar = ({ toggle }) => {
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>
-            <Link href="/explore" passHref>
+            <Link href="/about-us" passHref>
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>                        
             <Link href={link} passHref>

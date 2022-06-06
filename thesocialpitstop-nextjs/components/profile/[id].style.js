@@ -34,3 +34,6 @@ export const ItemDetail = styled.div`
     font-size: larger;
     text-decoration: none;
 `;
+
+export const PastCsrDiv = styled.div``;
+export const PastCsrItem = styled.div``;

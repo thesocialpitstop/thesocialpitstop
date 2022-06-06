@@ -4,8 +4,20 @@ import AnimatedShowMore from 'react-animated-show-more';
 import { DemoToggle } from "./demo_toggle";
 import categories from "../../options/categories";
 
+const CategoryItem = styled.div`
+    font-family: Montserrat, sans-serif;
+    padding: 5px 0px 5px 0px; //TRBL
+`;
+
 const CategoryList = categories.map((content) => {
-    return <Link key={content.name} href={`/search?category=${content.value}`}>{content.name}</Link>
+    return <CategoryItem key={content.name}>
+        <Link 
+                key={content.name} 
+                href={`/search?category=${content.value}`}
+            >
+                {content.name}
+            </Link>
+    </CategoryItem>
 })
 
 const CategoryTitle = styled.div`
@@ -31,8 +43,8 @@ const SearchCategoryList = () => {
         <>
             <CategoryTitle>Categories</CategoryTitle>
             <CategoryListDiv>
-                    {CategoryList}
-                </CategoryListDiv>
+                {CategoryList}
+            </CategoryListDiv>
         </>
     )
 }

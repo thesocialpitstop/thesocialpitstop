@@ -11,8 +11,8 @@ const Profile = () =>  {
   return (
     user && (
       <>
-        <Image src="../public/beach-cleanup.webp" alt={user.name} width={64} height={64}/>
-          <h2>{user.name}</h2>
+        <Image src="/../public/beach-cleanup.webp" alt={user.name} width={64} height={64}/>
+        <h2>{user.name}</h2>
         <p>{user.email}</p>
       </>
 

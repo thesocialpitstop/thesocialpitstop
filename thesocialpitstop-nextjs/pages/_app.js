@@ -10,6 +10,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { UserProvider } from '@auth0/nextjs-auth0';
+import '../styles/globals.css';
 
 const httpLink = createHttpLink({
   uri: "https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql",
