@@ -14,7 +14,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-.quill > .ql-toolbar:first-child {
-  display: none !important;
-}
