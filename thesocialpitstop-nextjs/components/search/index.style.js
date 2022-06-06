@@ -58,7 +58,6 @@ export const ResultListDiv = styled.div`
   grid-gap: 20px;
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
     padding-top: 24px;
   }
 `;

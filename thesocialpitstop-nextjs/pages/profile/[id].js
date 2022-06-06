@@ -13,7 +13,9 @@ import {
     ItemTitle,
     ItemDetail,
     TitleDiv,
-    Subtitle
+    Subtitle,
+    PastCsrDiv,
+    PastCsrItem
 } from '../../components/profile/[id].style';
 import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
@@ -39,6 +41,17 @@ const ProfileID = () => {
             setProfileData(data.getItem)
         }
     },[data])
+
+    const pastCsrFakeData = [
+        {
+            "name": "beach Clean up",
+            "date": "16049387483"
+        }
+    ]
+
+    const pastCsrItems = pastCsrFakeData.map((content) => {
+        return <PastCsrItem>{content.name}</PastCsrItem>
+    })
 
 
   return (
@@ -68,6 +81,9 @@ const ProfileID = () => {
             <ItemTitle>Website</ItemTitle>
                 <ItemDetail><a href={"mailto:" + profileData?.email}>{profileData?.email}</a></ItemDetail>
         </DetailsDiv>
+        <PastCsrDiv>
+            {pastCsrItems}
+        </PastCsrDiv>
     </ProfilePage>
 
     );

@@ -15,25 +15,27 @@ import { Card } from "@mui/material";
 const SearchItem = (props) => {
     return(
         <Link href={`/profile/${props?.item.user_id}`} passHref>
-            <Card>
-                <SearchItemDiv>
-                    <SearchItemImage>
-                        <Image src="/icons/edu.png" width="64" height="64"></Image>
-                    </SearchItemImage>
-                    <SearchItemTextSection>
-                        <SearchItemTitle>
-                            {props?.item.name}   
-                        </SearchItemTitle>
-                        <SearchItemAddress>
-                            {props?.item.address}
-                        </SearchItemAddress>
-                        <SearchItemDescription>
-                            {props?.item.details}
-                        </SearchItemDescription>
-                    </SearchItemTextSection>
-                </SearchItemDiv>
-            </Card>
-        </Link>
+            <a>
+                <Card>
+                    <SearchItemDiv>
+                        <SearchItemImage>
+                            <Image src="/icons/edu.png" width="64" height="64"></Image>
+                        </SearchItemImage>
+                        <SearchItemTextSection>
+                            <SearchItemTitle>
+                                {props?.item.name}   
+                            </SearchItemTitle>
+                            <SearchItemAddress>
+                                {props?.item.address}
+                            </SearchItemAddress>
+                            <SearchItemDescription>
+                                {props?.item.details} 
+                            </SearchItemDescription>
+                        </SearchItemTextSection>
+                    </SearchItemDiv>
+                </Card>
+            </a>
+        </Link>   
 
     );
 }
