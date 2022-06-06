@@ -34,7 +34,7 @@ const ProfileID = () => {
     const queryParams = withSearch;
 
 
-    const { data, loading, profileError } = queryParams;
+    const { data, loading, error } = queryParams;
     useEffect(() => {
         if(data) {
             console.log(data.getItem);
