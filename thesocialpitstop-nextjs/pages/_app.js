@@ -20,7 +20,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "x-api-key": "da2-uk6nigknnrghti3kehwkqzugru",
+      "x-api-key": "da2-g7sc7tagszc3dpk5xpfjqnbsku",
     },
   };
 });
