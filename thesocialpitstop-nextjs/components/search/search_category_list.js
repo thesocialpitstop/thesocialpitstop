@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components"
 import AnimatedShowMore from 'react-animated-show-more';
 import { DemoToggle } from "./demo_toggle";
-import categories from "../../options/categories";
+import categories from '../../constants/categories';
 
 const CategoryItem = styled.div`
     font-family: Montserrat, sans-serif;
