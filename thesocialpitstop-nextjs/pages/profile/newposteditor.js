@@ -1,11 +1,11 @@
 // import  CustomEditor  from './editor_component';
-// const NewPostEditor = () => {
+const NewPostEditor = () => {
     
-//     return (
-//         <>
-//             <CustomEditor/>
-//         </>
-//     )
-// }
+    return (
+        <>
+            {/* <CustomEditor/> */}
+        </>
+    )
+}
 
-// export default NewPostEditor;
+export default NewPostEditor;
