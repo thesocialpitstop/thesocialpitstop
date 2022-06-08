@@ -11,6 +11,9 @@ import {
     TitleDiv,
     Subtitle
 } from '../../components/profile/[id].style';
+import { BlogPostAuthor, BlogPostPage, BlogPostSubtitle, BlogPostTitle } from '../../components/[user_id]/[post_id].style';
+import {parseISO} from 'date-fns'
+import Link from 'next/link';
 
 
 const Post = () => {
@@ -19,8 +22,8 @@ const Post = () => {
     const { user_id, post_id } = router.query;
     const { data, loading, error } = useQuery(LOAD_POST, {
         variables: {
-          pk: user_id,
-          item_type: `SOO-POST#${post_id}`
+          pk: `629325923211690069cd4878`,
+          item_type: `SOO-POST#1`
         }
     });
     console.log('error', error);
@@ -28,8 +31,8 @@ const Post = () => {
 
     useEffect(() => {
         if(data) {
-            console.log('data', data.getItem);
-            setPostData(data.getItem)
+            console.log(data);
+            setPostData(data.getPost)
         }
     },[data]);
 
@@ -37,21 +40,25 @@ const Post = () => {
 
 
   return (
-    <ProfilePage>
+    <BlogPostPage>
         <TitleDiv>
-            <Title>
+            <BlogPostTitle>
               {postData?.title}
-            </Title>
-            <Subtitle>
-              {postData?.name}
-              {postData?.datetime}
-            </Subtitle>
+            </BlogPostTitle>
+            <BlogPostSubtitle>
+              <span>Posted By </span>
+              <BlogPostAuthor>
+                <Link href={`/profile/${postData?.user_id}`} passHref>
+                  {postData ? postData?.name : ""}
+                </Link>
+              </BlogPostAuthor>
+              <span> on </span>
+              {parseISO(postData?.datetime).toDateString()}
+            </BlogPostSubtitle>
         </TitleDiv>
 
-        <DetailsDiv>
-          {postData?.content}
-        </DetailsDiv>
-    </ProfilePage>
+        {postData?.content}
+    </BlogPostPage>
 
     );
 }
