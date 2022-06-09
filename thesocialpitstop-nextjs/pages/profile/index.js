@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const ProfilePage = () =>  {
+  // Add check for existing profile -> if not, display/redirect to create profile page
   return (
       <>
         <Image src="/../public/beach-cleanup.webp" alt="asd" width={64} height={64}/>

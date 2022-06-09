@@ -1,12 +1,12 @@
-import React, 
-    { 
-        useEffect, 
-        useState 
-    } from 'react';
+import React,
+{
+    useEffect,
+    useState
+} from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { LOAD_PROFILE } from '../../graphql/queries';
-import { 
+import {
     ProfilePage,
     DetailsDiv,
     Title,
@@ -19,6 +19,7 @@ import {
 } from '../../components/profile/[id].style';
 import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
+import categories from '../../constants/categories';
 
 
 const ProfileID = () => {
@@ -27,20 +28,20 @@ const ProfileID = () => {
     const { id } = router.query;
     const withSearch = useQuery(LOAD_PROFILE, {
         variables: {
-          pk: id,
-          item_type: "SOO-PROFILE"
+            pk: id,
+            item_type: "SOO-PROFILE"
         }
-      });
+    });
     const queryParams = withSearch;
 
 
     const { data, loading, error } = queryParams;
     useEffect(() => {
-        if(data) {
+        if (data) {
             console.log(data.getItem);
-            setProfileData(data.getItem)
+            setProfileData(data.getItem);
         }
-    },[data])
+    }, [data])
 
     const pastCsrFakeData = [
         {
@@ -53,38 +54,45 @@ const ProfileID = () => {
         return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
     })
 
+    return (
+        <ProfilePage>
+            <Image
+                src={profileImage}
+                alt="profile_picture"
+                layout="responsive"
+                quality={100}
+            />
+            <TitleDiv>
+                <Title>
+                    {profileData?.name}
+                </Title>
+                <Subtitle>
+                    {profileData?.details}
+                </Subtitle>
+            </TitleDiv>
 
-  return (
-    <ProfilePage>
-        <Image 
-            src={profileImage} 
-            alt="profile_picture" 
-            layout="responsive" 
-            quality={100}
-        />
-        <TitleDiv>
-            <Title>
-                {profileData?.name}
-            </Title>
-            <Subtitle>
-                {profileData?.details}
-            </Subtitle>
-        </TitleDiv>
-
-        <DetailsDiv>
-            <ItemTitle>Category</ItemTitle>
-                <ItemDetail>{profileData?.category}</ItemDetail>
-            <ItemTitle>Address</ItemTitle>
+            <DetailsDiv>
+                <ItemTitle>Category</ItemTitle>
+                <ItemDetail>
+                    {profileData?.category
+                        ? categories.filter((cat) => cat.value === profileData?.category)[0].name
+                        : "Others"}
+                </ItemDetail>
+                <ItemTitle>Address</ItemTitle>
                 <ItemDetail>{profileData?.address}</ItemDetail>
-            <ItemTitle>Contact No.</ItemTitle>
-                <ItemDetail>{profileData?.contact_num}</ItemDetail>
-            <ItemTitle>Website</ItemTitle>
-                <ItemDetail><a href={"mailto:" + profileData?.email}>{profileData?.email}</a></ItemDetail>
-        </DetailsDiv>
-        <PastCsrDiv>
-            {pastCsrItems}
-        </PastCsrDiv>
-    </ProfilePage>
+                <ItemTitle>Contact No.</ItemTitle>
+                <ItemDetail>
+                    <a href={`tel:${profileData?.contact_num}`}>{profileData?.contact_num}</a>
+                </ItemDetail>
+                <ItemTitle>Website</ItemTitle>
+                <ItemDetail>
+                    <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
+                </ItemDetail>
+            </DetailsDiv>
+            <PastCsrDiv>
+                {pastCsrItems}
+            </PastCsrDiv>
+        </ProfilePage>
 
     );
 }
