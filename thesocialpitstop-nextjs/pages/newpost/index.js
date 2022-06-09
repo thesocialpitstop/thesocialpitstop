@@ -75,7 +75,7 @@ const NewPost = () => {
     createPost({
       variables: {
         content: textContent, 
-        datetime: new Date().toISOString, 
+        datetime: new Date().toISOString(), 
         item_type: `${orgType}-POST#${postID}`, 
         name: orgName, 
         title: title,

@@ -27,7 +27,7 @@ const CreateProfile = () => {
       variables: {
         address: address,
         category: category,
-        datetime: new Date().toISOString,
+        datetime: new Date().toISOString(),
         details: details,
         email: email,
         item_type: `${orgType}-PROFILE`,
