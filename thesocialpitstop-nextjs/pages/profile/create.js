@@ -15,12 +15,13 @@ const CreateProfile = () => {
   const [address, setAddress] = useState("");
   const [orgType, setOrgType] = useState("");
   const [category, setCategory] = useState("");
-  const [details, setDetails] = useState("")
+  const [details, setDetails] = useState("");
 
   const [createProfile] = useMutation(CREATE_PROFILE);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     console.log(orgName, orgType, category, email, phone, address);
     createProfile({
       variables: {
@@ -31,7 +32,7 @@ const CreateProfile = () => {
         email: email,
         item_type: `${orgType}-PROFILE`,
         name: orgName,
-        user_id: '54321',
+        user_id: '54321', // PLACEHOLDER
         contact_num: phone
       }
     })
@@ -40,7 +41,7 @@ const CreateProfile = () => {
 
   return (
     <>
-      <form action="/profile">
+      <form onSubmit={handleSubmit}>
         <FormGroup row>
           <TextField
             required
@@ -102,7 +103,7 @@ const CreateProfile = () => {
           onInput={e => setDetails(e.target.value)}
         />
 
-        <Button onClick={handleSubmit} variant="contained">Create</Button>
+        <Button type="submit" variant="contained">Create</Button>
       </form>
     </>
   );

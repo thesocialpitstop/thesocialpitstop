@@ -22,8 +22,8 @@ const Post = () => {
     const { user_id, post_id } = router.query;
     const { data, loading, error } = useQuery(LOAD_POST, {
         variables: {
-          pk: `629325923211690069cd4878`,
-          item_type: `SOO-POST#1`
+          pk: user_id,
+          item_type: `SOO-POST#${post_id}`
         }
     });
     console.log('error', error);
