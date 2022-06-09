@@ -39,7 +39,7 @@ const ProfileID = () => {
     useEffect(() => {
         if (data) {
             console.log(data.getItem);
-            setProfileData(data.getItem)
+            setProfileData(data.getItem);
         }
     }, [data])
 
@@ -53,11 +53,6 @@ const ProfileID = () => {
     const pastCsrItems = pastCsrFakeData.map((content) => {
         return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
     })
-
-    const category = categories.filter(
-        (cat) => cat.value === profileData?.category
-    )[0].name;
-
 
     return (
         <ProfilePage>
@@ -78,13 +73,21 @@ const ProfileID = () => {
 
             <DetailsDiv>
                 <ItemTitle>Category</ItemTitle>
-                <ItemDetail>{category}</ItemDetail>
+                <ItemDetail>
+                    {profileData?.category
+                        ? categories.filter((cat) => cat.value === profileData?.category)[0].name
+                        : "Others"}
+                </ItemDetail>
                 <ItemTitle>Address</ItemTitle>
                 <ItemDetail>{profileData?.address}</ItemDetail>
                 <ItemTitle>Contact No.</ItemTitle>
-                <ItemDetail><a href={f`tel:${profileData?.contact_num}`}>{profileData?.contact_num}</a></ItemDetail>
+                <ItemDetail>
+                    <a href={`tel:${profileData?.contact_num}`}>{profileData?.contact_num}</a>
+                </ItemDetail>
                 <ItemTitle>Website</ItemTitle>
-                <ItemDetail><a href={f`mailto:${profileData?.email}`}>{profileData?.email}</a></ItemDetail>
+                <ItemDetail>
+                    <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
+                </ItemDetail>
             </DetailsDiv>
             <PastCsrDiv>
                 {pastCsrItems}
