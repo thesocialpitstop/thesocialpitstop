@@ -16,6 +16,7 @@ export const SearchItemDiv = styled.div`
 
 export const SearchItemTitle = styled.a`
     font-size: larger;
+    font-weight: 600;
     //TRBL
 `;
 export const SearchItemImage = styled.div`
