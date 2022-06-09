@@ -1,5 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 import {
   ApolloClient,
   InMemoryCache,
@@ -11,6 +11,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import '../styles/globals.css';
 import 'react-quill/dist/quill.snow.css';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
 
 const httpLink = createHttpLink({
@@ -45,15 +46,17 @@ const theme = {
   },
 }
 
-export default function App({ Component, pageProps: { session, ...pageProps },}) {
+export default function App({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
+      <UserProvider>
         <Layout>
           <GlobalStyle />
           <ThemeProvider theme={theme}>
             <Component {...pageProps} />
           </ThemeProvider>
         </Layout>
+      </UserProvider>
     </ApolloProvider>
 
   )
