@@ -54,7 +54,7 @@ const Post = () => {
         </BlogPostSubtitle>
       </TitleDiv>
 
-      <div class="ql-editor" v-html="result">
+      <div className="ql-editor" v-html="result">
         <div dangerouslySetInnerHTML={{__html: postData?.content}}></div>
       </div>
     </BlogPostPage>
