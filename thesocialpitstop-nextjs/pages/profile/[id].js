@@ -82,9 +82,9 @@ const ProfileID = () => {
                 <ItemTitle>Address</ItemTitle>
                 <ItemDetail>{profileData?.address}</ItemDetail>
                 <ItemTitle>Contact No.</ItemTitle>
-                <ItemDetail>{profileData?.contact_num}</ItemDetail>
+                <ItemDetail><a href={f`tel:${profileData?.contact_num}`}>{profileData?.contact_num}</a></ItemDetail>
                 <ItemTitle>Website</ItemTitle>
-                <ItemDetail><a href={"mailto:" + profileData?.email}>{profileData?.email}</a></ItemDetail>
+                <ItemDetail><a href={f`mailto:${profileData?.email}`}>{profileData?.email}</a></ItemDetail>
             </DetailsDiv>
             <PastCsrDiv>
                 {pastCsrItems}
