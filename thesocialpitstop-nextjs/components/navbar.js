@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Nav,
   NavbarContainer,
@@ -11,18 +11,21 @@ import {
 import { FaBars } from "react-icons/fa";
 import { BsUpload, BsSearch } from "react-icons/bs";
 import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0";
+import { Button } from "@mui/material";
+import TemporaryDrawer from "./drawer";
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Navbar = ({ toggle }) => {
   const menuId = "main-menu";
   const { user, error, isLoading } = useUser();
-  const link = user ? "/api/auth/logout" : "/api/auth/login";
+  const link = user ?  "/api/auth/logout":"/api/auth/login";
+
   return (
     <>
       <Nav>
         <NavbarContainer>
           <MobileIcon onClick={toggle}>
-            <FaBars />
+            <TemporaryDrawer />
           </MobileIcon>
           <NavLogo href="/">The Social Pitstop</NavLogo>
           <NavBtn>
@@ -31,7 +34,7 @@ const Navbar = ({ toggle }) => {
             </Link>
             <Link href="/about-us" passHref>
               <NavLinkItem>ABOUT US</NavLinkItem>
-            </Link>                        
+            </Link>        
             <Link href={link} passHref>
               {user ? <NavLinkItem>LOGOUT</NavLinkItem> : <NavLinkItem>LOGIN</NavLinkItem>}
             </Link>
