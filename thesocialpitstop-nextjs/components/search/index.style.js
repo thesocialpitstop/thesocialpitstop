@@ -61,3 +61,5 @@ export const ResultListDiv = styled.div`
     padding-top: 24px;
   }
 `;
+
+export const FilterSortButtons = styled(Button)``;
