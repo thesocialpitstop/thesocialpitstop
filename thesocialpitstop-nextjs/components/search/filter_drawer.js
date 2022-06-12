@@ -13,15 +13,12 @@ import { Field, Form, Formik } from "formik";
 import { Checkbox, FormControlLabel, List, ListItem } from "@mui/material";
 import { useContext } from "react";
 import { ThemeContext } from "styled-components";
+import { FullWidthButton } from "../shared";
 
 const CheckboxDiv = styled.div`
   display: grid;
 `;
-const FilterButton = styled(Button)`
-  width: 100%;
-`;
-
-export default function FilterDrawer() {
+export default function FilterDrawer({ setFilterInput }) {
   const [state, setState] = React.useState(false);
   const themeContext = useContext(ThemeContext);
 
@@ -32,16 +29,18 @@ export default function FilterDrawer() {
     ) {
       return;
     }
-
     setState(open);
   };
 
   const handleClose = (event, reason) => {
-    if (reason && reason == "backdropClick") 
-      console.log(reason)
-      toggleDrawer(false);
-}
+    console.log(reason);
+    reason === "backdropClick" ? toggleDrawer(false) : null;
+  };
 
+  const resetFilter = () => {
+    setState(false);
+    setFilterInput(undefined);
+  }
 
   const list = () => {
     return (
@@ -67,30 +66,31 @@ export default function FilterDrawer() {
           }}
           onSubmit={async (values) => {
             console.log(values);
+            setFilterInput(values);
           }}
         >
           {({ values, resetForm }) => (
             <Form>
               <>
-                <Link href={"/search"} passHref>
-                  <a>
-                    <FilterButton type="reset" variant="contained">
-                      Clear Filters
-                    </FilterButton>
-                  </a>
-                </Link>
-                <FilterButton
+                <FullWidthButton
+                  type="reset"
+                  variant="contained"
+                  onClick={resetFilter}
+                >
+                  Clear Filters
+                </FullWidthButton>
+                <FullWidthButton
                   type="submit"
                   variant="contained"
                   onClick={toggleDrawer(false)}
                 >
                   Apply Filter
-                </FilterButton>
+                </FullWidthButton>
                 <h2>Categories</h2>
                 <CheckboxDiv>
                   {categories.map((item) => {
                     return (
-                      <label>
+                      <label key={item.name}>
                         <Field
                           as={Checkbox}
                           name="checked"
@@ -112,9 +112,9 @@ export default function FilterDrawer() {
   return (
     <div>
       <React.Fragment>
-        <FilterButton onClick={toggleDrawer(true)} variant="contained">
+        <FullWidthButton onClick={toggleDrawer(true)} variant="contained">
           FILTERS
-        </FilterButton>
+        </FullWidthButton>
         <Drawer
           anchor="right"
           ModalProps={{
