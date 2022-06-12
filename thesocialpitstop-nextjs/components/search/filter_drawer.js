@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import categories from "../../constants/categories";
 import styled from "styled-components";
-import { CheckBox, Title } from "@mui/icons-material";
+import { CheckBox, ContactPageOutlined, Title } from "@mui/icons-material";
 import { Field, Form, Formik } from "formik";
 import { Checkbox, FormControlLabel, List, ListItem } from "@mui/material";
 import { useContext } from "react";
@@ -18,12 +18,6 @@ const CheckboxDiv = styled.div`
   display: grid;
 `;
 const FilterButton = styled(Button)`
-  width: 100%;
-`;
-const ClearButton = styled(Button)`
-  width: 100%;
-`;
-const SubmitButton = styled(Button)`
   width: 100%;
 `;
 
@@ -42,12 +36,18 @@ export default function FilterDrawer() {
     setState(open);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason && reason == "backdropClick") 
+      console.log(reason)
+      toggleDrawer(false);
+}
+
+
   const list = () => {
     return (
       <Box
-        sx={{ width: "80%" }}
+        sx={{ paddingLeft: "15px", paddingRight: "15px" }}
         role="presentation"
-        onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
       >
         <Link href="/">
@@ -60,7 +60,7 @@ export default function FilterDrawer() {
             />
           </a>
         </Link>
-        
+
         <Formik
           initialValues={{
             checked: [],
@@ -69,27 +69,33 @@ export default function FilterDrawer() {
             console.log(values);
           }}
         >
-          {({ values }) => (
+          {({ values, resetForm }) => (
             <Form>
               <>
-                <ClearButton 
-                  type="submit" 
+                <Link href={"/search"} passHref>
+                  <a>
+                    <FilterButton type="reset" variant="contained">
+                      Clear Filters
+                    </FilterButton>
+                  </a>
+                </Link>
+                <FilterButton
+                  type="submit"
                   variant="contained"
+                  onClick={toggleDrawer(false)}
                 >
-                  Clear Filters
-                </ClearButton>
-                <SubmitButton 
-                  type="submit" 
-                  variant="contained"
-                >
-                    Apply Filter
-                </SubmitButton>
+                  Apply Filter
+                </FilterButton>
                 <h2>Categories</h2>
                 <CheckboxDiv>
                   {categories.map((item) => {
                     return (
                       <label>
-                        <Field as={Checkbox} name="checked"/>
+                        <Field
+                          as={Checkbox}
+                          name="checked"
+                          value={item.value}
+                        />
                         {item.name}
                       </label>
                     );
@@ -106,8 +112,7 @@ export default function FilterDrawer() {
   return (
     <div>
       <React.Fragment>
-        
-        <FilterButton onClick={toggleDrawer(true)}>
+        <FilterButton onClick={toggleDrawer(true)} variant="contained">
           FILTERS
         </FilterButton>
         <Drawer
@@ -116,7 +121,7 @@ export default function FilterDrawer() {
             keepMounted: true,
           }}
           open={state}
-          onClose={toggleDrawer(false)}
+          onClose={handleClose}
           PaperProps={{
             sx: { width: "70%" },
           }}

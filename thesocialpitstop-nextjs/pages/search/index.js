@@ -69,7 +69,11 @@ const SearchPage = () => {
   }, [data]);
 
   const searchItems = items.map((content) => {
-    return <SearchItem key={content.name} item={content}></SearchItem>;
+    return (
+      <>
+        <SearchItem key={content.name} item={content}></SearchItem>
+      </>
+    );
   });
 
   const handleChange = (e) => {
@@ -83,9 +87,7 @@ const SearchPage = () => {
           <NameInput onChange={handleChange} label="Search" />
           <Link
             href={
-              (textInput == undefined) | ""
-                ? `/search`
-                : `/search?query=${textInput}`
+              textInput == undefined ? `/search` : `/search?query=${textInput}`
             }
           >
             <SearchButton variant="contained">SEARCH</SearchButton>
@@ -95,12 +97,10 @@ const SearchPage = () => {
       <ResultsItemsDiv>
         <CategoryDropdownDiv>
           {/* <AnimatedShowMore toggle={DemoToggle} height={150}>
-            <SearchCategoryList/>
+            <SearchCategoryList />
           </AnimatedShowMore> */}
+        <FilterDrawer />
 
-          <FilterSortButtons variant="contained">
-            <FilterDrawer />
-          </FilterSortButtons>
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
           <SearchCategoryList />
