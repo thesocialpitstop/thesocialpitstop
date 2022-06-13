@@ -20,6 +20,7 @@ import {
 import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
 import categories from '../../constants/categories';
+import PostItem from '../../components/profile/post_item';
 
 
 const ProfileID = () => {
@@ -47,11 +48,27 @@ const ProfileID = () => {
         {
             "name": "beach Clean up",
             "date": "16049387483"
-        }
+        },
+        {
+            "name": "beach Clean up",
+            "date": "16049387483"
+        },
+        {
+            "name": "beach Clean up",
+            "date": "16049387483"
+        },
+        {
+            "name": "beach Clean up",
+            "date": "16049387483"
+        },
+        {
+            "name": "beach Clean up",
+            "date": "16049387483"
+        },
     ]
 
     const pastCsrItems = pastCsrFakeData.map((content) => {
-        return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
+        return <PostItem key={content.name} content={content}/>
     })
 
     return (
@@ -89,6 +106,7 @@ const ProfileID = () => {
                     <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
                 </ItemDetail>
             </DetailsDiv>
+            <h1>PAST CSR ACTIVITIES</h1>
             <PastCsrDiv>
                 {pastCsrItems}
             </PastCsrDiv>

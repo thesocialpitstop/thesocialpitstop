@@ -35,5 +35,8 @@ export const ItemDetail = styled.div`
     text-decoration: none;
 `;
 
-export const PastCsrDiv = styled.div``;
+export const PastCsrDiv = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+`;
 export const PastCsrItem = styled.div``;
