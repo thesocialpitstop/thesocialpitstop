@@ -29,13 +29,6 @@ const Post = () => {
   console.log('error', error);
   console.log('loading', loading);
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-      setPostData(data.getPost)
-    }
-  }, [data]);
-
   return (
     <BlogPostPage>
       <TitleDiv>
