@@ -27,9 +27,7 @@ import FilterDrawer from "../../components/search/filter_drawer";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
-  const [originalItems, setOriginalItems] = useState([]);
   const [textInput, setTextInput] = useState();
-  const [filterInput, setFilterInput] = useState(null);
 
   const router = useRouter();
   const { query } = router.query;
@@ -52,23 +50,22 @@ const SearchPage = () => {
     router.query.category == undefined ? loadAll : withCategorySearch;
   router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
   const { data: data, loading: loading, error: error } = queryParams;
-
-  //FILTER USEEFFECT QUERY
-  useEffect(() => {
-    if (filterInput == undefined) {
-      setItems(originalItems);
-    } else if (filterInput != undefined || filterInput != "") {
-      // console.log(filterInput);
-      var newArray = originalItems.filter(function (item) {
-        for (var key in filterInput) {
-          if (item.category == filterInput[key]) return true;
-          return false;
-        }
-      });
-      // console.log(newArray);
-      setItems(newArray);
-    }
-  }, [filterInput]);
+  // //FILTER USEEFFECT QUERY
+  // useEffect(() => {
+  //   if (filterInput == undefined) {
+  //     setItems(originalItems);
+  //   } else if (filterInput != undefined || filterInput != "") {
+  //     // console.log(filterInput);
+  //     var newArray = originalItems.filter(function (item) {
+  //       for (var key in filterInput) {
+  //         if (item.category == filterInput[key]) return true;
+  //         return false;
+  //       }
+  //     });
+  //     // console.log(newArray);
+  //     setItems(newArray);
+  //   }
+  // }, [filterInput]);
 
   useEffect(() => {
     if (data) {
@@ -78,7 +75,6 @@ const SearchPage = () => {
       } else if (router.query.category == undefined) {
         console.log(data);
         setItems(data.listWithItemType.items);
-        setOriginalItems(data.listWithItemType.items);
       } else if (router.query.category != undefined) {
         console.log(data);
         setItems(data.queryItemWithCategory.items);
@@ -114,10 +110,10 @@ const SearchPage = () => {
       </SearchBarItemsDiv>
       <ResultsItemsDiv>
         <CategoryDropdownDiv>
-          {/* <AnimatedShowMore toggle={DemoToggle} height={150}>
+          <AnimatedShowMore toggle={DemoToggle} height={70}>
             <SearchCategoryList />
-          </AnimatedShowMore> */}
-          <FilterDrawer setFilterInput={setFilterInput} />
+          </AnimatedShowMore>
+          {/* <FilterDrawer setFilterInput={setFilterInput} /> */}
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
           <SearchCategoryList />
