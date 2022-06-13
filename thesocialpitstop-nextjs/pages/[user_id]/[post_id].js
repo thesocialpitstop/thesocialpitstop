@@ -58,7 +58,6 @@ const Post = ({ data }) => {
         <div dangerouslySetInnerHTML={{__html: postData?.content}}></div>
       </div>
     </BlogPostPage>
-
   );
 }
 
