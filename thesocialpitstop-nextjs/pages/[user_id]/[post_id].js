@@ -16,7 +16,7 @@ import { parseISO } from 'date-fns'
 import Link from 'next/link';
 import 'react-quill/dist/quill.snow.css'
 
-const Post = ({ data }) => {
+const Post = () => {
   const [postData, setPostData] = useState();
   const router = useRouter();
   const { user_id, post_id } = router.query;
@@ -28,13 +28,6 @@ const Post = ({ data }) => {
   });
   console.log('error', error);
   console.log('loading', loading);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-      setPostData(data.getPost)
-    }
-  }, [data]);
 
   return (
     <BlogPostPage>
