@@ -9,6 +9,8 @@ import {
 import { CREATE_POST } from '../../graphql/mutations';
 import { useMutation } from "@apollo/client";
 import { useRouter } from 'next/router'
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+
 const ReactQuill = dynamic(
   import("react-quill"),
   {
@@ -18,14 +20,16 @@ const ReactQuill = dynamic(
 );
 
 
+
 const NewPost = () => {
   const [title, setTitle] = useState();
-  const [textContent, setTextContent] = useState("");
+  const [textContent, setTextContent] = useState('');
   const [createPost] = useMutation(CREATE_POST);
   const router = useRouter();
+  const { user, error, isLoading } = useUser();
 
   // PLACEHOLDER CONSTS: REPLACE WITH QUERY FOR USER DETAILS
-  const userID = '54321';
+  const userID = user?.sub;
   const orgType = 'SOO';
   const orgName = 'Test SOO';
   const postID = '1';
@@ -72,17 +76,17 @@ const NewPost = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(title, textContent);
-    createPost({
-      variables: {
-        content: textContent, 
-        datetime: new Date().toISOString(), 
-        item_type: `${orgType}-POST#${postID}`, 
-        name: orgName, 
-        title: title,
-        user_id: userID
-      }
-    });
-    router.push(`/${userID}/${postID}`);
+    // createPost({
+    //   variables: {
+    //     content: textContent, 
+    //     datetime: new Date().toISOString(), 
+    //     item_type: `${orgType}-POST#${postID}`, 
+    //     name: orgName, 
+    //     title: title,
+    //     user_id: userID
+    //   }
+    // });
+    // router.push(`/${userID}/${postID}`);
   }
 
     return(
@@ -101,10 +105,14 @@ const NewPost = () => {
               modules={modules} 
               formats={formats}
               theme="snow" 
-              value={textContent}
+              style={{ height:300 }}
               onChange={setTextContent}
             />
           </EditorDiv>
+          <br />
+          <br />
+          <br />
+          <br />
           <br />
           <SubmitButton type="submit" variant="contained">Post</SubmitButton>
         </form>
@@ -112,4 +120,4 @@ const NewPost = () => {
     )
 }
 
-export default NewPost;
+export default withPageAuthRequired(NewPost);

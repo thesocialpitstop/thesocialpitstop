@@ -21,7 +21,7 @@ import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
 import categories from '../../constants/categories';
 import { Button } from '@mui/material';
-
+import PostItem from '../../components/profile/post_item';
 
 const ProfileID = () => {
     const [profileData, setProfileData] = useState();
@@ -59,23 +59,16 @@ const ProfileID = () => {
         }
     }, [reviews]);
 
-    const pastCsrFakeData = [
-        {
-            "name": "beach Clean up",
-            "date": "16049387483"
-        }
-    ];
-
-    const pastCsrItems = pastCsrFakeData.map((content) => {
-        return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
-    });
-    
     const reviewItems = reviewData.map((rev) => {
         return <div key={rev.reviewer_id}>
             <b>{rev.reviewer_name}: {rev.rating}/5</b><br />
             {rev.review}
         </div>
     });
+
+    const pastCsrItems = pastCsrFakeData.map((content) => {
+        return <PostItem key={content.name} content={content}/>
+    })
 
     return (
         <ProfilePage>
@@ -112,7 +105,7 @@ const ProfileID = () => {
                     <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
                 </ItemDetail>
             </DetailsDiv>
-
+            <h1>PAST CSR ACTIVITIES</h1>
             <PastCsrDiv>
                 <h3>Past Events</h3>
                 {pastCsrItems}

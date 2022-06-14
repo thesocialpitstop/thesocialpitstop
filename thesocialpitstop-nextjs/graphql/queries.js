@@ -84,6 +84,21 @@ export const GET_POST = gql`
   }
 `;
 
+
+export const LOAD_POST = gql`
+  query MyQuery($pk: String!, $item_type: String!) {
+    getPost(item_type: $item_type, user_id: $pk) {
+      wip-profile-page
+      content
+      datetime
+      item_type
+      name
+      title
+      user_id
+    }
+  }
+`;
+
 export const GET_REVIEWS_OF_USER = gql`
   query MyQuery($user_id: String!) {
     queryUserWithItemTypePrefix(item_type_prefix: "REVIEW", user_id: $user_id) {

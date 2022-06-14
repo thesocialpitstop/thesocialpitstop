@@ -16,7 +16,7 @@ import { parseISO } from 'date-fns'
 import Link from 'next/link';
 import 'react-quill/dist/quill.snow.css'
 
-const Post = () => {
+const Post = ({ data }) => {
   const [postData, setPostData] = useState();
   const router = useRouter();
   const { user_id, post_id } = router.query;
@@ -58,7 +58,6 @@ const Post = () => {
         <div dangerouslySetInnerHTML={{__html: postData?.content}}></div>
       </div>
     </BlogPostPage>
-
   );
 }
 
