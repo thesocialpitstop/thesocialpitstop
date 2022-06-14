@@ -1,3 +1,12 @@
+
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { 
+  LIST_PROFILES, 
+  GET_PROFILE_CATEGORY, 
+  QUERY_WITH_NAME_PREFIX 
+} from '../../graphql/queries';
+import  SearchItem from '../../components/search/search_item';
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
@@ -34,7 +43,7 @@ const SearchPage = () => {
   const router = useRouter();
   const { query } = router.query;
 
-  const withCategorySearch = useQuery(LOAD_PROFILE_CATEGORY, {
+  const withCategorySearch = useQuery(GET_PROFILE_CATEGORY, {
     variables: {
       category: router.query.category,
       item_type: "SOO-PROFILE",
@@ -43,6 +52,15 @@ const SearchPage = () => {
 
   const withPrefixSearch = useQuery(QUERY_WITH_NAME_PREFIX, {
     variables: {
+      name_prefix: router.query.query
+    }
+  })
+
+  const loadAll = useQuery(LIST_PROFILES);
+  const queryParams = router.query.category == undefined ? loadAll : withCategorySearch;
+  if(router.query.query != undefined) {
+    queryParams = withPrefixSearch;
+  }
       prefix: router.query.query,
     },
   });

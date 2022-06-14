@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const LOAD_ALL_PROFILES = gql`
+export const LIST_PROFILES = gql`
   query MyQuery {
     listWithItemType(item_type: "SOO-PROFILE") {
       items {
@@ -18,7 +18,7 @@ export const LOAD_ALL_PROFILES = gql`
   }  
 `;
 
-export const LOAD_PROFILE_CATEGORY = gql`
+export const GET_PROFILE_CATEGORY = gql`
   query MyQuery($category: String!, $item_type: String!) {
     queryItemWithCategory(category: $category, item_type: $item_type) {
       items {
@@ -38,8 +38,8 @@ export const LOAD_PROFILE_CATEGORY = gql`
 `;
 
 export const QUERY_WITH_NAME_PREFIX = gql`
-  query MyQuery($prefix: String!){
-    queryItemWithNamePrefix(item_type: "SOO-PROFILE", name_prefix: $prefix) {
+  query MyQuery($name_prefix: String!){
+    queryItemWithNamePrefix(item_type: "SOO-PROFILE", name_prefix: $name_prefix) {
       items {
         address
         category
@@ -55,9 +55,9 @@ export const QUERY_WITH_NAME_PREFIX = gql`
   }
 `;
 
-export const LOAD_PROFILE = gql`
-  query MyQuery($pk: String!, $item_type: String!) {
-    getItem(item_type: $item_type, user_id: $pk) {
+export const GET_PROFILE = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
       category
       datetime
       address
@@ -71,16 +71,43 @@ export const LOAD_PROFILE = gql`
   }
 `;
 
-
-export const LOAD_POST = gql`
-  query MyQuery($pk: String!, $item_type: String!) {
-    getPost(item_type: $item_type, user_id: $pk) {
+export const GET_POST = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
       content
       datetime
       item_type
       name
       title
       user_id
+    }
+  }
+`;
+
+
+export const LOAD_POST = gql`
+  query MyQuery($pk: String!, $item_type: String!) {
+    getPost(item_type: $item_type, user_id: $pk) {
+      wip-profile-page
+      content
+      datetime
+      item_type
+      name
+      title
+      user_id
+    }
+  }
+`;
+
+export const GET_REVIEWS_OF_USER = gql`
+  query MyQuery($user_id: String!) {
+    queryUserWithItemTypePrefix(item_type_prefix: "REVIEW", user_id: $user_id) {
+      items {
+        reviewer_id
+        reviewer_name
+        rating
+        review
+      }
     }
   }
 `;

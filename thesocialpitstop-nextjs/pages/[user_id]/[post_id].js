@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
-import { LOAD_POST } from '../../graphql/queries';
+import { GET_POST } from '../../graphql/queries';
 import {
   ProfilePage,
   DetailsDiv,
@@ -20,9 +20,9 @@ const Post = ({ data }) => {
   const [postData, setPostData] = useState();
   const router = useRouter();
   const { user_id, post_id } = router.query;
-  const { data, loading, error } = useQuery(LOAD_POST, {
+  const { data, loading, error } = useQuery(GET_POST, {
     variables: {
-      pk: user_id,
+      user_id: user_id,
       item_type: `SOO-POST#${post_id}`
     }
   });
@@ -32,7 +32,7 @@ const Post = ({ data }) => {
   useEffect(() => {
     if (data) {
       console.log(data);
-      setPostData(data.getPost)
+      setPostData(data.getItem)
     }
   }, [data]);
 
