@@ -25,6 +25,7 @@ import {
 import { DemoToggle } from "../../components/search/demo_toggle";
 import AnimatedShowMore from "react-animated-show-more";
 import FilterDrawer from "../../components/search/filter_drawer";
+import Loader from "../../components/search/loader";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
@@ -77,6 +78,11 @@ const SearchPage = () => {
       </>
     );
   });
+  const n = 8;
+
+  const loadingItems = [...Array(n)].map(() => {
+    return <Loader />;
+  });
 
   const handleChange = (e) => {
     setTextInput(e.target.value);
@@ -98,15 +104,15 @@ const SearchPage = () => {
       </SearchBarItemsDiv>
       <ResultsItemsDiv>
         <CategoryDropdownDiv>
-          {/* <AnimatedShowMore toggle={DemoToggle} height={150}>
+          <AnimatedShowMore toggle={DemoToggle} height={150}>
             <SearchCategoryList />
-          </AnimatedShowMore> */}
+          </AnimatedShowMore>
           <FilterDrawer setFilterInput={setFilterInput} />
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
           <SearchCategoryList />
         </CategorySidebarDiv>
-        <ResultListDiv>{searchItems}</ResultListDiv>
+        <ResultListDiv>{loading? loadingItems:searchItems}</ResultListDiv>
       </ResultsItemsDiv>
     </SearchPageDiv>
   );
