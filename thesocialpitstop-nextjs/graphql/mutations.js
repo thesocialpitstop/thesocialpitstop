@@ -9,41 +9,45 @@ export const CREATE_PROFILE = gql`
     $details: String,
     $email: AWSEmail,
     $name: String!,
-    $user_id: String!
+    $user_id: String!,
+    $item_type: String!
   ) {
-    createProfile(
+    createItem(
       input: {
         address: $address,
         category: $category,
+        contact_num: $contact_num
         datetime: $datetime,
         details: $details,
         email: $email,
-        item_type: "SOO-PROFILE",
         name: $name,
+        item_type: $item_type,
         user_id: $user_id,
-        contact_num: $contact_num
       }
     ) {
-      category
-      datetime
       address
+      category
       contact_num
-      email
+      datetime
       details
+      email
+      name
+      item_type
+      user_id
     }
   }
 `;
 
 export const CREATE_POST = gql`
   mutation MyMutation(
-    $content: String!, 
+    $content: String, 
     $datetime: AWSDateTime,
-    $item_type: String!, 
-    $name: String!, 
+    $item_type: String, 
+    $name: String, 
     $title: String!, 
     $user_id: String!
   ) {
-    createPost(
+    createItem(
       input: {
         content: $content, 
         datetime: $datetime, 
