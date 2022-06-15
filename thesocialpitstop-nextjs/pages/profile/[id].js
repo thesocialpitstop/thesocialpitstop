@@ -5,7 +5,7 @@ import React,
 } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
-import { GET_PROFILE, GET_REVIEWS_OF_USER } from '../../graphql/queries';
+import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT } from '../../graphql/queries';
 import {
     ProfilePage,
     DetailsDiv,
@@ -15,17 +15,25 @@ import {
     TitleDiv,
     Subtitle,
     PastCsrDiv,
-    PastCsrItem
+    PastCsrItem,
+    ReviewDiv,
+    ReviewItem,
+    ReviewUserDiv,
+    ReviewNameDiv,
+    ReviewContentDiv,
+    ReviewTitleDiv
 } from '../../components/profile/[id].style';
 import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
 import categories from '../../constants/categories';
-import { Button } from '@mui/material';
+import { Avatar, Button, Rating } from '@mui/material';
 import PostItem from '../../components/profile/post_item';
+import ReviewModal from '../../components/profile/review_modal';
 
 const ProfileID = () => {
     const [profileData, setProfileData] = useState();
     const [reviewData, setReviewData] = useState();
+    const [reviewModal, setReviewModalState] = useState(false);
     const router = useRouter();
     const { id } = router.query;
 
@@ -45,10 +53,11 @@ const ProfileID = () => {
     }, [profile]);
 
     // Review Data
-    const { data: reviews, loading, error } = useQuery(GET_REVIEWS_OF_USER, 
+    const { data: reviews, loading, error } = useQuery(GET_REVIEWS_OF_USER_LIMIT, 
         {
         variables: {
             user_id: id,
+            limit: 2
         }
     });
 
@@ -59,11 +68,30 @@ const ProfileID = () => {
         }
     }, [reviews]);
 
-    const reviewItems = reviewData.map((rev) => {
-        return <div key={rev.reviewer_id}>
-            <b>{rev.reviewer_name}: {rev.rating}/5</b><br />
-            {rev.review}
-        </div>
+    const pastCsrFakeData = [
+        {
+            "name": "Beach Clean up at East Coast Park on 25th June",
+            "date": "16049387483"
+        }
+    ]
+
+    const reviewItems = reviewData?.map((rev) => {
+        return(
+            <ReviewItem key={rev.reviewer_id}>
+                <Rating 
+                    name={rev.reviewer_id}
+                    value={rev.rating}
+                    readOnly
+                />
+                <ReviewUserDiv>
+                    <Avatar>{rev.reviewer_name[0]}</Avatar>
+                    <ReviewNameDiv>{rev.reviewer_name}</ReviewNameDiv>
+                </ReviewUserDiv>
+                <ReviewContentDiv>
+                    {rev.review}
+                </ReviewContentDiv>
+            </ReviewItem>
+        )
     });
 
     const pastCsrItems = pastCsrFakeData.map((content) => {
@@ -72,6 +100,11 @@ const ProfileID = () => {
 
     return (
         <ProfilePage>
+            <ReviewModal 
+                open={reviewModal}
+                setOpen={setReviewModalState}
+                id={id}
+            />
             <Image
                 src={profileImage}
                 alt="profile_picture"
@@ -105,19 +138,20 @@ const ProfileID = () => {
                     <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
                 </ItemDetail>
             </DetailsDiv>
-            <h1>PAST CSR ACTIVITIES</h1>
+            <h1>Past CSR Activities</h1>
             <PastCsrDiv>
-                <h3>Past Events</h3>
                 {pastCsrItems}
             </PastCsrDiv>
 
-            <div>
-                <h3>Reviews</h3>
-                <Button>Leave A Review</Button>
+            <ReviewDiv>
+                <ReviewTitleDiv>
+                    <h1>Reviews</h1>
+                    <Button variant='contained'>Leave A Review</Button>
+                </ReviewTitleDiv>
                 {reviewItems}
-            </div>
+                <Button variant='outlined' onClick={() => setReviewModalState(true)}>View More Reviews</Button>
+            </ReviewDiv>
         </ProfilePage>
-
     );
 }
 

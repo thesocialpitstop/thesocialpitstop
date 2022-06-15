@@ -1,19 +1,11 @@
 
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
 import { 
   LIST_PROFILES, 
   GET_PROFILE_CATEGORY, 
   QUERY_WITH_NAME_PREFIX 
 } from '../../graphql/queries';
-import  SearchItem from '../../components/search/search_item';
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-  LOAD_ALL_PROFILES,
-  LOAD_PROFILE_CATEGORY,
-  QUERY_WITH_NAME_PREFIX,
-} from "../../graphql/queries";
 import SearchItem from "../../components/search/search_item";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
@@ -57,36 +49,10 @@ const SearchPage = () => {
   })
 
   const loadAll = useQuery(LIST_PROFILES);
-  const queryParams = router.query.category == undefined ? loadAll : withCategorySearch;
-  if(router.query.query != undefined) {
-    queryParams = withPrefixSearch;
-  }
-      prefix: router.query.query,
-    },
-  });
-
-  const loadAll = useQuery(LOAD_ALL_PROFILES);
   const queryParams =
     router.query.category == undefined ? loadAll : withCategorySearch;
   router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
   const { data: data, loading: loading, error: error } = queryParams;
-
-  //FILTER USEEFFECT QUERY
-  useEffect(() => {
-    if (filterInput == undefined) {
-      setItems(originalItems);
-    } else if (filterInput != undefined || filterInput != "") {
-      // console.log(filterInput);
-      var newArray = originalItems.filter(function (item) {
-        for (var key in filterInput) {
-          if (item.category == filterInput[key]) return true;
-          return false;
-        }
-      });
-      // console.log(newArray);
-      setItems(newArray);
-    }
-  }, [filterInput]);
 
   useEffect(() => {
     if (data) {
