@@ -11,11 +11,15 @@ export const SearchPageDiv = styled.div`
   }
   @media (max-width: 768px) {
     padding: 15px;
+    grid-gap: 1rem;
   }
 `;
 
 export const ResultsItemsDiv = styled.div`
   display: grid;
+  @media (max-width: 768px) {
+    grid-gap: 1rem;
+  }
   @media (min-width: 768px) {
     grid-template-columns: 1fr 3fr;
     grid-gap: 2rem;
@@ -55,9 +59,11 @@ export const SearchBarItemsDiv = styled.div``;
 
 export const ResultListDiv = styled.div`
   display: grid;
-  grid-gap: 20px;
+  grid-gap: 1rem;
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     padding-top: 24px;
   }
 `;
+
+export const FilterSortButtons = styled(Button)``;

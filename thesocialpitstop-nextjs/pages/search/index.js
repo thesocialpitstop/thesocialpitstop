@@ -1,10 +1,11 @@
-import { useRouter } from "next/router";
+
+import { useRouter } from 'next/router'
+import { 
+  LIST_PROFILES, 
+  GET_PROFILE_CATEGORY, 
+  QUERY_WITH_NAME_PREFIX 
+} from '../../graphql/queries';
 import { useEffect, useState } from "react";
-import {
-  LOAD_ALL_PROFILES,
-  LOAD_PROFILE_CATEGORY,
-  QUERY_WITH_NAME_PREFIX,
-} from "../../graphql/queries";
 import SearchItem from "../../components/search/search_item";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
@@ -19,19 +20,23 @@ import {
   CategoryDropdownDiv,
   SearchBarItemsDiv,
   ResultListDiv,
+  FilterSortButtons,
 } from "../../components/search/index.style";
 import { DemoToggle } from "../../components/search/demo_toggle";
 import AnimatedShowMore from "react-animated-show-more";
+import FilterDrawer from "../../components/search/filter_drawer";
 import Loader from "../../components/search/loader";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
+  const [originalItems, setOriginalItems] = useState([]);
   const [textInput, setTextInput] = useState();
+  const [filterInput, setFilterInput] = useState(null);
 
   const router = useRouter();
   const { query } = router.query;
 
-  const withCategorySearch = useQuery(LOAD_PROFILE_CATEGORY, {
+  const withCategorySearch = useQuery(GET_PROFILE_CATEGORY, {
     variables: {
       category: router.query.category,
       item_type: "SOO-PROFILE",
@@ -40,16 +45,14 @@ const SearchPage = () => {
 
   const withPrefixSearch = useQuery(QUERY_WITH_NAME_PREFIX, {
     variables: {
-      prefix: router.query.query,
-    },
-  });
+      name_prefix: router.query.query
+    }
+  })
 
-  const loadAll = useQuery(LOAD_ALL_PROFILES);
+  const loadAll = useQuery(LIST_PROFILES);
   const queryParams =
     router.query.category == undefined ? loadAll : withCategorySearch;
-  if (router.query.query != undefined) {
-    queryParams = withPrefixSearch;
-  }
+  router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
   const { data: data, loading: loading, error: error } = queryParams;
 
   useEffect(() => {
@@ -60,6 +63,7 @@ const SearchPage = () => {
       } else if (router.query.category == undefined) {
         console.log(data);
         setItems(data.listWithItemType.items);
+        setOriginalItems(data.listWithItemType.items);
       } else if (router.query.category != undefined) {
         console.log(data);
         setItems(data.queryItemWithCategory.items);
@@ -103,6 +107,7 @@ const SearchPage = () => {
           <AnimatedShowMore toggle={DemoToggle} height={150}>
             <SearchCategoryList />
           </AnimatedShowMore>
+          <FilterDrawer setFilterInput={setFilterInput} />
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
           <SearchCategoryList />
