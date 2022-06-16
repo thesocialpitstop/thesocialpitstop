@@ -42,12 +42,12 @@ const CreateProfile = () => {
         email: email,
         item_type: `${orgType}-PROFILE`,
         name: orgName,
-        user_id: user_id, // PLACEHOLDER
+        user_id: user_id,
         contact_num: phone
       }
     })
     if (user_id) {
-      router.push(`/continue?state=${router.query.state}`);
+      window.location = `https://the-social-pitstop.us.auth0.com/continue?state=${router.query.state}`;
     } else {
       router.push("/profile");
     }
