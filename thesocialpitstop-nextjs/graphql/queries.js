@@ -87,7 +87,7 @@ export const GET_POST = gql`
 
 export const LOAD_POST = gql`
   query MyQuery($pk: String!, $item_type: String!) {
-    getPost(item_type: $item_type, user_id: $pk) {
+    getItem(item_type: $item_type, user_id: $pk) {
       content
       datetime
       item_type
