@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const ProfilePage = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   @media (min-width: 768px) {
     padding: 5px;
   }
@@ -58,14 +61,16 @@ export const PastCsrDiv = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
-export const PastCsrItem = styled.div``;
+export const PastCsrItem = styled.div`
+  overflow-x: scroll;
+`;
 
 export const ReviewDiv = styled.div`
   @media (max-width: 768px) {
       padding: 8px;
   }`;
 
-export const ReviewItem = styled.div`
+export const ReviewItemDiv = styled.div`
   display: grid;
   grid-gap: 8px;
   padding: 25px;

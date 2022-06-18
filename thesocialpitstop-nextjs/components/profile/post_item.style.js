@@ -2,26 +2,27 @@ import Image from "next/image";
 import styled from "styled-components";
 
 export const PostItemDiv = styled.div`
-    border: 1px solid;
-    border-color: #dadce0;
     border-radius: 8px;
     cursor: pointer;
-    height: fit-content;
     position: relative;
-    :hover{
-        background: #fff;
-        border: 0;
-        box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
-        padding: 1px;
-    }
+    height: 128px;
+    display: flex;
+    flex-direction: column-reverse;
+
 `;
 
 export const PostItemTitleDiv = styled.div`
+    z-index: 1;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 0,0,8px,8px;
 `;
 
 export const PostImage = styled(Image)`
     border-radius: 8px;
     transition: all .4s;
+    height: fit-content;
     :hover {
         transform: scale(1.05);
     }

@@ -11,9 +11,7 @@ const PostItem = ({ content }) => {
     <PostItemDiv>
       <PostImage
         src="https://blogassets.singsaver.com.sg/wp-content/uploads/sites/2/2022/05/11174518/blog-hero-.jpg"
-        layout="fixed"
-        width={128}
-        height={128}
+        layout="fill" 
       />
       <PostItemTitleDiv>{content.name}</PostItemTitleDiv>
     </PostItemDiv>
