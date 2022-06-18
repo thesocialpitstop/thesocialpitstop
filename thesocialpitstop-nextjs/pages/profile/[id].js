@@ -92,7 +92,7 @@ const ProfileID = () => {
   ];
 
   const reviewItems = reviewData?.map((rev) => {
-    return <ReviewItem data={rev} />;
+    return <ReviewItem key={rev.reviewer_id} data={rev} />;
   });
 
   const pastCsrItems = pastCsrFakeData.map((content) => {

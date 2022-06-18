@@ -23,7 +23,7 @@ const ReviewModal = ({ open, setOpen, profileData, initialItems }) => {
     const handleClose = () => setOpen(false);
     const [reviewModal, setReviewModalState] = useState(false);
     const reviewItems = initialItems?.map((rev) => {
-        return <ReviewItem data={rev}/>
+        return <ReviewItem key={rev.reviewer_id} data={rev}/>
     });
     return (
         <Modal
