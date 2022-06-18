@@ -16,7 +16,7 @@ import { parseISO } from 'date-fns'
 import Link from 'next/link';
 import 'react-quill/dist/quill.snow.css'
 
-const Post = ({ }) => {
+const Post = () => {
   const [postData, setPostData] = useState();
   const router = useRouter();
   const { user_id, post_id } = router.query;

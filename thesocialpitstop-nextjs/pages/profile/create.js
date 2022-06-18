@@ -16,9 +16,19 @@ const CreateProfile = () => {
   const [orgType, setOrgType] = useState("");
   const [category, setCategory] = useState("");
   const [details, setDetails] = useState("");
+  
+  function parseJwt(token) {
+    if (!token) { return; }
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+  }
+
+  const router = useRouter();
+  const user_id = parseJwt(router.query.session_token)?.sub.split('|')[1];
+  console.log(user_id);
 
   const [createProfile] = useMutation(CREATE_PROFILE);
-  const router = useRouter();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,11 +42,15 @@ const CreateProfile = () => {
         email: email,
         item_type: `${orgType}-PROFILE`,
         name: orgName,
-        user_id: '54321', // PLACEHOLDER
+        user_id: user_id,
         contact_num: phone
       }
     })
-    router.push("/profile");
+    if (user_id) {
+      window.location = `https://the-social-pitstop.us.auth0.com/continue?state=${router.query.state}`;
+    } else {
+      router.push("/profile");
+    }
   }
 
   return (
