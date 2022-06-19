@@ -104,8 +104,8 @@ export const CREATE_FOLLOW = gql`
     $datetime: AWSDateTime,
     $item_type: String!, 
     $user_id: String!,
-    follower_id: String!,
-    follower_name: String!
+    $follower_id: String!,
+    $follower_name: String!
   ) {
     createItem(
       input: {

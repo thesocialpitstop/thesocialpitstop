@@ -4,8 +4,10 @@ import React,
     useState
 } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
+import { useUser } from '@auth0/nextjs-auth0';
 import { LOAD_PROFILE } from '../../graphql/queries';
+import { CREATE_REVIEW, CREATE_FOLLOW } from '../../graphql/mutations';
 import {
     ProfilePage,
     DetailsDiv,
@@ -20,22 +22,21 @@ import {
 import Image from 'next/image';
 import profileImage from '../../public/beach-cleanup.webp';
 import categories from '../../constants/categories';
+import { Button } from "@mui/material";
 
 
 const ProfileID = () => {
     const [profileData, setProfileData] = useState();
     const router = useRouter();
     const { id } = router.query;
-    const withSearch = useQuery(LOAD_PROFILE, {
+    const { user } = useUser();
+    const { data, loading, error } = useQuery(LOAD_PROFILE, {
         variables: {
             pk: id,
             item_type: "SOO-PROFILE"
         }
     });
-    const queryParams = withSearch;
 
-
-    const { data, loading, error } = queryParams;
     useEffect(() => {
         if (data) {
             console.log(data.getItem);
@@ -54,6 +55,21 @@ const ProfileID = () => {
         return <PastCsrItem key={content.name}>{content.name}</PastCsrItem>
     })
 
+    const [createFollow] = useMutation(CREATE_FOLLOW);
+
+    const handleFollow = (event) => {
+        console.log(user);
+        createFollow({
+            variables: {
+                datetime: new Date().toISOString(),
+                item_type: `FOLLOW#${user?.sub.split('|')[1]}`,
+                user_id: id,
+                follower_id: user?.sub.split('|')[1],
+                follower_name: user?.nickname
+            }
+        })
+    }
+
     return (
         <ProfilePage>
             <Image
@@ -70,6 +86,8 @@ const ProfileID = () => {
                     {profileData?.details}
                 </Subtitle>
             </TitleDiv>
+
+            <Button variant="outlined" onClick={handleFollow}>+ Follow</Button>
 
             <DetailsDiv>
                 <ItemTitle>Category</ItemTitle>
@@ -89,6 +107,7 @@ const ProfileID = () => {
                     <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
                 </ItemDetail>
             </DetailsDiv>
+
             <PastCsrDiv>
                 {pastCsrItems}
             </PastCsrDiv>
