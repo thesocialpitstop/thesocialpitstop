@@ -42,7 +42,7 @@ export const CREATE_POST = gql`
   mutation MyMutation(
     $content: String, 
     $datetime: AWSDateTime,
-    $item_type: String, 
+    $item_type: String!, 
     $name: String, 
     $title: String!, 
     $user_id: String!
@@ -63,6 +63,64 @@ export const CREATE_POST = gql`
       name
       title
       user_id
+    }
+  }
+`
+
+export const CREATE_REVIEW = gql`
+  mutation MyMutation(
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    $reviewer_id: String!,
+    $reviewer_name: String!,
+    $rating: Int!,
+    $review: String
+  ) {
+    createItem(
+      input: {
+        datetime: $datetime,
+        item_type: $item_type, 
+        user_id: $user_id,
+        reviewer_id: $reviewer_id,
+        reviewer_name: $reviewer_name,
+        rating: $rating,
+        review: $review
+      }
+    ) {
+      datetime
+      item_type
+      user_id
+      reviewer_id
+      reviewer_name
+      rating,
+      review
+    }
+  }
+`
+
+export const CREATE_FOLLOW = gql`
+  mutation MyMutation(
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    follower_id: String!,
+    follower_name: String!
+  ) {
+    createItem(
+      input: {
+        datetime: $datetime
+        item_type: $item_type
+        user_id: $user_id
+        follower_id: $follower_id
+        follower_name: $follower_name
+      }
+    ) {
+      datetime
+      item_type
+      user_id
+      follower_id
+      follower_name
     }
   }
 `
