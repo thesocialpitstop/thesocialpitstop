@@ -55,7 +55,7 @@ const TabPanel = (props) => {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component='div'>{children}</Typography>
         </Box>
       )}
     </div>
@@ -117,8 +117,9 @@ const ProfileID = () => {
           }
         })
       }
+      router.reload();
     } else {
-      window.location = '/api/auth/login';
+      router.push('/api/auth/login');
     }
   }
 
