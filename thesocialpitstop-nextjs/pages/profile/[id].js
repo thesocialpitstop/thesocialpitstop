@@ -168,9 +168,9 @@ const ProfileID = () => {
           <ItemTitle>Category</ItemTitle>
           <ItemDetail>
             {profileData?.category
-              ? categories.filter(
-                (cat) => cat.value === profileData?.category
-              )[0].name
+              ? <a href={`/search?category=${profileData?.category}`}>
+                  {categories.filter((cat) => cat.value === profileData?.category)[0].name}
+                </a>
               : "Others"}
           </ItemDetail>
           <ItemTitle>Address</ItemTitle>

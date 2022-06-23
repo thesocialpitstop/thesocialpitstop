@@ -43,7 +43,11 @@ export const ItemTitle = styled.div`
 export const ItemDetail = styled.div`
   font-family: Montserrat, sans-serif;
   font-size: larger;
-  text-decoration: none;
+
+  a:hover {
+    text-decoration: underline;
+    color: blue;
+  }
 `;
 
 export const PastCsrDiv = styled.div`
