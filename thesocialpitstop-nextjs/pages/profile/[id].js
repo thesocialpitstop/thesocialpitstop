@@ -1,3 +1,17 @@
+import React,
+{
+    useEffect,
+    useState
+} from 'react';
+import { useRouter } from 'next/router';
+import { useQuery, useMutation } from '@apollo/client';
+import { useUser } from '@auth0/nextjs-auth0';
+import { LOAD_PROFILE } from '../../graphql/queries';
+import { CREATE_REVIEW, CREATE_FOLLOW } from '../../graphql/mutations';
+import Image from 'next/image';
+import profileImage from '../../public/beach-cleanup.webp';
+import categories from '../../constants/categories';
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
@@ -118,6 +132,7 @@ const ProfileID = () => {
           <Title>{profileData?.name}</Title>
           <Subtitle>{profileData?.details}</Subtitle>
         </TitleDiv>
+        <Button variant="outlined" onClick={handleFollow}>+ Follow</Button>
 
         <DetailsDiv>
           <ItemTitle>Category</ItemTitle>
