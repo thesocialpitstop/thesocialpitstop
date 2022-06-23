@@ -96,3 +96,15 @@ export const ReviewTitleDiv = styled.div`
   align-items: center;
   gap: 10px
 `;
+
+export const MobileTabPanel = styled.div`
+  @media (min-width: 768px) {
+      display: none;
+    }
+`;
+
+export const DesktopView = styled.div`
+  @media (max-width: 768px) {
+      display: none;
+    }
+`;

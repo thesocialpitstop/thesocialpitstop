@@ -10,6 +10,7 @@ import { CREATE_POST } from '../../graphql/mutations';
 import { useMutation } from "@apollo/client";
 import { useRouter } from 'next/router'
 import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { formats, modules } from "../../constants/quill_config";
 
 const ReactQuill = dynamic(
   import("react-quill"),
@@ -23,7 +24,7 @@ const ReactQuill = dynamic(
 
 const NewPost = () => {
   const [title, setTitle] = useState();
-  const [textContent, setTextContent] = useState('');
+  const [contentText, setContentText] = useState();
   const [createPost] = useMutation(CREATE_POST);
   const router = useRouter();
   const { user, error, isLoading } = useUser();
@@ -34,44 +35,6 @@ const NewPost = () => {
   const orgName = 'Test SOO';
   const postID = '1';
 
-  const modules = {
-    toolbar: [
-      [{ header: [] }, { font: [] }],
-      [{ color: [] }, 'bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-        { script: 'sub'},
-        { script: 'super' }
-      ],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
-    clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
-      matchVisual: false,
-    },
-  }
-  
-  const formats = [
-    'header',
-    'font',
-    'color',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'script',
-    'link',
-    'image',
-    'video',
-  ]
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -106,7 +69,7 @@ const NewPost = () => {
               formats={formats}
               theme="snow" 
               style={{ height:300 }}
-              onChange={setTextContent}
+              onChange={setContentText}
             />
           </EditorDiv>
           <br />

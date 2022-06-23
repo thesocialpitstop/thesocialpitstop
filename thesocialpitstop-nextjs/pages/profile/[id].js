@@ -17,20 +17,52 @@ import {
   ReviewNameDiv,
   ReviewContentDiv,
   ReviewTitleDiv,
+  MobileTabPanel,
+  DesktopView,
 } from "../../components/profile/[id].style";
 
 import ReviewItem from "../../components/profile/review_item";
 import Image from "next/image";
 import profileImage from "../../public/beach-cleanup.webp";
 import categories from "../../constants/categories";
-import { Avatar, Button, Rating } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Rating,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import PostItem from "../../components/profile/post_item";
 import ReviewModal from "../../components/profile/review_modal";
+import { useTheme } from "styled-components";
+
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+};
 
 const ProfileID = () => {
   const [profileData, setProfileData] = useState();
   const [reviewData, setReviewData] = useState();
   const [reviewModal, setReviewModalState] = useState(false);
+  const [value, setValue] = React.useState(0);
   const router = useRouter();
   const { id } = router.query;
 
@@ -68,6 +100,51 @@ const ProfileID = () => {
     }
   }, [reviews]);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
+
+  const Overview = () => {
+    return (
+      <>
+        <TitleDiv>
+          <Title>{profileData?.name}</Title>
+          <Subtitle>{profileData?.details}</Subtitle>
+        </TitleDiv>
+
+        <DetailsDiv>
+          <ItemTitle>Category</ItemTitle>
+          <ItemDetail>
+            {profileData?.category
+              ? categories.filter(
+                  (cat) => cat.value === profileData?.category
+                )[0].name
+              : "Others"}
+          </ItemDetail>
+          <ItemTitle>Address</ItemTitle>
+          <ItemDetail>{profileData?.address}</ItemDetail>
+          <ItemTitle>Contact No.</ItemTitle>
+          <ItemDetail>
+            <a href={`tel:${profileData?.contact_num}`}>
+              {profileData?.contact_num}
+            </a>
+          </ItemDetail>
+          <ItemTitle>Website</ItemTitle>
+          <ItemDetail>
+            <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
+          </ItemDetail>
+        </DetailsDiv>
+      </>
+    );
+  };
+
   const pastCsrFakeData = [
     {
       name: "Beach Clean up at East Coast Park on 25th June",
@@ -99,59 +176,71 @@ const ProfileID = () => {
     return <PostItem key={content.name} content={content} />;
   });
 
+  const theme = useTheme();
+  console.log(theme);
+
   return (
     <ProfilePage>
+      <MobileTabPanel>
+        <Image
+          src={profileImage}
+          alt="profile_picture"
+          layout="responsive"
+          quality={100}
+        />
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            variant="scrollable"
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Overview" {...a11yProps(0)} />
+            <Tab label="Past CSR Activities" {...a11yProps(1)} />
+            <Tab label="Reviews" {...a11yProps(2)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <Overview />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          {reviewItems}
+          <Button variant="outlined" onClick={() => setReviewModalState(true)}>
+            View More Reviews
+          </Button>
+        </TabPanel>
+      </MobileTabPanel>
       <ReviewModal
         open={reviewModal}
         setOpen={setReviewModalState}
         profileData={profileData}
         initialItems={reviewData}
       />
-      <Image
-        src={profileImage}
-        alt="profile_picture"
-        layout="responsive"
-        quality={100}
-      />
-      <TitleDiv>
-        <Title>{profileData?.name}</Title>
-        <Subtitle>{profileData?.details}</Subtitle>
-      </TitleDiv>
+      <DesktopView>
+        <Image
+          src={profileImage}
+          alt="profile_picture"
+          layout="responsive"
+          quality={100}
+        />
+        <Overview />
+        <h1>Past CSR Activities</h1>
+        <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
 
-      <DetailsDiv>
-        <ItemTitle>Category</ItemTitle>
-        <ItemDetail>
-          {profileData?.category
-            ? categories.filter((cat) => cat.value === profileData?.category)[0]
-                .name
-            : "Others"}
-        </ItemDetail>
-        <ItemTitle>Address</ItemTitle>
-        <ItemDetail>{profileData?.address}</ItemDetail>
-        <ItemTitle>Contact No.</ItemTitle>
-        <ItemDetail>
-          <a href={`tel:${profileData?.contact_num}`}>
-            {profileData?.contact_num}
-          </a>
-        </ItemDetail>
-        <ItemTitle>Website</ItemTitle>
-        <ItemDetail>
-          <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
-        </ItemDetail>
-      </DetailsDiv>
-      <h1>Past CSR Activities</h1>
-      <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
-
-      <ReviewDiv>
-        <ReviewTitleDiv>
-          <h1>Reviews</h1>
-          <Button variant="contained">Leave A Review</Button>
-        </ReviewTitleDiv>
-        {reviewItems}
-        <Button variant="outlined" onClick={() => setReviewModalState(true)}>
-          View More Reviews
-        </Button>
-      </ReviewDiv>
+        <ReviewDiv>
+          <ReviewTitleDiv>
+            <h1>Reviews</h1>
+            <Button variant="contained">Leave A Review</Button>
+          </ReviewTitleDiv>
+          {reviewItems}
+          <Button variant="outlined" onClick={() => setReviewModalState(true)}>
+            View More Reviews
+          </Button>
+        </ReviewDiv>
+      </DesktopView>
     </ProfilePage>
   );
 };

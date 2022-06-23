@@ -56,8 +56,8 @@ export const QUERY_WITH_NAME_PREFIX = gql`
 `;
 
 export const GET_PROFILE = gql`
-  query MyQuery($user_id: String!, $item_type: String!) {
-    getItem(item_type: $item_type, user_id: $user_id) {
+  query MyQuery($user_id: String!) {
+    getItem(item_type: "SOO-PROFILE", user_id: $user_id) {
       category
       datetime
       address
@@ -110,3 +110,18 @@ export const GET_REVIEWS_OF_USER_LIMIT = gql`
     }
   }
 `;
+
+export const GET_ALL_POSTS_OF_USER = gql`
+  query MyQuery($user_id: String!, $limit: Int) {
+    queryUserWithItemTypePrefix(item_type_prefix: "SOO-POST", user_id: $user_id, limit: $limit) {
+      items {
+        content
+        name
+        title
+        datetime
+        item_type
+      }
+    }
+  }
+`;
+

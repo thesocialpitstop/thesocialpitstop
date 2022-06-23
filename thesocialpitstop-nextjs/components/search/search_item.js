@@ -20,7 +20,7 @@ const SearchItem = (props) => {
                 <Card>
                     <SearchItemDiv>
                         <SearchItemImage>
-                            <Image src="/icons/edu.png" width="64" height="64"></Image>
+                            <Image src="/icons/edu.png" layout="fill"></Image>
                         </SearchItemImage>
                         <SearchItemTextSection>
                             <SearchItemTitle>
@@ -30,7 +30,7 @@ const SearchItem = (props) => {
                                 {props?.item.address}
                             </SearchItemAddress>
                             <SearchItemDescription>
-                                <EllipsisText text={props?.item.details} length={"100"}/>
+                                <EllipsisText text={props?.item.details} length={"20"}/>
                             </SearchItemDescription>
                         </SearchItemTextSection>
                     </SearchItemDiv>

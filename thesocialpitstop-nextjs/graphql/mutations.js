@@ -66,3 +66,25 @@ export const CREATE_POST = gql`
     }
   }
 `
+
+export const UPDATE_PROFILE = gql`
+  mutation MyMutation(
+    $user_id: String!, 
+    $item_type: String!,
+    $address: String,
+    $category: String,
+    $details: String,
+    $email: String,
+    $name: String
+  ) {
+    updateItem(
+      input: {
+        name: $name,
+        email: $email,
+        details: $details,
+        category: $category,
+        address: $address,
+      }
+    )
+  }
+`
