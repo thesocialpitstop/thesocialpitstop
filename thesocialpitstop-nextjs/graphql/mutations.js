@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+// DELETE
+export const DELETE_ITEM = gql`
+  mutation MyMutation($item_type: String!, $user_id: String!) {
+    deleteItem(input: {item_type: $item_type, user_id: $user_id}) {
+      user_id
+      item_type
+    }
+  }
+`
+
 export const CREATE_PROFILE = gql`
   mutation MyMutation(
     $address: String,
@@ -122,6 +132,9 @@ export const CREATE_FOLLOW = gql`
       follower_id
       follower_name
     }
+  }
+`
+
 export const UPDATE_PROFILE = gql`
   mutation MyMutation(
     $user_id: String!, 
