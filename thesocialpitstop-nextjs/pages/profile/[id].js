@@ -37,7 +37,8 @@ import {
   Typography,
 } from "@mui/material";
 import PostItem from "../../components/profile/post_item";
-import ReviewModal from "../../components/profile/review_modal";
+import ListReviewModal from "../../components/profile/list_review_modal";
+import CreateReviewModal from "../../components/profile/create_review_modal";
 import { useTheme } from "styled-components";
 import { boolean } from 'yup';
 import { ConstructionOutlined } from '@mui/icons-material';
@@ -65,7 +66,8 @@ const TabPanel = (props) => {
 const ProfileID = () => {
   const [profileData, setProfileData] = useState();
   const [reviewData, setReviewData] = useState();
-  const [reviewModal, setReviewModalState] = useState(false);
+  const [createReviewModal, setCreateReviewModalState] = useState(false);
+  const [listReviewModal, setListReviewModalState] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const { id } = router.query;
@@ -253,16 +255,21 @@ const ProfileID = () => {
         </TabPanel>
         <TabPanel value={value} index={2}>
           {reviewItems}
-          <Button variant="outlined" onClick={() => setReviewModalState(true)}>
+          <Button variant="outlined" onClick={() => setListReviewModalState(true)}>
             View More Reviews
           </Button>
         </TabPanel>
       </MobileTabPanel>
-      <ReviewModal
-        open={reviewModal}
-        setOpen={setReviewModalState}
+      <ListReviewModal
+        open={listReviewModal}
+        setOpen={setListReviewModalState}
         profileData={profileData}
         initialItems={reviewData}
+        openCreateReviewModal={() => setCreateReviewModalState(true)}
+      />
+      <CreateReviewModal
+        open={createReviewModal}
+        setOpen={setCreateReviewModalState}
       />
       <DesktopView>
         <Image
@@ -278,10 +285,10 @@ const ProfileID = () => {
         <ReviewDiv>
           <ReviewTitleDiv>
             <h1>Reviews</h1>
-            <Button variant="contained">Leave A Review</Button>
+            <Button variant="contained" onClick={() => setCreateReviewModalState(true)}>Leave A Review</Button>
           </ReviewTitleDiv>
           {reviewItems}
-          <Button variant="outlined" onClick={() => setReviewModalState(true)}>
+          <Button variant="outlined" onClick={() => setListReviewModalState(true)}>
             View More Reviews
           </Button>
         </ReviewDiv>

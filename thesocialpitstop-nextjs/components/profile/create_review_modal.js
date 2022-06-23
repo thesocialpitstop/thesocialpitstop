@@ -1,7 +1,7 @@
 import { Box, Button, Modal, Rating, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
-const NewReviewModal = ({open, setOpen}) => {
+const CreateReviewModal = ({open, setOpen}) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [rating, setRatingValue] = useState();
@@ -60,4 +60,4 @@ const NewReviewModal = ({open, setOpen}) => {
     )
 }
 
-export default NewReviewModal;
+export default CreateReviewModal;

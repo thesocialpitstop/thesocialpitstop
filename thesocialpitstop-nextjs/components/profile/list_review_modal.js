@@ -1,6 +1,5 @@
 import { Box, Button, Modal, Rating, Typography } from "@mui/material"
 import { useState } from "react";
-import NewReviewModal from "./new_review_modal";
 import ReviewItem from "./review_item";
 import { HeadingDiv, RatingDiv } from "./review_modal.style";
 import { TitleDiv } from "./[id].style";
@@ -18,10 +17,9 @@ const style = {
   };
   
 
-const ReviewModal = ({ open, setOpen, profileData, initialItems }) => {
+const ListReviewModal = ({ open, setOpen, profileData, initialItems, openCreateReviewModal }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [reviewModal, setReviewModalState] = useState(false);
     const reviewItems = initialItems?.map((rev) => {
         return <ReviewItem key={rev.reviewer_id} data={rev}/>
     });
@@ -31,10 +29,6 @@ const ReviewModal = ({ open, setOpen, profileData, initialItems }) => {
             onClose={handleClose}
         >
             <Box sx={style}>
-                <NewReviewModal
-                    open={reviewModal}
-                    setOpen={setReviewModalState}
-                />
                 <HeadingDiv>
                     <TitleDiv>
                         <Typography variant="h5">{profileData?.name}</Typography>
@@ -42,9 +36,9 @@ const ReviewModal = ({ open, setOpen, profileData, initialItems }) => {
                     </TitleDiv>
                     <Button 
                         variant="contained" 
-                        onClick={() => setReviewModalState(true)}
+                        onClick={openCreateReviewModal}
                     >
-                        Write a Review
+                        Leave a Review
                     </Button>
 
                 </HeadingDiv>
@@ -62,4 +56,4 @@ const ReviewModal = ({ open, setOpen, profileData, initialItems }) => {
     )
 }
 
-export default ReviewModal;
+export default ListReviewModal;
