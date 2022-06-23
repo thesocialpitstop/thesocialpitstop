@@ -50,6 +50,9 @@ export default function TemporaryDrawer() {
         <Image src={profileSvg} layout="fixed" width={64} height={64}/>
         {user.email}
         {AuthButton()}
+        <Link href={"/settings"} passHref>
+          <Button variant="contained">Settings</Button>
+        </Link>
       </>
     );
   };

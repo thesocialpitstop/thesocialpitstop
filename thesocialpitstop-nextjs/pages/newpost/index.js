@@ -9,6 +9,9 @@ import {
 import { CREATE_POST } from '../../graphql/mutations';
 import { useMutation } from "@apollo/client";
 import { useRouter } from 'next/router'
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { formats, modules } from "../../constants/quill_config";
+
 const ReactQuill = dynamic(
   import("react-quill"),
   {
@@ -18,71 +21,35 @@ const ReactQuill = dynamic(
 );
 
 
+
 const NewPost = () => {
   const [title, setTitle] = useState();
-  const [textContent, setTextContent] = useState("");
+  const [contentText, setContentText] = useState();
   const [createPost] = useMutation(CREATE_POST);
   const router = useRouter();
+  const { user, error, isLoading } = useUser();
 
   // PLACEHOLDER CONSTS: REPLACE WITH QUERY FOR USER DETAILS
-  const userID = '54321';
+  const userID = user?.sub;
   const orgType = 'SOO';
   const orgName = 'Test SOO';
   const postID = '1';
 
-  const modules = {
-    toolbar: [
-      [{ header: [] }, { font: [] }],
-      [{ color: [] }, 'bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [
-        { list: 'ordered' },
-        { list: 'bullet' },
-        { indent: '-1' },
-        { indent: '+1' },
-        { script: 'sub'},
-        { script: 'super' }
-      ],
-      ['link', 'image', 'video'],
-      ['clean'],
-    ],
-    clipboard: {
-      // toggle to add extra line breaks when pasting HTML:
-      matchVisual: false,
-    },
-  }
-  
-  const formats = [
-    'header',
-    'font',
-    'color',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'script',
-    'link',
-    'image',
-    'video',
-  ]
   
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(title, textContent);
-    createPost({
-      variables: {
-        content: textContent, 
-        datetime: new Date().toISOString(), 
-        item_type: `${orgType}-POST#${postID}`, 
-        name: orgName, 
-        title: title,
-        user_id: userID
-      }
-    });
-    router.push(`/${userID}/${postID}`);
+    // createPost({
+    //   variables: {
+    //     content: textContent, 
+    //     datetime: new Date().toISOString(), 
+    //     item_type: `${orgType}-POST#${postID}`, 
+    //     name: orgName, 
+    //     title: title,
+    //     user_id: userID
+    //   }
+    // });
+    // router.push(`/${userID}/${postID}`);
   }
 
     return(
@@ -101,10 +68,14 @@ const NewPost = () => {
               modules={modules} 
               formats={formats}
               theme="snow" 
-              value={textContent}
-              onChange={setTextContent}
+              style={{ height:300 }}
+              onChange={setContentText}
             />
           </EditorDiv>
+          <br />
+          <br />
+          <br />
+          <br />
           <br />
           <SubmitButton type="submit" variant="contained">Post</SubmitButton>
         </form>
@@ -112,4 +83,4 @@ const NewPost = () => {
     )
 }
 
-export default NewPost;
+export default withPageAuthRequired(NewPost);

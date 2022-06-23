@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import {
-  LOAD_ALL_PROFILES,
-  LOAD_PROFILE_CATEGORY,
+  LIST_PROFILES,
+  GET_PROFILE_CATEGORY,
   QUERY_WITH_NAME_PREFIX,
 } from "../../graphql/queries";
+import { useEffect, useState } from "react";
 import SearchItem from "../../components/search/search_item";
 import { useQuery } from "@apollo/client";
 import Link from "next/link";
@@ -24,6 +24,17 @@ import {
 import { DemoToggle } from "../../components/search/demo_toggle";
 import AnimatedShowMore from "react-animated-show-more";
 import FilterDrawer from "../../components/search/filter_drawer";
+import { Loader } from "../../components/search/loader";
+import {
+  SearchItemImage,
+  SearchItemDiv,
+  SearchItemTextSection,
+  SearchItemAddress,
+  SearchItemDescription,
+  SearchItemTitle,
+} from "../../components/search/search_item.style";
+import { Card } from "@mui/material";
+import PlaceholderLoading from "react-placeholder-loading";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
@@ -32,7 +43,7 @@ const SearchPage = () => {
   const router = useRouter();
   const { query } = router.query;
 
-  const withCategorySearch = useQuery(LOAD_PROFILE_CATEGORY, {
+  const withCategorySearch = useQuery(GET_PROFILE_CATEGORY, {
     variables: {
       category: router.query.category,
       item_type: "SOO-PROFILE",
@@ -41,11 +52,11 @@ const SearchPage = () => {
 
   const withPrefixSearch = useQuery(QUERY_WITH_NAME_PREFIX, {
     variables: {
-      prefix: router.query.query,
+      name_prefix: router.query.query,
     },
   });
 
-  const loadAll = useQuery(LOAD_ALL_PROFILES);
+  const loadAll = useQuery(LIST_PROFILES);
   const queryParams =
     router.query.category == undefined ? loadAll : withCategorySearch;
   router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
@@ -66,17 +77,13 @@ const SearchPage = () => {
   //     setItems(newArray);
   //   }
   // }, [filterInput]);
-
   useEffect(() => {
     if (data) {
       if (router.query.query != undefined) {
-        console.log(data);
         setItems(data.queryItemWithNamePrefix.items);
       } else if (router.query.category == undefined) {
-        console.log(data);
         setItems(data.listWithItemType.items);
       } else if (router.query.category != undefined) {
-        console.log(data);
         setItems(data.queryItemWithCategory.items);
       }
     }
@@ -87,6 +94,29 @@ const SearchPage = () => {
       <>
         <SearchItem key={content.name} item={content}></SearchItem>
       </>
+    );
+  });
+  const n = 8;
+  const loadingItems = items.forEach(() => {
+    return (
+      <Card>
+        <SearchItemDiv>
+          <SearchItemImage>
+            <PlaceholderLoading shape="circle" width={60} height={60} />
+          </SearchItemImage>
+          <SearchItemTextSection>
+            <SearchItemTitle>
+              <PlaceholderLoading shape="rect" width={"80%"} height={20} />
+            </SearchItemTitle>
+            <SearchItemAddress>
+              <PlaceholderLoading shape="rect" width={"80%"} height={20} />
+            </SearchItemAddress>
+            <SearchItemDescription>
+              <PlaceholderLoading shape="rect" width={"80%"} height={20} />
+            </SearchItemDescription>
+          </SearchItemTextSection>
+        </SearchItemDiv>
+      </Card>
     );
   });
 
@@ -118,7 +148,7 @@ const SearchPage = () => {
         <CategorySidebarDiv>
           <SearchCategoryList />
         </CategorySidebarDiv>
-        <ResultListDiv>{searchItems}</ResultListDiv>
+        <ResultListDiv>{loading ? loadingItems : searchItems}</ResultListDiv>
       </ResultsItemsDiv>
     </SearchPageDiv>
   );

@@ -122,5 +122,24 @@ export const CREATE_FOLLOW = gql`
       follower_id
       follower_name
     }
+export const UPDATE_PROFILE = gql`
+  mutation MyMutation(
+    $user_id: String!, 
+    $item_type: String!,
+    $address: String,
+    $category: String,
+    $details: String,
+    $email: String,
+    $name: String
+  ) {
+    updateItem(
+      input: {
+        name: $name,
+        email: $email,
+        details: $details,
+        category: $category,
+        address: $address,
+      }
+    )
   }
 `

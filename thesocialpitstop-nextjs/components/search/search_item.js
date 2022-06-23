@@ -11,6 +11,7 @@ import {
     SearchItemImageSection
 } from './search_item.style';
 import { Card } from "@mui/material";
+import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
 
 const SearchItem = (props) => {
     return(
@@ -19,7 +20,7 @@ const SearchItem = (props) => {
                 <Card>
                     <SearchItemDiv>
                         <SearchItemImage>
-                            <Image src="/icons/edu.png" width="64" height="64"></Image>
+                            <Image src="/icons/edu.png" layout="fill"></Image>
                         </SearchItemImage>
                         <SearchItemTextSection>
                             <SearchItemTitle>
@@ -29,7 +30,7 @@ const SearchItem = (props) => {
                                 {props?.item.address}
                             </SearchItemAddress>
                             <SearchItemDescription>
-                                {props?.item.details} 
+                                <EllipsisText text={props?.item.details} length={"20"}/>
                             </SearchItemDescription>
                         </SearchItemTextSection>
                     </SearchItemDiv>

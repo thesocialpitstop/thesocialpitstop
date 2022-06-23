@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const SearchItemDiv = styled.div`
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 2fr 1fr;
     font-family: Montserrat, sans-serif;
     //TRBL
     @media (max-width: 768px) {
@@ -20,11 +20,12 @@ export const SearchItemTitle = styled.a`
     //TRBL
 `;
 export const SearchItemImage = styled.div`
-    text-align: center;
+position: relative;
 `;
 export const SearchItemDescription = styled.div`
 `;
 export const SearchItemAddress = styled.div``;
 export const SearchItemTextSection = styled.div`
+    padding: 8px 16px;
 `;
 export const SearchItemImageSection = styled(Image)``;
