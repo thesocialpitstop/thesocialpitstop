@@ -1,4 +1,4 @@
-export const drawerItems = [
+const drawerItems = [
     {
         name: "Posts",
         uiState: 0
@@ -16,3 +16,5 @@ export const drawerItems = [
         uiState: 3
     },
 ]
+
+export default drawerItems;
