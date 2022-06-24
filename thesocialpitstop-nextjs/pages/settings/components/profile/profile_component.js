@@ -41,6 +41,7 @@ const ProfileComponent = () => {
     },
   });
   const [userProfile, setUserProfile] = useState();
+  const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   useEffect(() => {
     if (data) {
@@ -61,7 +62,6 @@ const ProfileComponent = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-        const [updateProfile, {data, loading, error}] = useMutation(UPDATE_PROFILE);
         updateProfile({
             variables: {
                 user_id: user?.sub, 
