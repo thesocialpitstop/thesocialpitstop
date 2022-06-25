@@ -75,6 +75,7 @@ const ProfileID = () => {
   const [createFollow] = useMutation(CREATE_FOLLOW);
   const [createPartner] = useMutation(CREATE_PARTNER);
   const [deleteItem] = useMutation(DELETE_ITEM);
+  const ownProfile = user && id == user.sub.split('|')[1];
 
   // Profile Data
   const { data: profile } = useQuery(GET_PROFILE, {
@@ -193,19 +194,21 @@ const ProfileID = () => {
   }
 
   const Overview = () => {
+    console.log(user && id == user.sub.split('|')[1])
     return (
       <>
         <TitleDiv>
           <Title>{profileData?.name}</Title>
           <Subtitle>{profileData?.details}</Subtitle>
         </TitleDiv>
-        <Button variant="contained" onClick={handleFollow}>
+
+        <Button variant="contained" onClick={ownProfile ? handleFollow : undefined} disabled={ownProfile}>
           {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
         </Button>
-        <Button variant="contained" onClick={handlePartner}>
+        <Button variant="contained" onClick={ownProfile ? handlePartner : undefined} disabled={ownProfile}>
           {user && partnerData?.getItem ? "Cancel Partnership Request" : "Send Partnership Request"}
         </Button>
-
+        
         <DetailsDiv>
           <ItemTitle>Category</ItemTitle>
           <ItemDetail>
