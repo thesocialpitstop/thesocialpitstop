@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
-import { CREATE_REVIEW, CREATE_FOLLOW, DELETE_ITEM } from '../../graphql/mutations';
-import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT, GET_FOLLOWER } from "../../graphql/queries";
+import { CREATE_REVIEW, CREATE_FOLLOW, DELETE_ITEM, CREATE_PARTNER } from '../../graphql/mutations';
+import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT, GET_FOLLOWER, GET_PARTNER } from "../../graphql/queries";
 import {
   ProfilePage,
   DetailsDiv,
@@ -73,6 +73,7 @@ const ProfileID = () => {
   const { id } = router.query;
   const { user } = useUser();
   const [createFollow] = useMutation(CREATE_FOLLOW);
+  const [createPartner] = useMutation(CREATE_PARTNER);
   const [deleteItem] = useMutation(DELETE_ITEM);
 
   // Profile Data
@@ -86,12 +87,12 @@ const ProfileID = () => {
 
   useEffect(() => {
     if (profile) {
-      console.log(profile.getItem);
+      // console.log(profile.getItem);
       setProfileData(profile.getItem);
     }
   }, [profile]);
 
-  // Follow Button State
+  // Follow Data
   const { data: follower } = useQuery(GET_FOLLOWER, {
     variables: {
       user_id: id,
@@ -125,6 +126,42 @@ const ProfileID = () => {
     }
   }
 
+  // Partner Data
+  const { data: partnerData } = useQuery(GET_PARTNER, {
+    variables: {
+      user_id: id,
+      item_type: `PARTNER#${user?.sub.split('|')[1]}`,
+    },
+  });
+
+  const handlePartner = (event) => {
+    if (user) {
+      console.log(partnerData);
+      if (partnerData?.getItem) {
+        deleteItem({
+          variables: {
+            item_type: `PARTNER#${user.sub.split('|')[1]}`,
+            user_id: id,
+          }
+        });
+      } else {
+        createPartner({
+          variables: {
+            datetime: new Date().toISOString(),
+            item_type: `PARTNER#${user.sub.split('|')[1]}`,
+            user_id: id,
+            partner_id: user.sub.split('|')[1],
+            partner_name: user.nickname,
+            partner_status: "pending"
+          }
+        })
+      }
+      router.reload();
+    } else {
+      router.push('/api/auth/login');
+    }
+  }
+
   // Review Data
   const {
     data: reviews,
@@ -139,7 +176,7 @@ const ProfileID = () => {
 
   useEffect(() => {
     if (reviews) {
-      console.log(reviews.queryUserWithItemTypePrefix.items);
+      // console.log(reviews.queryUserWithItemTypePrefix.items);
       setReviewData(reviews.queryUserWithItemTypePrefix.items);
     }
   }, [reviews]);
@@ -164,6 +201,9 @@ const ProfileID = () => {
         </TitleDiv>
         <Button variant="contained" onClick={handleFollow}>
           {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
+        </Button>
+        <Button variant="contained" onClick={handlePartner}>
+          {user && partnerData?.getItem ? "Cancel Partnership Request" : "Send Partnership Request"}
         </Button>
 
         <DetailsDiv>
@@ -224,7 +264,6 @@ const ProfileID = () => {
   });
 
   const theme = useTheme();
-  console.log(theme);
 
   return (
     <ProfilePage>
