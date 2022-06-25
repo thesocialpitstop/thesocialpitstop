@@ -1,5 +1,1 @@
-import "@testing-library/jest-dom";
-module.exports = {
-    setupFilesAfterEnv: ["./jest.setup.js"],
-  };
-  
+import '@testing-library/jest-dom/extend-expect'

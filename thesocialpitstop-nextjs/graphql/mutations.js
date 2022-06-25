@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+// DELETE
+export const DELETE_ITEM = gql`
+  mutation MyMutation($item_type: String!, $user_id: String!) {
+    deleteItem(input: {item_type: $item_type, user_id: $user_id}) {
+      user_id
+      item_type
+    }
+  }
+`
+
 export const CREATE_PROFILE = gql`
   mutation MyMutation(
     $address: String,
@@ -42,7 +52,7 @@ export const CREATE_POST = gql`
   mutation MyMutation(
     $content: String, 
     $datetime: AWSDateTime,
-    $item_type: String, 
+    $item_type: String!, 
     $name: String, 
     $title: String!, 
     $user_id: String!
@@ -64,5 +74,85 @@ export const CREATE_POST = gql`
       title
       user_id
     }
+  }
+`
+
+export const CREATE_REVIEW = gql`
+  mutation MyMutation(
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    $reviewer_id: String!,
+    $reviewer_name: String!,
+    $rating: Int!,
+    $review: String
+  ) {
+    createItem(
+      input: {
+        datetime: $datetime,
+        item_type: $item_type, 
+        user_id: $user_id,
+        reviewer_id: $reviewer_id,
+        reviewer_name: $reviewer_name,
+        rating: $rating,
+        review: $review
+      }
+    ) {
+      datetime
+      item_type
+      user_id
+      reviewer_id
+      reviewer_name
+      rating,
+      review
+    }
+  }
+`
+
+export const CREATE_FOLLOW = gql`
+  mutation MyMutation(
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    $follower_id: String!,
+    $follower_name: String!
+  ) {
+    createItem(
+      input: {
+        datetime: $datetime
+        item_type: $item_type
+        user_id: $user_id
+        follower_id: $follower_id
+        follower_name: $follower_name
+      }
+    ) {
+      datetime
+      item_type
+      user_id
+      follower_id
+      follower_name
+    }
+  }
+`
+
+export const UPDATE_PROFILE = gql`
+  mutation MyMutation(
+    $user_id: String!, 
+    $item_type: String!,
+    $address: String,
+    $category: String,
+    $details: String,
+    $email: String,
+    $name: String
+  ) {
+    updateItem(
+      input: {
+        name: $name,
+        email: $email,
+        details: $details,
+        category: $category,
+        address: $address,
+      }
+    )
   }
 `

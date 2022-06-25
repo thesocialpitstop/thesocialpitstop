@@ -7,6 +7,7 @@ import categories from "../../constants/categories";
 import { CREATE_PROFILE } from '../../graphql/mutations';
 import { useMutation } from "@apollo/client";
 import { useRouter } from 'next/router'
+import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const CreateProfile = () => {
   const [orgName, setOrgName] = useState("");
@@ -123,4 +124,4 @@ const CreateProfile = () => {
   );
 }
 
-export default CreateProfile;
+export default withPageAuthRequired(CreateProfile);
