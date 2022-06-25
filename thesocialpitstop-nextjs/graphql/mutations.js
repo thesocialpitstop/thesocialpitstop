@@ -10,6 +10,7 @@ export const DELETE_ITEM = gql`
   }
 `
 
+// PROFILE
 export const CREATE_PROFILE = gql`
   mutation MyMutation(
     $address: String,
@@ -48,6 +49,29 @@ export const CREATE_PROFILE = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+  mutation MyMutation(
+    $user_id: String!, 
+    $item_type: String!,
+    $address: String,
+    $category: String,
+    $details: String,
+    $email: String,
+    $name: String
+  ) {
+    updateItem(
+      input: {
+        name: $name,
+        email: $email,
+        details: $details,
+        category: $category,
+        address: $address,
+      }
+    )
+  }
+`
+
+// POST
 export const CREATE_POST = gql`
   mutation MyMutation(
     $content: String, 
@@ -76,7 +100,7 @@ export const CREATE_POST = gql`
     }
   }
 `
-
+// REVIEW
 export const CREATE_REVIEW = gql`
   mutation MyMutation(
     $datetime: AWSDateTime,
@@ -109,6 +133,7 @@ export const CREATE_REVIEW = gql`
   }
 `
 
+// FOLLOW
 export const CREATE_FOLLOW = gql`
   mutation MyMutation(
     $datetime: AWSDateTime,
@@ -132,27 +157,5 @@ export const CREATE_FOLLOW = gql`
       follower_id
       follower_name
     }
-  }
-`
-
-export const UPDATE_PROFILE = gql`
-  mutation MyMutation(
-    $user_id: String!, 
-    $item_type: String!,
-    $address: String,
-    $category: String,
-    $details: String,
-    $email: String,
-    $name: String
-  ) {
-    updateItem(
-      input: {
-        name: $name,
-        email: $email,
-        details: $details,
-        category: $category,
-        address: $address,
-      }
-    )
   }
 `

@@ -123,3 +123,26 @@ export const GET_FOLLOWER = gql`
     }
   }
 `;
+
+// PARTNER
+export const GET_PARTNER = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
+      partner_id
+      partner_name
+      partner_status
+    }
+  }
+`;
+
+export const LIST_PARTNERS_OF_USER = gql`
+  query MyQuery($user_id: String!, $limit: Int!) {
+    queryUserWithItemTypePrefix(item_type_prefix: "PARTNER", user_id: $user_id, limit: $limit) {
+      items {
+        partner_id
+        partner_name
+        partner_status
+      }
+    }
+  }
+`;
