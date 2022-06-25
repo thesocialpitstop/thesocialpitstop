@@ -29,6 +29,12 @@ const Navbar = ({ toggle }) => {
           </MobileIcon>
           <NavLogo href="/">The Social Pitstop</NavLogo>
           <NavBtn>
+            <Link href="/dashboard" passHref>
+              <NavLinkItem>DASHBOARD</NavLinkItem>
+            </Link>
+            <Link href="/profile" passHref>
+              <NavLinkItem>PROFILE</NavLinkItem>
+            </Link>
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>

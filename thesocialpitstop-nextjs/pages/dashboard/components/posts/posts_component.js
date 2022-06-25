@@ -13,7 +13,7 @@ import {
     PostComponentItemTitle,
     PostsComponentDiv,
     PostComponentItemDate,
-} from "../../../../components/settings/components/posts/post_component.style";
+} from "../../../../components/dashboard/components/posts/post_component.style";
 
 
 
