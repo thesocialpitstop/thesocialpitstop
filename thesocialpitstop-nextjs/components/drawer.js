@@ -13,7 +13,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
 import Link from "next/link";
-import { navBarItems } from "../constants/drawer_items";
+import { navbarItems } from "../constants/drawer_items";
 import { useUser } from "@auth0/nextjs-auth0";
 import { UserProfileDiv } from "./drawer.style";
 import { FullWidthButton } from "./shared";
@@ -76,7 +76,7 @@ export default function TemporaryDrawer() {
         {user ? loggedInUser() : notLoggedInUser()}
       </UserProfileDiv>
       <List>
-        {navBarItems.map((item) => (
+        {navbarItems.map((item) => (
           <Link key={item.name} href={item.path}>
             <ListItem disablePadding>
               <ListItemButton>
