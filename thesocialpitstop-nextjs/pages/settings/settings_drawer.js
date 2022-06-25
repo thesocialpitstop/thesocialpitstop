@@ -16,7 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import PostsComponent from './components/posts/posts_component';
-import drawerItems from './drawer_items';
+import { drawerItems } from '../../constants/drawer_items';
 import ProfileComponent from './components/profile/profile_component';
 
 const drawerWidth = 240;
