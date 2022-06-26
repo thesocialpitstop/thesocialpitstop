@@ -89,7 +89,7 @@ export const GET_POST = gql`
 
 export const GET_ALL_POSTS_OF_USER = gql`
   query MyQuery($user_id: String!, $limit: Int) {
-    queryUserWithItemTypePrefix(item_type_prefix: "SOO-POST", user_id: $user_id, limit: $limit) {
+    queryUserWithItemTypePrefix(item_type_prefix: "POST", user_id: $user_id, limit: $limit) {
       items {
         content
         name

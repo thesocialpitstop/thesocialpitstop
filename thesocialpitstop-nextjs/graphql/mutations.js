@@ -106,19 +106,18 @@ export const UPDATE_POST = gql`
     $user_id: String!,
     $item_type: String!,
     $content: String!,
-    $name: String!,
     $title: String!,
   ) {
     updateItem(
       input: {
         user_id: $user_id,
         item_type: $item_type,
-        content: $item_type,
-        name: $item_type,
-        title: $item_type,
+        content: $content,
+        title: $title,
       }
-    ) {
-      name
+    )  {
+      user_id
+      item_type
       content
       title
     }

@@ -25,7 +25,7 @@ const PostsComponent = () => {
 
     const { data: posts, loading: postsLoading, error: postsError  } = useQuery(GET_ALL_POSTS_OF_USER, {
         variables: {
-          user_id: user?.sub,
+          user_id: user?.sub.split('|')[1],
         },
       });
 
