@@ -25,31 +25,38 @@ const ReactQuill = dynamic(
 const NewPost = () => {
   const [title, setTitle] = useState();
   const [contentText, setContentText] = useState();
-  const [createPost] = useMutation(CREATE_POST);
+  const [createPost] = useMutation(CREATE_POST, {
+    variables: {
+      user_id: user?.sub, 
+    },
+  });
   const router = useRouter();
   const { user, error, isLoading } = useUser();
 
   // PLACEHOLDER CONSTS: REPLACE WITH QUERY FOR USER DETAILS
-  const userID = user?.sub;
+  const userID = user?.sub.split('|')[1];
   const orgType = 'SOO';
   const orgName = 'Test SOO';
-  const postID = '1';
+  const postID = Date.now();
 
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(title, textContent);
-    // createPost({
-    //   variables: {
-    //     content: textContent, 
-    //     datetime: new Date().toISOString(), 
-    //     item_type: `${orgType}-POST#${postID}`, 
-    //     name: orgName, 
-    //     title: title,
-    //     user_id: userID
-    //   }
-    // });
-    // router.push(`/${userID}/${postID}`);
+    console.log(title, contentText);
+    createPost({
+      variables: {
+        content: contentText, 
+        datetime: new Date().toISOString(), 
+        item_type: `POST#${postID}`, 
+        name: orgName, 
+        title: title,
+        user_id: userID
+      },            
+      onCompleted: (data) => {
+        console.log("complete");
+      }
+    });
+    router.push(`/${userID}/${postID}`);
   }
 
     return(

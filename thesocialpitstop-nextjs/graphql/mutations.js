@@ -10,6 +10,7 @@ export const DELETE_ITEM = gql`
   }
 `
 
+// PROFILE
 export const CREATE_PROFILE = gql`
   mutation MyMutation(
     $address: String,
@@ -48,6 +49,31 @@ export const CREATE_PROFILE = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+  mutation MyMutation(
+    $user_id: String!, 
+    $item_type: String!,
+    $address: String,
+    $category: String,
+    $details: String,
+    $email: String,
+    $name: String
+  ) {
+    updateItem(
+      input: {
+        name: $name,
+        email: $email,
+        details: $details,
+        category: $category,
+        address: $address,
+      }
+    ) {
+      name
+    }
+  }
+`
+
+// POST
 export const CREATE_POST = gql`
   mutation MyMutation(
     $content: String, 
@@ -77,6 +103,30 @@ export const CREATE_POST = gql`
   }
 `
 
+export const UPDATE_POST = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $content: String!,
+    $title: String!,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        content: $content,
+        title: $title,
+      }
+    )  {
+      user_id
+      item_type
+      content
+      title
+    }
+  }
+`
+
+// REVIEW
 export const CREATE_REVIEW = gql`
   mutation MyMutation(
     $datetime: AWSDateTime,
@@ -109,6 +159,7 @@ export const CREATE_REVIEW = gql`
   }
 `
 
+// FOLLOW
 export const CREATE_FOLLOW = gql`
   mutation MyMutation(
     $datetime: AWSDateTime,
@@ -135,24 +186,56 @@ export const CREATE_FOLLOW = gql`
   }
 `
 
-export const UPDATE_PROFILE = gql`
+// PARTNER
+export const CREATE_PARTNER = gql`
   mutation MyMutation(
-    $user_id: String!, 
-    $item_type: String!,
-    $address: String,
-    $category: String,
-    $details: String,
-    $email: String,
-    $name: String
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    $partner_id: String,
+    $partner_name: String,
+    $partner_status: String
+  ) {
+    createItem(
+      input: {
+        datetime: $datetime
+        item_type: $item_type
+        user_id: $user_id
+        partner_id: $partner_id
+        partner_name: $partner_name
+        partner_status: $partner_status
+      }
+    ) {
+      datetime
+      item_type
+      user_id
+      partner_id
+      partner_name
+      partner_status
+    }
+  }
+`
+
+export const UPDATE_PARTNER = gql`
+  mutation MyMutation(
+    $datetime: AWSDateTime,
+    $item_type: String!, 
+    $user_id: String!,
+    $partner_id: String,
+    $partner_name: String,
+    $partner_status: String
   ) {
     updateItem(
       input: {
-        name: $name,
-        email: $email,
-        details: $details,
-        category: $category,
-        address: $address,
+        datetime: $datetime
+        item_type: $item_type
+        user_id: $user_id
+        partner_id: $partner_id
+        partner_name: $partner_name
+        partner_status: $partner_status
       }
-    )
+    ) {
+      partner_status
+    }
   }
 `

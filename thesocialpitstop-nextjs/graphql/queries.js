@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 // PROFILE
 export const GET_PROFILE = gql`
-  query MyQuery($user_id: String!) {
-    getItem(item_type: "SOO-PROFILE", user_id: $user_id) {
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
       category
       datetime
       address
@@ -13,6 +13,7 @@ export const GET_PROFILE = gql`
       item_type
       name
       user_id
+      image_url
     }
   }
 `;
@@ -88,7 +89,7 @@ export const GET_POST = gql`
 
 export const GET_ALL_POSTS_OF_USER = gql`
   query MyQuery($user_id: String!, $limit: Int) {
-    queryUserWithItemTypePrefix(item_type_prefix: "SOO-POST", user_id: $user_id, limit: $limit) {
+    queryUserWithItemTypePrefix(item_type_prefix: "POST", user_id: $user_id, limit: $limit) {
       items {
         content
         name
@@ -120,6 +121,30 @@ export const GET_FOLLOWER = gql`
     getItem(item_type: $item_type, user_id: $user_id) {
       follower_id
       follower_name
+    }
+  }
+`;
+
+// PARTNER
+export const GET_PARTNER = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
+      partner_id
+      partner_name
+      partner_status
+    }
+  }
+`;
+
+export const LIST_PARTNERS_OF_USER = gql`
+  query MyQuery($user_id: String!, $limit: Int) {
+    queryUserWithItemTypePrefix(item_type_prefix: "PARTNER", user_id: $user_id, limit: $limit) {
+      items {
+        datetime
+        partner_id
+        partner_name
+        partner_status
+      }
     }
   }
 `;

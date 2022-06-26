@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { useRouter } from 'next/router';
 
 const ProfilePage = () =>  {
   // Add check for existing profile -> if not, display/redirect to create profile page
   const { user, error, isLoading } = useUser();
+  const router = useRouter();
 
-  return (
-      <>
-        <Image src="/../public/beach-cleanup.webp" alt="asd" width={64} height={64}/>
-        <h2>asdasd</h2>
-        <p>asdasd</p>
-      </>
-  );
+  useEffect(() => {
+    router.push(`/profile/${user.sub.split('|')[1]}`);
+  }, [user])
+  
+  
+
+  // return (
+
+  // )
 }
 
-export default ProfilePage;
+export default withPageAuthRequired(ProfilePage);

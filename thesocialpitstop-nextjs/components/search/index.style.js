@@ -64,6 +64,9 @@ export const ResultListDiv = styled.div`
     grid-template-columns: 1fr 1fr;
     padding-top: 24px;
   }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 export const FilterSortButtons = styled(Button)``;
