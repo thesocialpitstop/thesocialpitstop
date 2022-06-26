@@ -11,6 +11,9 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
+  height: "fit-content(20em)",
+  width: "90%",
+  height: "80%",
   transform: "translate(-50%, -50%)",
   bgcolor: "white",
   border: "2px solid #000",
@@ -71,7 +74,7 @@ const PostEditModal = ({ open, setOpen, postId }) => {
           <Typography id="edit-post-modal-title" variant="h6" component="h2">
             Title
           </Typography>
-          <TextField value={titleText} />
+          <TextField  fullWidth value={titleText} />
           <Typography id="edit-post-modal-content" variant="h6" component="h2">
             Content
           </Typography>
@@ -83,7 +86,7 @@ const PostEditModal = ({ open, setOpen, postId }) => {
             style={{ height:300 }}
             onChange={setContentText}
           />}
-          <Button type="submit" variant="contained">Submit</Button>
+          <Button type="submit" variant="contained">Save</Button>
         </form>
       </Box>
     </Modal>

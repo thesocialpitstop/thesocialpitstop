@@ -46,7 +46,7 @@ const PostsComponent = () => {
 
     const postItems = postData.map((data) => {
         return(
-            <PostComponentItem key={data?.title}>
+            <PostComponentItem key={data?.datetime}>
                 <Card>
                     <PostCardDiv onClick={() => onClickOpenModal(data.item_type)}>
                         <PostComponentItemTitle>

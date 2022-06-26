@@ -1,5 +1,23 @@
 import { gql } from "@apollo/client";
 
+// PROFILE
+export const GET_PROFILE = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
+      category
+      datetime
+      address
+      contact_num
+      email
+      details
+      item_type
+      name
+      user_id
+      image_url
+    }
+  }
+`;
+
 export const LIST_PROFILES = gql`
   query MyQuery {
     listWithItemType(item_type: "SOO-PROFILE") {
@@ -55,22 +73,7 @@ export const QUERY_WITH_NAME_PREFIX = gql`
   }
 `;
 
-export const GET_PROFILE = gql`
-  query MyQuery($user_id: String!) {
-    getItem(item_type: "SOO-PROFILE", user_id: $user_id) {
-      category
-      datetime
-      address
-      contact_num
-      email
-      details
-      item_type
-      name
-      user_id
-    }
-  }
-`;
-
+// POST
 export const GET_POST = gql`
   query MyQuery($user_id: String!, $item_type: String!) {
     getItem(item_type: $item_type, user_id: $user_id) {
@@ -80,33 +83,6 @@ export const GET_POST = gql`
       name
       title
       user_id
-    }
-  }
-`;
-
-
-export const LOAD_POST = gql`
-  query MyQuery($pk: String!, $item_type: String!) {
-    getItem(item_type: $item_type, user_id: $pk) {
-      content
-      datetime
-      item_type
-      name
-      title
-      user_id
-    }
-  }
-`;
-
-export const GET_REVIEWS_OF_USER_LIMIT = gql`
-  query MyQuery($user_id: String!, $limit: Int!) {
-    queryUserWithItemTypePrefix(item_type_prefix: "REVIEW", user_id: $user_id, limit: $limit) {
-      items {
-        reviewer_id
-        reviewer_name
-        rating
-        review
-      }
     }
   }
 `;
@@ -125,3 +101,26 @@ export const GET_ALL_POSTS_OF_USER = gql`
   }
 `;
 
+// REVIEW
+export const GET_REVIEWS_OF_USER_LIMIT = gql`
+  query MyQuery($user_id: String!, $limit: Int!) {
+    queryUserWithItemTypePrefix(item_type_prefix: "REVIEW", user_id: $user_id, limit: $limit) {
+      items {
+        reviewer_id
+        reviewer_name
+        rating
+        review
+      }
+    }
+  }
+`;
+
+// FOLLOW
+export const GET_FOLLOWER = gql`
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
+      follower_id
+      follower_name
+    }
+  }
+`;

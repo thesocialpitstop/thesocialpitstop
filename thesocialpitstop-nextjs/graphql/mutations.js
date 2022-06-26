@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+// DELETE
+export const DELETE_ITEM = gql`
+  mutation MyMutation($item_type: String!, $user_id: String!) {
+    deleteItem(input: {item_type: $item_type, user_id: $user_id}) {
+      user_id
+      item_type
+    }
+  }
+`
+
 export const CREATE_PROFILE = gql`
   mutation MyMutation(
     $address: String,
@@ -122,24 +132,59 @@ export const CREATE_FOLLOW = gql`
       follower_id
       follower_name
     }
+  }
+`
+
 export const UPDATE_PROFILE = gql`
   mutation MyMutation(
     $user_id: String!, 
-    $item_type: String!,
-    $address: String,
-    $category: String,
-    $details: String,
-    $email: String,
-    $name: String
+    $item_type: String!,        
+    $name: String!,
+    $email: AWSEmail,
+    $details: String!,
+    $category: String!,
+    $address: String!,
   ) {
     updateItem(
       input: {
+        user_id: $user_id, 
+        item_type: $item_type,
         name: $name,
         email: $email,
         details: $details,
         category: $category,
         address: $address,
       }
-    )
+    ) {
+      name
+      email
+      details
+      category
+      address
+    }
+  }
+`
+
+export const UPDATE_POST = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $content: String!,
+    $name: String!,
+    $title: String!,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        content: $item_type,
+        name: $item_type,
+        title: $item_type,
+      }
+    ) {
+      name
+      content
+      title
+    }
   }
 `

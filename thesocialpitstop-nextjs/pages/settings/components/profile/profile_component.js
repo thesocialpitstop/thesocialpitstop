@@ -1,53 +1,80 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
-import { ContactSupportOutlined } from "@mui/icons-material";
-import { Button, MenuItem, Select, TextField } from "@mui/material";
-import { Field, Form, Formik, useFormik } from "formik";
+import {
+  Button,
+  IconButton,
+  MenuItem,
+  Snackbar,
+  TextField,
+} from "@mui/material";
+import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import categories from "../../../../constants/categories";
 import { GET_PROFILE } from "../../../../graphql/queries";
-import * as yup from "yup";
 import { UPDATE_PROFILE } from "../../../../graphql/mutations";
-
-const ProfileForm = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const ProfileTextField = styled(TextField)``;
-
-const validationSchema = yup.object({
-  name: yup.string("Enter your password").required("Name is required"),
-  email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  address: yup.string("Enter your address").required("Address is required"),
-  category: yup.string().required("Enter Category"),
-  contact_num: yup
-    .number()
-    .required("Contact Number is required")
-    .min(8, "Enter a valid phone number")
-    .max(8, "Enter a valid phone number"),
-  details: yup.string("Enter your password").required("Details is required"),
-});
+import parsePhoneNumber from "libphonenumber-js";
+import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
+import { validationSchema } from "../../../../components/settings/components/profile/validation_schema";
+import {
+  ProfileForm,
+  ProfileTextField,
+  ProfileImageSection,
+  Input,
+} from "../../../../components/settings/components/profile/profile_component.style";
 
 const ProfileComponent = () => {
   const { user, error: userError, isLoading } = useUser();
-  const { data, loading, error, variables } = useQuery(GET_PROFILE, {
+  const {
+    data: userData,
+    loading,
+    error,
+    variables,
+  } = useQuery(GET_PROFILE, {
     variables: {
-      user_id: "auth0|62a0f21a372cb39d2ba2ced0",
+      user_id: user?.sub,
+      item_type: `SOO-PROFILE`,
     },
   });
-  const [userProfile, setUserProfile] = useState();
+  const [userProfile, setUserProfile] = useState([]);
+  const [phoneNum, setPhoneNum] = useState();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [
+    updateProfile,
+    { data: updateData, loading: updateLoading, error: updateError },
+  ] = useMutation(UPDATE_PROFILE, {
+    variables: {
+      user_id: user?.sub,
+      item_type: `SOO-PROFILE`,
+    },
+    refetchQueries: [{ query: GET_PROFILE }, "MyQuery"],
+  });
 
   useEffect(() => {
-    if (data) {
-      console.log(variables);
-      setUserProfile(data.getItem);
+    if (userData) {
+      console.log(userData);
+      setUserProfile(userData.getItem);
+      setPhoneNum(parsePhoneNumber(userData.getItem.contact_num));
     }
-  }, [data]);
+  }, [userData]);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -55,32 +82,82 @@ const ProfileComponent = () => {
       name: userProfile?.name,
       address: userProfile?.address,
       category: userProfile?.category,
-      contact_num: userProfile?.contact_num,
+      contact_num: phoneNum?.nationalNumber,
       details: userProfile?.details,
       email: userProfile?.email,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-        const [updateProfile, {data, loading, error}] = useMutation(UPDATE_PROFILE);
-        updateProfile({
-            variables: {
-                user_id: user?.sub, 
-                item_type: `SOO-PROFILE`,
-                name: $name,
-                email: $email,
-                details: $details,
-                category: $category,
-                address: $address,
-            }
-        })
-        console.log(JSON.stringify(values, null, 2));
-        console.log(values.name)
+      console.log(values);
+      updateProfile({
+        variables: {
+          name: values.name,
+          email: values.email,
+          details: values.details,
+          category: values.category,
+          address: values.address,
+        },
+        onCompleted: (data) => {
+          console.log("complete");
+          console.log(data);
+          setOpenSnackbar(true);
+          formik.resetForm();
+        },
+      });
     },
   });
 
+  const handleInputChange = (event) => {
+    console.log(event);
+    const objectUrl = URL.createObjectURL(event.target.files[0]);
+    fetch(
+      "https://noknia7yylqekvr7p7mdvyetg40rdsgt.lambda-url.ap-southeast-1.on.aws/"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.uploadURL);
+
+        fetch(data.uploadURL, {
+          method: "POST",
+          headers: { "Content-Type": "image/*" },
+          body: event.target.files[0],
+        }).then((res) => console.log(res));
+      })
+      .catch((err) => console.log(err));
+    setUserProfile((prevState) => ({
+      ...prevState,
+      image_url: objectUrl,
+    }));
+  };
+
   return (
     <ProfileForm>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Profile Successfully Saved"
+        action={action}
+      />
       <form onSubmit={formik.handleSubmit}>
+        <ProfileImageSection>
+          {userProfile.image_url != undefined ? (
+            <Image src={userProfile?.image_url} width={64} height={64} />
+          ) : (
+            <></>
+          )}
+          <label htmlFor="contained-button-file">
+            <Input
+              accept="image/*"
+              id="contained-button-file"
+              type="file"
+              onChange={handleInputChange}
+            />
+            <Button variant="contained" component="span">
+              Upload
+            </Button>
+          </label>
+        </ProfileImageSection>
         <ProfileTextField
           style={{ marginBottom: "1rem" }}
           fullWidth
@@ -116,9 +193,11 @@ const ProfileComponent = () => {
           helperText={formik.touched.category && formik.errors.category}
         >
           {categories.map((option) => {
-            return <MenuItem key={option.value} value={option.value}>
-              {option.name}
-            </MenuItem>;
+            return (
+              <MenuItem key={option.value} value={option.value}>
+                {option.name}
+              </MenuItem>
+            );
           })}
         </TextField>
         <ProfileTextField
@@ -129,7 +208,9 @@ const ProfileComponent = () => {
           value={formik.values.contact_num || ""}
           onChange={formik.handleChange}
           label="Contact Number"
-          error={formik.touched.contact_num && Boolean(formik.errors.contact_num)}
+          error={
+            formik.touched.contact_num && Boolean(formik.errors.contact_num)
+          }
           helperText={formik.touched.contact_num && formik.errors.contact_num}
         />
         <ProfileTextField
@@ -157,7 +238,11 @@ const ProfileComponent = () => {
           type="email"
         />
 
-        <Button variant="contained" disabled={!formik.dirty} type="submit">
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={!formik.dirty || !formik.validateForm}
+        >
           Save
         </Button>
       </form>
