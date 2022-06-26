@@ -5,19 +5,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUser } from "@auth0/nextjs-auth0";
 import { parseISO } from "date-fns";
-import PostEditModal from "./post_edit_modal";
-import { GET_ALL_POSTS_OF_USER } from "../../../../graphql/queries";
-import { 
-    PostComponentItem,
-    PostCardDiv,
-    PostComponentItemTitle,
-    PostsComponentDiv,
-    PostComponentItemDate,
-} from "../../../../components/dashboard/posts/post_component.style";
+import { LIST_PARTNERS_OF_USER } from "../../../graphql/queries";
 
-
-
-const PostsComponent = () => {
+const PartnersComponent = () => {
     const [postData, setPostData] = useState([]);
     const { user, error, isLoading } = useUser();
     const [openModal, setOpenModal] = useState(false);
@@ -71,4 +61,4 @@ const PostsComponent = () => {
     )
 }
 
-export default PostsComponent;
+export default PartnersComponent;

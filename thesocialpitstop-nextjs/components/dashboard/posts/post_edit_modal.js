@@ -4,8 +4,8 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import dynamic from "next/dynamic";
-import { formats, modules } from "../../../../constants/quill_config";
-import { GET_POST } from "../../../../graphql/queries";
+import { formats, modules } from "../../../constants/quill_config";
+import { GET_POST } from "../../../graphql/queries";
 
 const style = {
   position: "absolute",

@@ -23,7 +23,7 @@ const Post = () => {
   const { data, loading, error } = useQuery(GET_POST, {
     variables: {
       user_id: user_id,
-      item_type: `SOO-POST#${post_id}`
+      item_type: `POST#${post_id}`
     }
   });
   console.log('error', error);

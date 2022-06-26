@@ -9,19 +9,19 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import categories from "../../../../constants/categories";
-import { GET_PROFILE } from "../../../../graphql/queries";
-import { UPDATE_PROFILE } from "../../../../graphql/mutations";
+import categories from "../../../constants/categories";
+import { GET_PROFILE } from "../../../graphql/queries";
+import { UPDATE_PROFILE } from "../../../graphql/mutations";
 import parsePhoneNumber from "libphonenumber-js";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { validationSchema } from "../../../../components/dashboard/profile/validation_schema";
+import { validationSchema } from "./validation_schema";
 import {
   ProfileForm,
   ProfileTextField,
   ProfileImageSection,
   Input,
-} from "../../../../components/dashboard/profile/profile_component.style";
+} from "./profile_component.style";
 
 const ProfileComponent = () => {
   const { user, error: userError, isLoading } = useUser();
