@@ -49,6 +49,8 @@ const ProfileComponent = () => {
     },
     refetchQueries: [{ query: GET_PROFILE }, "MyQuery"],
   });
+  const [userProfile, setUserProfile] = useState();
+  const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   useEffect(() => {
     if (userData) {
