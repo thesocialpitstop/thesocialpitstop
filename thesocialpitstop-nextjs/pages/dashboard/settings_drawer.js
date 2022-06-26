@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import PostsComponent from '../../components/dashboard/posts/posts_component';
 import { drawerItems } from '../../constants/drawer_items';
 import ProfileComponent from '../../components/dashboard/profile/profile_component';
+import PartnersComponent from '../../components/dashboard/partners/partners_component';
 
 const drawerWidth = 240;
 
@@ -46,7 +47,7 @@ const SettingsDrawer = () => {
 
     const drawer = (
         <div>
-            <Toolbar />
+            <Toolbar><a href='/'><b>The Social Pitstop</b></a></Toolbar>
             <Divider />
             <List>
             {drawerItems.map((option, index) => (

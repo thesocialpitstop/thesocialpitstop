@@ -51,7 +51,7 @@ const ProfileComponent = () => {
   });
 
   useEffect(() => {
-    if (userData) {
+    if (userData && userData.getItem) {
       console.log(userData);
       setUserProfile(userData.getItem);
       setPhoneNum(parsePhoneNumber(userData.getItem.contact_num));

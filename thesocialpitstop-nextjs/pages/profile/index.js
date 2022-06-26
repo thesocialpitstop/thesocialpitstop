@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
+
 
 const ProfilePage = () =>  {
   // Add check for existing profile -> if not, display/redirect to create profile page
@@ -12,8 +13,6 @@ const ProfilePage = () =>  {
   useEffect(() => {
     if (user) {
       router.push(`/profile/${user.sub.split('|')[1]}`);
-    } else {
-      router.push('/api/auth/login');
     }
   
   }, [user])
@@ -26,3 +25,5 @@ const ProfilePage = () =>  {
 }
 
 export default ProfilePage;
+
+export const getServerSideProps = withPageAuthRequired();
