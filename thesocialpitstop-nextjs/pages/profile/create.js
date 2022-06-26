@@ -50,7 +50,7 @@ const CreateProfile = () => {
     if (user_id) {
       window.location = `https://the-social-pitstop.us.auth0.com/continue?state=${router.query.state}`;
     } else {
-      router.push("/profile");
+      router.push("/dashboard");
     }
   }
 

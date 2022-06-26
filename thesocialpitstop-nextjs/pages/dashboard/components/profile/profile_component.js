@@ -15,13 +15,13 @@ import { UPDATE_PROFILE } from "../../../../graphql/mutations";
 import parsePhoneNumber from "libphonenumber-js";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import { validationSchema } from "../../../../components/settings/components/profile/validation_schema";
+import { validationSchema } from "../../../../components/dashboard/profile/validation_schema";
 import {
   ProfileForm,
   ProfileTextField,
   ProfileImageSection,
   Input,
-} from "../../../../components/settings/components/profile/profile_component.style";
+} from "../../../../components/dashboard/profile/profile_component.style";
 
 const ProfileComponent = () => {
   const { user, error: userError, isLoading } = useUser();
@@ -32,7 +32,7 @@ const ProfileComponent = () => {
     variables,
   } = useQuery(GET_PROFILE, {
     variables: {
-      user_id: user?.sub,
+      user_id: user?.sub.split('|')[1],
       item_type: `SOO-PROFILE`,
     },
   });
@@ -44,13 +44,11 @@ const ProfileComponent = () => {
     { data: updateData, loading: updateLoading, error: updateError },
   ] = useMutation(UPDATE_PROFILE, {
     variables: {
-      user_id: user?.sub,
+      user_id: user?.sub.split('|')[1],
       item_type: `SOO-PROFILE`,
     },
     refetchQueries: [{ query: GET_PROFILE }, "MyQuery"],
   });
-  const [userProfile, setUserProfile] = useState();
-  const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   useEffect(() => {
     if (userData) {
