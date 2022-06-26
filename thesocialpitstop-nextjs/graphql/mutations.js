@@ -100,6 +100,31 @@ export const CREATE_POST = gql`
     }
   }
 `
+
+export const UPDATE_POST = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $content: String!,
+    $name: String!,
+    $title: String!,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        content: $item_type,
+        name: $item_type,
+        title: $item_type,
+      }
+    ) {
+      name
+      content
+      title
+    }
+  }
+`
+
 // REVIEW
 export const CREATE_REVIEW = gql`
   mutation MyMutation(
@@ -179,13 +204,6 @@ export const CREATE_PARTNER = gql`
         partner_name: $partner_name
         partner_status: $partner_status
       }
-    ) {
-      datetime
-      item_type
-      user_id
-      partner_id
-      partner_name
-      partner_status
-    }
+    )
   }
 `

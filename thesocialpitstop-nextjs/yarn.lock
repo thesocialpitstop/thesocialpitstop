@@ -4746,6 +4746,11 @@ lexical@^0.3.5:
   resolved "https://registry.yarnpkg.com/lexical/-/lexical-0.3.5.tgz#429ff5e455a625b5102eba5f325f0465740174cd"
   integrity sha512-zi4OvEH7BFOl8NX27cjqbwJSm9qKCgtPw4JJrUfHgXVNCW5yMDV3rXSUW4KnCjeiXHKEi2E+dDk+awfKntroNg==
 
+libphonenumber-js@^1.10.7:
+  version "1.10.7"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.7.tgz#4c010b7b57e824c571ea4cdbf7aea6f3c408878c"
+  integrity sha512-jZXLCCWMe1b/HXkjiLeYt2JsytZMcqH26jLFIdzFDFF0xvSUWrYKyvPlyPG+XJzEyKUFbcZxLdWGMwQsWaHDxQ==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"

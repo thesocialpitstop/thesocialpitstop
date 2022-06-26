@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 // PROFILE
 export const GET_PROFILE = gql`
-  query MyQuery($user_id: String!) {
-    getItem(item_type: "SOO-PROFILE", user_id: $user_id) {
+  query MyQuery($user_id: String!, $item_type: String!) {
+    getItem(item_type: $item_type, user_id: $user_id) {
       category
       datetime
       address
@@ -13,6 +13,7 @@ export const GET_PROFILE = gql`
       item_type
       name
       user_id
+      image_url
     }
   }
 `;

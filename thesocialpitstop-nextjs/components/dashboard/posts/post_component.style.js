@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
-export const PostsComponentDiv = styled.div``;
+export const PostsComponentDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`;
 export const PostCardDiv = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 16px 16px;
     cursor: pointer;
     :hover {
