@@ -6,14 +6,14 @@ import styled from "styled-components";
 import { useUser } from "@auth0/nextjs-auth0";
 import { parseISO } from "date-fns";
 import PostEditModal from "./post_edit_modal";
-import { GET_ALL_POSTS_OF_USER } from "../../../../graphql/queries";
+import { GET_ALL_POSTS_OF_USER } from "../../../graphql/queries";
 import { 
     PostComponentItem,
     PostCardDiv,
     PostComponentItemTitle,
     PostsComponentDiv,
     PostComponentItemDate,
-} from "../../../../components/dashboard/posts/post_component.style";
+} from "./post_component.style";
 
 
 
@@ -29,7 +29,7 @@ const PostsComponent = () => {
         },
       });
 
-      console.log(user)
+
     useEffect(() => {
         if(posts) {
             console.log(posts);
