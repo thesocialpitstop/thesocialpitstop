@@ -34,7 +34,7 @@ const NewPost = () => {
   const { user, error, isLoading } = useUser();
 
   // PLACEHOLDER CONSTS: REPLACE WITH QUERY FOR USER DETAILS
-  const userID = user?.sub;
+  const userID = user?.sub.split('|')[1];
   const orgType = 'SOO';
   const orgName = 'Test SOO';
   const postID = Date.now();
@@ -47,7 +47,7 @@ const NewPost = () => {
       variables: {
         content: contentText, 
         datetime: new Date().toISOString(), 
-        item_type: `POST#${userID}#${postID}`, 
+        item_type: `POST#${postID}`, 
         name: orgName, 
         title: title,
         user_id: userID
@@ -56,7 +56,7 @@ const NewPost = () => {
         console.log("complete");
       }
     });
-    // router.push(`/${userID}/${postID}`);
+    router.push(`/${userID}/${postID}`);
   }
 
     return(

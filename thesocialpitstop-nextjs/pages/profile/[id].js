@@ -85,7 +85,6 @@ const ProfileID = () => {
       user_id: id,
       item_type: "SOO-PROFILE",
     },
-    skip: !user
   });
 
   useEffect(() => {
@@ -154,7 +153,6 @@ const ProfileID = () => {
 
   const handlePartner = (event) => {
     if (user) {
-      console.log(partnerData);
       if (partnerData?.getItem) {
         deleteItem({
           variables: {
@@ -211,7 +209,6 @@ const ProfileID = () => {
   }
 
   const Overview = () => {
-    console.log(user && id == user.sub.split('|')[1])
     return (
       <>
         <TitleDiv>
@@ -219,10 +216,10 @@ const ProfileID = () => {
           <Subtitle>{profileData?.details}</Subtitle>
         </TitleDiv>
 
-        <Button variant="contained" onClick={ownProfile ? handleFollow : undefined} disabled={ownProfile}>
+        <Button variant="contained" onClick={ownProfile ? undefined : handleFollow} disabled={ownProfile}>
           {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
         </Button>
-        <Button variant="contained" onClick={ownProfile ? handlePartner : undefined} disabled={ownProfile}>
+        <Button variant="contained" onClick={ownProfile ? undefined : handlePartner} disabled={ownProfile}>
           {user && partnerData?.getItem ? "Cancel Partnership Request" : "Send Partnership Request"}
         </Button>
         <DetailsDiv>

@@ -4,12 +4,12 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import dynamic from "next/dynamic";
-import { formats, modules } from "../../../../constants/quill_config";
-import { GET_POST } from "../../../../graphql/queries";
+import { formats, modules } from "../../../constants/quill_config";
+import { GET_POST } from "../../../graphql/queries";
 import * as yup from "yup";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
-import { UPDATE_POST } from "../../../../graphql/mutations";
+import { UPDATE_POST } from "../../../graphql/mutations";
 
 const style = {
   position: "absolute",

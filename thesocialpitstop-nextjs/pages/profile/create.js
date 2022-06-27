@@ -25,9 +25,9 @@ const CreateProfile = () => {
     return JSON.parse(window.atob(base64));
   }
 
+  const { user } = useUser();
   const router = useRouter();
   const user_id = parseJwt(router.query.session_token)?.sub.split('|')[1];
-  console.log(user_id);
 
   const [createProfile] = useMutation(CREATE_PROFILE);
 
@@ -43,7 +43,7 @@ const CreateProfile = () => {
         email: email,
         item_type: `${orgType}-PROFILE`,
         name: orgName,
-        user_id: user_id,
+        user_id: user_id ? user_id : user?.sub.split('|')[1],
         contact_num: phone
       }
     })

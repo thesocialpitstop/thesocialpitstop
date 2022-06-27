@@ -150,9 +150,10 @@ export const GET_PARTNER = gql`
 `;
 
 export const LIST_PARTNERS_OF_USER = gql`
-  query MyQuery($user_id: String!, $limit: Int!) {
+  query MyQuery($user_id: String!, $limit: Int) {
     queryUserWithItemTypePrefix(item_type_prefix: "PARTNER", user_id: $user_id, limit: $limit) {
       items {
+        datetime
         partner_id
         partner_name
         partner_status
