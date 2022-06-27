@@ -307,6 +307,7 @@ const ProfileID = () => {
       <CreateReviewModal
         open={createReviewModal}
         setOpen={setCreateReviewModalState}
+        id={id}
       />
       <DesktopView>
         <Image
