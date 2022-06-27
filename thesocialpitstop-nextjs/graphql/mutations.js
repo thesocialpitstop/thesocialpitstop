@@ -56,18 +56,29 @@ export const UPDATE_PROFILE = gql`
     $address: String,
     $category: String,
     $details: String,
-    $email: String,
+    $email: AWSEmail,
     $name: String
+    $contact_num: AWSPhone,
   ) {
     updateItem(
       input: {
+        user_id: $user_id,
+        item_type: $item_type,
         name: $name,
         email: $email,
         details: $details,
         category: $category,
         address: $address,
+        contact_num: $contact_num
       }
-    )
+    ) {
+      name
+      email
+      details
+      category
+      address
+      contact_num
+    }
   }
 `
 
