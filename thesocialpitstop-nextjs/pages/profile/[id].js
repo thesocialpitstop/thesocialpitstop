@@ -253,7 +253,7 @@ const ProfileID = () => {
   });
 
   const pastCsrItems = pastCSRData?.map((content) => {
-    return <Link href={`/${id}/${content.item_type.split('#')[1]}`} passHref>
+    return <Link href={`/${id}/${content.item_type.split('#')[1]}`} passHref key={content.name}>
       <a>
         <PostItem key={content.name} content={content} />    
       </a>
