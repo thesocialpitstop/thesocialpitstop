@@ -15,16 +15,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import PostsComponent from '../../components/dashboard/posts/posts_component';
+import PostsComponent from './components/posts/posts_component';
 import { drawerItems } from '../../constants/drawer_items';
-import ProfileComponent from '../../components/dashboard/profile/profile_component';
-import PartnersComponent from '../../components/dashboard/partners/partners_component';
+import ProfileComponent from './components/profile/profile_component';
 
 const drawerWidth = 240;
 
 const SettingsDrawer = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [uiState, setUiState] = useState('Profile');
+    const [uiState, setUiState] = useState(0);
     const [ui, setUi] = useState();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -32,31 +31,41 @@ const SettingsDrawer = () => {
 
     useEffect(() => {
       switch(uiState) {
-        case 'Profile':
-          setUi(<ProfileComponent />)
-          break;        
-        case 'Posts':
-          setUi(<PostsComponent />);
-          break;     
-        case 'Partners':
-          setUi(<PartnersComponent />);
-          break;
+        case 0:
+            setUi(<PostsComponent />)
+            break;        
+        case 1:
+            setUi(<ProfileComponent />);
+            break;
       }
     }, [uiState])
     
 
     const drawer = (
         <div>
-            <Toolbar><a href='/'><b>The Social Pitstop</b></a></Toolbar>
+            <Toolbar />
             <Divider />
             <List>
-            {drawerItems.map((option, index) => (
-                <ListItem key={option} disablePadding>
-                <ListItemButton onClick={() => setUiState(option)}>
+            {drawerItems.map((text, index) => (
+                <ListItem key={text.name} disablePadding>
+                <ListItemButton onClick={() => setUiState(text.uiState)}>
                     <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                     </ListItemIcon>
-                    <ListItemText primary={option} />
+                    <ListItemText primary={text.name} />
+                </ListItemButton>
+                </ListItem>
+            ))}
+            </List>
+            <Divider />
+            <List>
+            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListItem key={text} disablePadding>
+                <ListItemButton onClick={() => setUiState(text.uiState)}>
+                    <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
                 </ListItemButton>
                 </ListItem>
             ))}
@@ -85,7 +94,7 @@ const SettingsDrawer = () => {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div">
-                  Dashboard
+                  Admin Dashboard
                 </Typography>
               </Toolbar>
             </AppBar>

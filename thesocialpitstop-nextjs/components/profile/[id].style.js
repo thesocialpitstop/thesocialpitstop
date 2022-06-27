@@ -29,6 +29,7 @@ export const Subtitle = styled.h2`
 export const DetailsDiv = styled.div`
   padding: 5px;
   background-color: rgba(127, 117, 174, 0.3);
+  margin-top: 8px;
   @media (max-width: 768px) {
       padding: 8px;
   }
@@ -52,7 +53,6 @@ export const ItemDetail = styled.div`
 
 export const PastCsrDiv = styled.div`
   display: grid;
-  justify-items: center;
   grid-gap: 1rem;
 
   @media (min-width: 768px) {

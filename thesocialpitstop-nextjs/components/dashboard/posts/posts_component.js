@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { AccessTime } from "@mui/icons-material";
-import { Card } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useUser } from "@auth0/nextjs-auth0";
 import { parseISO } from "date-fns";
 import PostEditModal from "./post_edit_modal";
-import { GET_ALL_POSTS_OF_USER } from "../../../graphql/queries";
+import { GET_ALL_POSTS_OF_USER } from "../../../../graphql/queries";
 import { 
     PostComponentItem,
     PostCardDiv,
@@ -14,6 +14,7 @@ import {
     PostsComponentDiv,
     PostComponentItemDate,
 } from "./post_component.style";
+import Link from "next/link";
 
 
 
@@ -29,7 +30,7 @@ const PostsComponent = () => {
         },
       });
 
-
+      console.log(user)
     useEffect(() => {
         if(posts) {
             console.log(posts);
@@ -65,6 +66,9 @@ const PostsComponent = () => {
     if(posts.queryUserWithItemTypePrefix.items.length == 0) return (<div> No posts yet </div>)
     return (
         <PostsComponentDiv>
+            <Link href="/new-post" passHref>
+                <Button variant="contained">New Post</Button>
+            </Link>
             <PostEditModal open={openModal} setOpen={setOpenModal} postId={postId}/>
             {posts?.length == 0 ? <div>empty</div> : postItems}
         </PostsComponentDiv>

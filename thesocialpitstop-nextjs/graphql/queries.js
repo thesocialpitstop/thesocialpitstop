@@ -73,6 +73,19 @@ export const QUERY_WITH_NAME_PREFIX = gql`
   }
 `;
 
+export const GET_PAST_CSR_DATA = gql`
+  query MyQuery($user_id: String!){
+    queryUserWithItemTypePrefix(item_type_prefix: "POST", user_id: $user_id) {
+      items {
+        user_id
+        item_type
+        datetime
+        title
+      }
+    }
+  }
+`;
+
 // POST
 export const GET_POST = gql`
   query MyQuery($user_id: String!, $item_type: String!) {

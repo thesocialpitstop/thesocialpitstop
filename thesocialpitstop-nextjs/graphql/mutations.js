@@ -56,19 +56,28 @@ export const UPDATE_PROFILE = gql`
     $address: String,
     $category: String,
     $details: String,
-    $email: String,
+    $email: AWSEmail,
     $name: String
+    $contact_num: AWSPhone,
   ) {
     updateItem(
       input: {
+        user_id: $user_id,
+        item_type: $item_type,
         name: $name,
         email: $email,
         details: $details,
         category: $category,
         address: $address,
+        contact_num: $contact_num
       }
     ) {
       name
+      email
+      details
+      category
+      address
+      contact_num
     }
   }
 `
@@ -205,37 +214,6 @@ export const CREATE_PARTNER = gql`
         partner_name: $partner_name
         partner_status: $partner_status
       }
-    ) {
-      datetime
-      item_type
-      user_id
-      partner_id
-      partner_name
-      partner_status
-    }
-  }
-`
-
-export const UPDATE_PARTNER = gql`
-  mutation MyMutation(
-    $datetime: AWSDateTime,
-    $item_type: String!, 
-    $user_id: String!,
-    $partner_id: String,
-    $partner_name: String,
-    $partner_status: String
-  ) {
-    updateItem(
-      input: {
-        datetime: $datetime
-        item_type: $item_type
-        user_id: $user_id
-        partner_id: $partner_id
-        partner_name: $partner_name
-        partner_status: $partner_status
-      }
-    ) {
-      partner_status
-    }
+    )
   }
 `

@@ -55,6 +55,7 @@ const ProfileComponent = () => {
       console.log(userData);
       setUserProfile(userData.getItem);
       setPhoneNum(parsePhoneNumber(userData.getItem.contact_num));
+      console.log(phoneNum);
     }
   }, [userData]);
   const handleClose = (event, reason) => {
@@ -96,6 +97,7 @@ const ProfileComponent = () => {
           details: values.details,
           category: values.category,
           address: values.address,
+          contact_num: parsePhoneNumber(values.contact_num, 'SG').number
         },
         onCompleted: (data) => {
           console.log("complete");
@@ -103,7 +105,10 @@ const ProfileComponent = () => {
           setOpenSnackbar(true);
           formik.resetForm();
         },
-      });
+      }).then((msg) => console.log(msg))
+        .catch((error) => {
+          console.error(error)
+        });
     },
   });
 
@@ -119,7 +124,6 @@ const ProfileComponent = () => {
 
         fetch(data.uploadURL, {
           method: "POST",
-          headers: { "Content-Type": "image/*" },
           body: event.target.files[0],
         }).then((res) => console.log(res));
       })

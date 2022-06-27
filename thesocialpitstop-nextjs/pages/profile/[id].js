@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
 import { CREATE_REVIEW, CREATE_FOLLOW, DELETE_ITEM, CREATE_PARTNER } from '../../graphql/mutations';
-import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT, GET_FOLLOWER, GET_PARTNER } from "../../graphql/queries";
+import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT, GET_FOLLOWER, GET_PARTNER, GET_PAST_CSR_DATA } from "../../graphql/queries";
 import {
   ProfilePage,
   DetailsDiv,
@@ -42,6 +42,7 @@ import CreateReviewModal from "../../components/profile/create_review_modal";
 import { useTheme } from "styled-components";
 import { boolean } from 'yup';
 import { ConstructionOutlined } from '@mui/icons-material';
+import Link from 'next/link';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -66,6 +67,7 @@ const TabPanel = (props) => {
 const ProfileID = () => {
   const [profileData, setProfileData] = useState();
   const [reviewData, setReviewData] = useState();
+  const [pastCSRData, setPastCSRData] = useState();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
   const [listReviewModal, setListReviewModalState] = useState(false);
   const [value, setValue] = React.useState(0);
@@ -92,13 +94,28 @@ const ProfileID = () => {
     }
   }, [profile]);
 
+
+
   // Follow Data
   const { data: follower } = useQuery(GET_FOLLOWER, {
     variables: {
       user_id: id,
       item_type: `FOLLOW#${user?.sub.split('|')[1]}`,
     },
+  });  
+  
+  const { data: pastCSRPosts } = useQuery(GET_PAST_CSR_DATA, {
+    variables: {
+      user_id: id,
+    },
   });
+
+  useEffect(() => {
+    if(pastCSRPosts) {
+      console.log(pastCSRPosts)
+      setPastCSRData(pastCSRPosts.queryUserWithItemTypePrefix.items);
+    }
+  },[pastCSRPosts])
 
   const handleFollow = (event) => {
     if (user) {
@@ -175,7 +192,7 @@ const ProfileID = () => {
 
   useEffect(() => {
     if (reviews) {
-      // console.log(reviews.queryUserWithItemTypePrefix.items);
+      console.log(reviews.queryUserWithItemTypePrefix.items);
       setReviewData(reviews.queryUserWithItemTypePrefix.items);
     }
   }, [reviews]);
@@ -205,7 +222,6 @@ const ProfileID = () => {
         <Button variant="contained" onClick={ownProfile ? undefined : handlePartner} disabled={ownProfile}>
           {user && partnerData?.getItem ? "Cancel Partnership Request" : "Send Partnership Request"}
         </Button>
-        
         <DetailsDiv>
           <ItemTitle>Category</ItemTitle>
           <ItemDetail>
@@ -232,38 +248,17 @@ const ProfileID = () => {
     );
   };
 
-  const pastCsrFakeData = [
-    {
-      name: "Beach Clean up at East Coast Park on 21th June",
-      date: "16049387483",
-    },
-    {
-      name: "Beach Clean up at East Coast Park on 22th June",
-      date: "16049387483",
-    },
-    {
-      name: "Beach Clean up at East Coast Park on 23th June",
-      date: "16049387483",
-    },
-    {
-      name: "Beach Clean up at East Coast Park on 24th June",
-      date: "16049387483",
-    },
-    {
-      name: "Beach Clean up at East Coast Park on 25th June",
-      date: "16049387483",
-    },
-  ];
-
   const reviewItems = reviewData?.map((rev) => {
     return <ReviewItem key={rev.reviewer_id} data={rev} />;
   });
 
-  const pastCsrItems = pastCsrFakeData.map((content) => {
-    return <PostItem key={content.name} content={content} />;
+  const pastCsrItems = pastCSRData?.map((content) => {
+    return <Link href={`/${id}/${content.item_type.split('#')[1]}`} passHref>
+      <a>
+        <PostItem key={content.name} content={content} />    
+      </a>
+    </Link>;
   });
-
-  const theme = useTheme();
 
   return (
     <ProfilePage>
@@ -309,6 +304,7 @@ const ProfileID = () => {
       <CreateReviewModal
         open={createReviewModal}
         setOpen={setCreateReviewModalState}
+        id={id}
       />
       <DesktopView>
         <Image
