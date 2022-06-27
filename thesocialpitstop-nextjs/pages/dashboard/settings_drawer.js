@@ -15,9 +15,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import PostsComponent from './components/posts/posts_component';
+import PostsComponent from '../../components/dashboard/posts/posts_component';
 import { drawerItems } from '../../constants/drawer_items';
-import ProfileComponent from './components/profile/profile_component';
+import ProfileComponent from '../../components/dashboard/profile/profile_component';
 
 const drawerWidth = 240;
 
