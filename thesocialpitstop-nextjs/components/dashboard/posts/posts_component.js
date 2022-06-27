@@ -45,6 +45,7 @@ const PostsComponent = () => {
     }
 
     const postItems = postData.map((data) => {
+        if(posts.queryUserWithItemTypePrefix.items.length == 0) return (<div> No posts yet </div>)
         return(
             <PostComponentItem key={data?.datetime}>
                 <Card>
@@ -61,12 +62,12 @@ const PostsComponent = () => {
             </PostComponentItem>
         )
     });
+
     if(postsLoading || postsError) return (<div> Loading</div>);
-    if(posts.queryUserWithItemTypePrefix.items.length == 0) return (<div> No posts yet </div>)
     return (
         <PostsComponentDiv>
             <Link href="/new-post" passHref>
-                <Button variant="contained">New Post</Button>
+                <Button variant="contained" sx={{ width: '8rem' }}>+ New Post</Button>
             </Link>
             <PostEditModal open={openModal} setOpen={setOpenModal} postId={postId}/>
             {posts?.length == 0 ? <div>empty</div> : postItems}
