@@ -124,4 +124,4 @@ const CreateProfile = () => {
   );
 }
 
-export default withPageAuthRequired(CreateProfile);
+export default CreateProfile;
