@@ -22,29 +22,24 @@ import {
   ProfileImageSection,
   Input,
 } from "./profile_component.style";
+import { useS3Upload } from 'next-s3-upload';
+import { CLOUDFRONT_URL } from "../../../constants/constants";
 
 const ProfileComponent = () => {
-  const { user, error: userError, isLoading } = useUser();
-  const {
-    data: userData,
-    loading,
-    error,
-    variables,
-  } = useQuery(GET_PROFILE, {
+  const { user } = useUser();
+  const { uploadToS3 } = useS3Upload();
+  const { data: userData } = useQuery(GET_PROFILE, {
     variables: {
-      user_id: user?.sub.split('|')[1],
+      user_id: user?.sub.split("|")[1],
       item_type: `SOO-PROFILE`,
     },
   });
   const [userProfile, setUserProfile] = useState([]);
   const [phoneNum, setPhoneNum] = useState();
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [
-    updateProfile,
-    { data: updateData, loading: updateLoading, error: updateError },
-  ] = useMutation(UPDATE_PROFILE, {
+  const [updateProfile] = useMutation(UPDATE_PROFILE, {
     variables: {
-      user_id: user?.sub.split('|')[1],
+      user_id: user?.sub.split("|")[1],
       item_type: `SOO-PROFILE`,
     },
     refetchQueries: [{ query: GET_PROFILE }, "MyQuery"],
@@ -97,7 +92,7 @@ const ProfileComponent = () => {
           details: values.details,
           category: values.category,
           address: values.address,
-          contact_num: parsePhoneNumber(values.contact_num, 'SG').number
+          contact_num: parsePhoneNumber(values.contact_num, "SG").number,
         },
         onCompleted: (data) => {
           console.log("complete");
@@ -105,29 +100,27 @@ const ProfileComponent = () => {
           setOpenSnackbar(true);
           formik.resetForm();
         },
-      }).then((msg) => console.log(msg))
+      })
+        .then((msg) => console.log(msg))
         .catch((error) => {
-          console.error(error)
+          console.error(error);
         });
     },
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = async (event) => {
     console.log(event);
     const objectUrl = URL.createObjectURL(event.target.files[0]);
-    fetch(
-      "https://noknia7yylqekvr7p7mdvyetg40rdsgt.lambda-url.ap-southeast-1.on.aws/"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.uploadURL);
-
-        fetch(data.uploadURL, {
-          method: "POST",
-          body: event.target.files[0],
-        }).then((res) => console.log(res));
-      })
-      .catch((err) => console.log(err));
+    await uploadToS3(event.target.files[0], {
+      endpoint: {
+        request: {
+          body: {
+            directory: "profile",
+            user_id: user.sub.split('|')[1],
+          }
+        }
+      }
+    });
     setUserProfile((prevState) => ({
       ...prevState,
       image_url: objectUrl,
@@ -145,11 +138,8 @@ const ProfileComponent = () => {
       />
       <form onSubmit={formik.handleSubmit}>
         <ProfileImageSection>
-          {userProfile.image_url != undefined ? (
-            <Image src={userProfile?.image_url} width={64} height={64} />
-          ) : (
-            <></>
-          )}
+          <Image src={`${CLOUDFRONT_URL}/profile/${user?.sub.split("|")[1]}`} width={64} height={64} />
+
           <label htmlFor="contained-button-file">
             <Input
               accept="image/*"

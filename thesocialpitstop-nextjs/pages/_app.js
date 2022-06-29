@@ -12,17 +12,18 @@ import { setContext } from "@apollo/client/link/context";
 import '../styles/globals.css';
 import 'react-quill/dist/quill.snow.css';
 import { UserProvider } from '@auth0/nextjs-auth0';
+import { GRAPHQL_API_KEY, GRAPHQL_URL } from '../constants/constants';
 
 
 const httpLink = createHttpLink({
-  uri: 'https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql',
+  uri: GRAPHQL_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "x-api-key": 'da2-g7sc7tagszc3dpk5xpfjqnbsku',
+      "x-api-key": GRAPHQL_API_KEY,
     },
   };
 });

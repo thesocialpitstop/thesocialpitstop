@@ -12,15 +12,20 @@ import {
 } from './search_item.style';
 import { Card } from "@mui/material";
 import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
+import { CLOUDFRONT_URL } from "../../constants/constants";
 
 const SearchItem = (props) => {
+    console.log(`${CLOUDFRONT_URL}/profile/${props?.item.user_id}`);
     return(
         <Link href={`/profile/${props?.item.user_id}`} passHref>
             <a>
                 <Card>
                     <SearchItemDiv>
                         <SearchItemImage>
-                            <Image src="/icons/edu.png" layout="fill"></Image>
+                            <Image 
+                                src={`${CLOUDFRONT_URL}/profile/${props?.item.user_id}`} 
+                                layout="fill">
+                            </Image>
                         </SearchItemImage>
                         <SearchItemTextSection>
                             <SearchItemTitle>

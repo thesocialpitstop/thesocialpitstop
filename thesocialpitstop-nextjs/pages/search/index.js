@@ -61,22 +61,7 @@ const SearchPage = () => {
     router.query.category == undefined ? loadAll : withCategorySearch;
   router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
   const { data: data, loading: loading, error: error } = queryParams;
-  // //FILTER USEEFFECT QUERY
-  // useEffect(() => {
-  //   if (filterInput == undefined) {
-  //     setItems(originalItems);
-  //   } else if (filterInput != undefined || filterInput != "") {
-  //     // console.log(filterInput);
-  //     var newArray = originalItems.filter(function (item) {
-  //       for (var key in filterInput) {
-  //         if (item.category == filterInput[key]) return true;
-  //         return false;
-  //       }
-  //     });
-  //     // console.log(newArray);
-  //     setItems(newArray);
-  //   }
-  // }, [filterInput]);
+
   useEffect(() => {
     if (data) {
       if (router.query.query != undefined) {
