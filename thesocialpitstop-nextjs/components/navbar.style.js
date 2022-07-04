@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background: #7f75ae;
+  background: #000C26;
   height: 56px;
   display: flex;
   justify-content: space-around;
