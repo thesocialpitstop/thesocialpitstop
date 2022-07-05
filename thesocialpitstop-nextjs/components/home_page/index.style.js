@@ -1,35 +1,65 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export const Title = styled.h1`
     font-size: 50px;
     color: ${({ theme }) => theme.colors.primary};
 `
-export const CarouselSection = styled.div`
-    display: grid;
-    align-content: center;
-    height: 480px;
-    background-image: url('/beach-cleanup.webp');
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+
+export const HeroSection = styled.div`
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 768px) {
+        padding-top: 200px;
+        padding-bottom: 200px;
+        grid-template-columns: 1fr 1fr;
+        background-image: url('https://assets-global.website-files.com/62706e0299180d3045eb2cab/628d06c12974bce98a8412f1_Group%2040-1.svg');
+        background-position: 0% 100%;
+        background-size: cover;
+    }
+    @media (max-width: 768px) {
+        background-color: #000c25;
+        flex-direction: column;
+        padding-top: 75px;
+        padding-bottom: 150px;
+        grid-template-rows: 1fr 1fr;
+    }
 `;
 
-export const CarouselText = styled.div`
-    background-color: rgba(127, 117, 174, 0.7);
+export const CarouselSection = styled.div`
+    max-width: 1260px;
+    @media (min-width: 768px) {
+        width: 50%;
+    }
+    @media (max-width: 768px) {
+        padding: 0px 20px 0px 20px; //TRBL
+    }
+`;
+
+export const CarouselImageContainer = styled.div`
+`;
+
+export const CarouselImage = styled(Image)`
+    border-radius: 16px;
+`;
+
+export const CarouselText = styled.h1`
     font-family: Montserrat, sans-serif;
-    font-weight: 800;
-    text-align: center;
-    font-size: 58px;
-    color: white ;
+    color: white;
+`;
+
+export const CarouselSubtitle = styled.p`
+    font-family: Montserrat, sans-serif;
+    color: white;
 `;
 
 //--------- INTRO SECTION ---------
 export const IntroSection = styled.div`
-    height: 120px;
-    //MOBILE SCREEN
-    @media (max-width: 768px) {
-        height: 200px;
-    }
+    display: grid;
+    grid-gap: 50px;
 `;
 
 export const IntroTitle = styled.div`

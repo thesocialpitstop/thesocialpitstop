@@ -8,10 +8,7 @@ import {
   NavLinkItem,
 } from "./navbar.style";
 
-import { FaBars } from "react-icons/fa";
-import { BsUpload, BsSearch } from "react-icons/bs";
 import Link from "next/link";
-import { Button } from "@mui/material";
 import TemporaryDrawer from "./drawer";
 import { useUser } from '@auth0/nextjs-auth0';
 
