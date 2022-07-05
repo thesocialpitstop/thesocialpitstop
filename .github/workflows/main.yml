@@ -25,7 +25,7 @@ jobs:
 
       # Install NPM dependencies
       - name: Install packages
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # Run Cypress tests
       - name: Cypress run
