@@ -29,3 +29,5 @@ describe('Navigation', () => {
 
   })
 })
+
+export {};
