@@ -8,24 +8,27 @@ export const Title = styled.h1`
 
 export const HeroSection = styled.div`
     display: flex;
-    margin: 0 auto;
+    margin: 0 auto 1rem;
     align-items: center;
     justify-content: center;
+    min-height: 80vh;
+    padding: 0 2rem 2rem;
 
     @media (min-width: 768px) {
-        padding-top: 200px;
-        padding-bottom: 200px;
+        min-height: 400px;
         grid-template-columns: 1fr 1fr;
+        gap: 2rem;
         background-image: url('https://assets-global.website-files.com/62706e0299180d3045eb2cab/628d06c12974bce98a8412f1_Group%2040-1.svg');
         background-position: 0% 100%;
         background-size: cover;
+        text-align: right;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 767px) {
         background-color: #000c25;
         flex-direction: column;
-        padding-top: 75px;
-        padding-bottom: 150px;
         grid-template-rows: 1fr 1fr;
+        gap: 2rem;
+        text-align: center;
     }
 `;
 

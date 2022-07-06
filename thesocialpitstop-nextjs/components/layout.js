@@ -11,6 +11,7 @@ const Page = styled.div`
 
 const PageContent = styled.div`
   flex: auto;
+  margin-bottom: 1rem;
 `;
 
 export default function Layout({ children }) {

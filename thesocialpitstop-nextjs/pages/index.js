@@ -89,9 +89,6 @@ export default function HomePage() {
           <CarouselImage src={firework} width={256} height={256}/>
         </CarouselImageContainer>
       </HeroSection>
-      <br />
-      <br />
-      <br />
       <IntroSection>
         {introItems}
       </IntroSection>
