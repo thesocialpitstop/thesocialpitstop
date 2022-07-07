@@ -12,6 +12,7 @@ export const HeroSection = styled.div`
     align-items: center;
     justify-content: center;
     min-height: 80vh;
+    height: 80vh;
     padding: 0 2rem 2rem;
 
     @media (min-width: 768px) {
