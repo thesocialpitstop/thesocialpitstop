@@ -44,6 +44,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0-0,",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@testing-library/jest-dom": "^5.11.4",
