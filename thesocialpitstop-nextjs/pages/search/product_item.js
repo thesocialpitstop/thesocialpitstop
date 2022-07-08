@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React, { createElement } from 'react';
+import React from 'react';
 
-export default function ProductItem({ hit, components }) {
+function ProductItem({ hit, components }) {
     return(
         <Link href={`/search?query=${hit?.name}`}>
             <a>
@@ -14,3 +14,9 @@ export default function ProductItem({ hit, components }) {
         </Link>
     )
 }
+
+ProductItem.getInitialProps = async (ctx) => {
+    return undefined;
+}
+
+export default ProductItem;
