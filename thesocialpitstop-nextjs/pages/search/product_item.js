@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { createElement } from 'react';
 
-export function ProductItem({ hit, components }) {
+export default function ProductItem({ hit, components }) {
     return(
         <Link href={`/search?query=${hit.name}`}>
             <a>
