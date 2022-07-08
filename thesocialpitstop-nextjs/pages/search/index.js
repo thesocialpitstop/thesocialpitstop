@@ -1,6 +1,5 @@
 import { getAlgoliaResults } from '@algolia/autocomplete-js';
 import '@algolia/autocomplete-theme-classic/dist/theme.css';
-import { ConnectingAirportsOutlined } from '@mui/icons-material';
 import { Card } from "@mui/material";
 import algoliasearch from 'algoliasearch';
 import { useRouter } from "next/router";
@@ -20,8 +19,8 @@ import {
   SearchItemDescription, SearchItemDiv, SearchItemImage, SearchItemTextSection, SearchItemTitle
 } from "../../components/search/search_item.style";
 import { ALGOLIA_API_KEY, ALGOLIA_APP_ID, ALGOLIA_INDEX_NAME } from "../../constants/algolia";
-import { ProductItem } from "./product_item";
 import { NO_ITEM_MESSAGE } from '../../constants/errors';
+import ProductItem from "./product_item";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
