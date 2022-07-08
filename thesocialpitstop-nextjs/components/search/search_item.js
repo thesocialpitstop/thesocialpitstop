@@ -13,15 +13,15 @@ import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
 import { CLOUDFRONT_URL } from "../../constants/constants";
 
 const SearchItem = (props) => {
-    console.log(`${CLOUDFRONT_URL}/profile/${props?.item.user_id}`);
+    console.log(`${CLOUDFRONT_URL}/profile/${props?.item?.objectID}`);
     return(
-        <Link href={`/profile/${props?.item.user_id}`} passHref>
+        <Link href={`/profile/${props?.item?.objectID}`} passHref>
             <a>
                 <Card>
                     <SearchItemDiv>
                         <SearchItemImage>
                             <Image 
-                                src={`${CLOUDFRONT_URL}/profile/${props?.item.user_id}`} 
+                                src={`${CLOUDFRONT_URL}/profile/${props?.item?.objectID}`} 
                                 layout="fill">
                             </Image>
                         </SearchItemImage>
@@ -33,7 +33,7 @@ const SearchItem = (props) => {
                                 {props?.item.address}
                             </SearchItemAddress>
                             <SearchItemDescription>
-                                <EllipsisText text={props?.item.details} length={"20"}/>
+                                <EllipsisText text={props?.item?.details} length={"20"}/>
                             </SearchItemDescription>
                         </SearchItemTextSection>
                     </SearchItemDiv>

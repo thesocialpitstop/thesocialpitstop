@@ -1,78 +1,75 @@
-import { useRouter } from "next/router";
-import {
-  LIST_PROFILES,
-  GET_PROFILE_CATEGORY,
-  QUERY_WITH_NAME_PREFIX,
-} from "../../graphql/queries";
-import { useEffect, useState } from "react";
-import SearchItem from "../../components/search/search_item";
-import { useQuery } from "@apollo/client";
-import Link from "next/link";
-import SearchCategoryList from "../../components/search/search_category_list";
-import {
-  SearchPageDiv,
-  ResultsItemsDiv,
-  SearchSectionDiv,
-  NameInput,
-  SearchButton,
-  CategorySidebarDiv,
-  CategoryDropdownDiv,
-  SearchBarItemsDiv,
-  ResultListDiv,
-  FilterSortButtons,
-} from "../../components/search/index.style";
-import { DemoToggle } from "../../components/search/demo_toggle";
-import AnimatedShowMore from "react-animated-show-more";
-import FilterDrawer from "../../components/search/filter_drawer";
-import { Loader } from "../../components/search/loader";
-import {
-  SearchItemImage,
-  SearchItemDiv,
-  SearchItemTextSection,
-  SearchItemAddress,
-  SearchItemDescription,
-  SearchItemTitle,
-} from "../../components/search/search_item.style";
+import { getAlgoliaResults } from '@algolia/autocomplete-js';
+import '@algolia/autocomplete-theme-classic/dist/theme.css';
+import { ConnectingAirportsOutlined } from '@mui/icons-material';
 import { Card } from "@mui/material";
+import algoliasearch from 'algoliasearch';
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import AnimatedShowMore from "react-animated-show-more";
 import PlaceholderLoading from "react-placeholder-loading";
+import { Autocomplete } from "../../components/search/autocomplete/autocomplete";
+import { DemoToggle } from "../../components/search/demo_toggle";
+import FilterDrawer from "../../components/search/filter_drawer";
+import {
+  CategoryDropdownDiv, CategorySidebarDiv, ResultListDiv, ResultsItemsDiv, SearchBarItemsDiv, SearchPageDiv, SearchSectionDiv
+} from "../../components/search/index.style";
+import SearchCategoryList from "../../components/search/search_category_list";
+import SearchItem from "../../components/search/search_item";
+import {
+  SearchItemAddress,
+  SearchItemDescription, SearchItemDiv, SearchItemImage, SearchItemTextSection, SearchItemTitle
+} from "../../components/search/search_item.style";
+import { ALGOLIA_API_KEY, ALGOLIA_APP_ID, ALGOLIA_INDEX_NAME } from "../../constants/algolia";
+import { ProductItem } from "./product_item";
+import { NO_ITEM_MESSAGE } from '../../constants/errors';
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
   const [textInput, setTextInput] = useState();
+  const [filterInput, setFilterInput] = useState();
 
   const router = useRouter();
-  const { query } = router.query;
-
-  const withCategorySearch = useQuery(GET_PROFILE_CATEGORY, {
-    variables: {
-      category: router.query.category,
-      item_type: "SOO-PROFILE",
-    },
-  });
-
-  const withPrefixSearch = useQuery(QUERY_WITH_NAME_PREFIX, {
-    variables: {
-      name_prefix: router.query.query,
-    },
-  });
-
-  const loadAll = useQuery(LIST_PROFILES);
-  const queryParams =
-    router.query.category == undefined ? loadAll : withCategorySearch;
-  router.query.query != undefined ? (queryParams = withPrefixSearch) : null;
-  const { data: data, loading: loading, error: error } = queryParams;
+  const appId = ALGOLIA_APP_ID;
+  const apiKey = ALGOLIA_API_KEY;
+  const searchClient = algoliasearch(appId, apiKey);
+  const index = searchClient.initIndex(ALGOLIA_INDEX_NAME);
 
   useEffect(() => {
-    if (data) {
-      if (router.query.query != undefined) {
-        setItems(data.queryItemWithNamePrefix.items);
-      } else if (router.query.category == undefined) {
-        setItems(data.listWithItemType.items);
-      } else if (router.query.category != undefined) {
-        setItems(data.queryItemWithCategory.items);
-      }
+    console.log(router);
+    let filterString = ""
+    if(router.query.category != undefined) {
+      filterString = filterBuilder(router.query.category);
     }
-  }, [data]);
+    console.log(filterString);
+    index.search(router.query.query, {
+      filters: router.query.category == [] ? "" : filterString
+    }).then(({ hits }) => {
+      console.log(hits)
+      setItems(hits);
+    });
+  }, [router.query.query, router.query.category]);
+
+  const filterBuilder = (props) => {
+    console.log(props)
+    //For each one, we have to add category:<Category Query> + OR (except for last one)
+    //If there is one item it will not be array. 
+    let filterCategory = "";
+    //only one filter, so the query will be a string
+    if(typeof props == 'string') {
+      console.log("string!!");
+      return `category:${router.query.category}`
+    }
+    //More than one filter, query will be array
+    else {
+      props.map((data, index) => {
+        filterCategory += `category:${data}`;
+        if(router.query.category.length-1 != index) {
+          filterCategory += ' OR ';
+        }
+      })
+    }
+    return filterCategory;
+  }
 
   const searchItems = items.map((content) => {
     return (
@@ -81,6 +78,7 @@ const SearchPage = () => {
       </>
     );
   });
+
   const n = 8;
   const loadingItems = items.forEach(() => {
     return (
@@ -113,14 +111,42 @@ const SearchPage = () => {
     <SearchPageDiv>
       <SearchBarItemsDiv>
         <SearchSectionDiv>
-          <NameInput onChange={handleChange} label="Search" />
+          {/* <NameInput onChange={handleChange} label="Search" />
           <Link
             href={
               textInput == undefined ? `/search` : `/search?query=${textInput}`
             }
           >
             <SearchButton variant="contained">SEARCH</SearchButton>
-          </Link>
+
+          </Link> */}
+          <Autocomplete 
+              openOnFocus={true}
+              onSubmit={(event) => {
+                router.push(`/search?query=${event.state.query}`, undefined, { shallow: true })
+              }}
+              getSources={({ query }) => [
+                {
+                  sourceId: 'products',
+                  getItems() {
+                    return getAlgoliaResults({
+                      searchClient,
+                      queries: [
+                        {
+                          indexName: ALGOLIA_INDEX_NAME,
+                          query,
+                        }
+                      ]
+                    });
+                  },
+                  templates: {
+                    item({ item, components }) {
+                      return <ProductItem hit={item} components={components} />
+                    }
+                  }
+                }
+              ]}
+               />
         </SearchSectionDiv>
       </SearchBarItemsDiv>
       <ResultsItemsDiv>
@@ -128,12 +154,12 @@ const SearchPage = () => {
           <AnimatedShowMore toggle={DemoToggle} height={70}>
             <SearchCategoryList />
           </AnimatedShowMore>
-          {/* <FilterDrawer setFilterInput={setFilterInput} /> */}
+          <FilterDrawer setFilterInput={setFilterInput} />
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
           <SearchCategoryList />
         </CategorySidebarDiv>
-        <ResultListDiv>{loading ? loadingItems : searchItems}</ResultListDiv>
+        <ResultListDiv>{searchItems == 0 ? <div>{NO_ITEM_MESSAGE}</div> : searchItems}</ResultListDiv>
       </ResultsItemsDiv>
     </SearchPageDiv>
   );

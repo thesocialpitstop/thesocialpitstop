@@ -1,27 +1,28 @@
-import Link from "next/link";
+import { Button, Checkbox } from "@mui/material";
+import { Field, Form, Formik } from "formik";
+import { useRouter } from 'next/router';
 import styled from "styled-components";
-import AnimatedShowMore from "react-animated-show-more";
-import { DemoToggle } from "./demo_toggle";
 import categories from "../../constants/categories";
 
 const CategoryItem = styled.div`
   font-family: Montserrat, sans-serif;
   padding: 5px 0px 5px 0px; //TRBL
   color: blue;
-  :hover{
+  :hover {
     color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
-const categoryList = categories.map((content) => {
+const categoryList = categories.map((item) => {
   return (
-    <Link key={content.name} href={`/search?category=${content.value}`}>
-      <a>
-        <CategoryItem key={content.name}>{content.name}</CategoryItem>
-      </a>
-    </Link>
+    <label key={item.name}>
+      <Field as={Checkbox} name="checked" value={item.value} />
+      {item.name}
+    </label>
   );
 });
+
+
 
 const CategoryTitle = styled.div`
   font-family: Montserrat, sans-serif;
@@ -42,11 +43,40 @@ const CategoryListDiv = styled.div`
 `;
 
 const SearchCategoryList = () => {
+  const router = useRouter()
+
   return (
-    <>
-      <CategoryTitle>Categories</CategoryTitle>
-      <CategoryListDiv>{categoryList}</CategoryListDiv>
-    </>
+    <Formik
+      initialValues={{
+        checked: [],
+      }}
+      onSubmit={async (values) => {
+        let categoryQueryString = "";
+        values.checked.forEach(data => {
+          categoryQueryString += `category=${data}&`
+        })
+        router.push(`/search?query=&${categoryQueryString}`);
+      }}
+    >
+      {({ values, resetForm }) => (
+        <Form>
+          <Button type="submit" variant="contained">
+            Apply Filter
+          </Button>
+          {/* <Button onClick={() => resetForm({
+            values: {
+              checked: []
+            }
+          })} variant="contained">
+            Reset Filter
+          </Button> */}
+          <CategoryTitle>Categories</CategoryTitle>
+          <CategoryListDiv>
+            {categoryList}
+          </CategoryListDiv>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

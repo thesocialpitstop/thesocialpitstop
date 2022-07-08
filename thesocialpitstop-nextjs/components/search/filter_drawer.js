@@ -14,6 +14,7 @@ import { Checkbox, FormControlLabel, List, ListItem } from "@mui/material";
 import { useContext } from "react";
 import { ThemeContext } from "styled-components";
 import { FullWidthButton } from "../shared";
+import { useRouter } from 'next/router'
 
 const CheckboxDiv = styled.div`
   display: grid;
@@ -21,6 +22,7 @@ const CheckboxDiv = styled.div`
 export default function FilterDrawer({ setFilterInput }) {
   const [state, setState] = React.useState(false);
   const themeContext = useContext(ThemeContext);
+  const router = useRouter()
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -65,8 +67,12 @@ export default function FilterDrawer({ setFilterInput }) {
             checked: [],
           }}
           onSubmit={async (values) => {
-            console.log(values);
+            let categoryQueryString = "";
+            values.checked.forEach(data => {
+              categoryQueryString += `category=${data}&`
+            })
             setFilterInput(values);
+            router.push(`/search?query=&${categoryQueryString}`);
           }}
         >
           {({ values, resetForm }) => (
