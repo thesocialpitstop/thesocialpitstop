@@ -19,7 +19,7 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import { useRouter } from "next/router";
 import categories from "../../constants/categories";
 import { CREATE_PROFILE } from "../../graphql/mutations";
-import { profileCreateValidationSchema } from "./create_validation_schema";
+import { profileCreateValidationSchema } from "../../components/dashboard/profile/create_validation_schema";
 const CreateProfile = () => {
   const parseJwt = (token) => {
     if (!token) {
