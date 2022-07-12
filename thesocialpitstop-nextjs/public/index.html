@@ -1,0 +1,1941 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32">
+    <title>TheSocialPitstop GraphQL API Reference</title>
+    <link rel="stylesheet" href="stylesheets/spectaql.min.css" />
+    <script src="javascripts/spectaql.min.js"></script>
+  </head>
+  <body id="spectaql">
+    <div id="page" class="drawer-layout">
+      <div id="sidebar">
+        <div class="sidebar-top-container">
+          <div id="logo">
+            <img src="images/logo.png" title="TheSocialPitstop GraphQL API Reference" /> </div>
+          <button class="close-button" aria-label="Close menu" type="button">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <nav id="nav" role="navigation">
+          <div class="nav-group">
+            <h4 class="nav-group-title">Introduction</h4>
+            <ul class="nav-group-items">
+              <li>
+                <a href="#introduction">Welcome</a>
+              </li>
+              <li>
+                <a href="#introduction-item-0">Placeholder Title</a>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h4 class="nav-group-title">Operations</h4>
+            <ul class="nav-group-items">
+              <li class="nav-group-section">
+                <h5 class="nav-group-section-title">
+                  <a href="#group-Operations-Queries">Queries</a>
+                </h5>
+                <ul class="nav-group-section-items">
+                  <li>
+                    <a href="#query-getItem">getItem</a>
+                  </li>
+                  <li>
+                    <a href="#query-listWithItemType">listWithItemType</a>
+                  </li>
+                  <li>
+                    <a href="#query-queryItemWithCategory">queryItemWithCategory</a>
+                  </li>
+                  <li>
+                    <a href="#query-queryItemWithNamePrefix">queryItemWithNamePrefix</a>
+                  </li>
+                  <li>
+                    <a href="#query-queryUserWithItemTypePrefix">queryUserWithItemTypePrefix</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-group-section">
+                <h5 class="nav-group-section-title">
+                  <a href="#group-Operations-Mutations">Mutations</a>
+                </h5>
+                <ul class="nav-group-section-items">
+                  <li>
+                    <a href="#mutation-createItem">createItem</a>
+                  </li>
+                  <li>
+                    <a href="#mutation-deleteItem">deleteItem</a>
+                  </li>
+                  <li>
+                    <a href="#mutation-updateItem">updateItem</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="nav-group">
+            <h4 class="nav-group-title">Types</h4>
+            <ul class="nav-group-items">
+              <li>
+                <a href="#definition-AWSDateTime">AWSDateTime</a>
+              </li>
+              <li>
+                <a href="#definition-AWSEmail">AWSEmail</a>
+              </li>
+              <li>
+                <a href="#definition-AWSPhone">AWSPhone</a>
+              </li>
+              <li>
+                <a href="#definition-Boolean">Boolean</a>
+              </li>
+              <li>
+                <a href="#definition-DeleteItemInput">DeleteItemInput</a>
+              </li>
+              <li>
+                <a href="#definition-Int">Int</a>
+              </li>
+              <li>
+                <a href="#definition-Item">Item</a>
+              </li>
+              <li>
+                <a href="#definition-ItemConnection">ItemConnection</a>
+              </li>
+              <li>
+                <a href="#definition-ItemInput">ItemInput</a>
+              </li>
+              <li>
+                <a href="#definition-String">String</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div id="docs">
+        <div id="mobile-navbar">
+          <button class="sidebar-open-button" type="button">
+            <span class="hamburger"></span>
+          </button>
+        </div>
+        <article id="content">
+          <h1 class="doc-heading">TheSocialPitstop GraphQL API Reference</h1>
+          <div id="introduction" data-traverse-target="introduction">
+            <div id="welcome" class="doc-row">
+              <div class="doc-copy">
+                <p>This is the documentation for TheSocialPitstop&#39;s GraphQL API.</p>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section welcome-contact-section">
+                  <h5>Contact</h5>
+                  <p class="contact-name">TheSocialPitstop Support</p>
+                </div>
+                <div class="example-section welcome-license-section">
+                  <h5>License</h5>
+                  <p class="license-name">Apache 2.0</p>
+                  <p class="license-url">
+                    <a href="https://www.apache.org/licenses/LICENSE-2.0.html">https://www.apache.org/licenses/LICENSE-2.0.html</a>
+                  </p>
+                </div>
+                <div class="example-section welcome-tos-section">
+                  <h5>Terms of Service</h5>
+                  <p>
+                    <a href="https://www.example.com/terms (Placeholder)">https://www.example.com/terms (Placeholder)</a>
+                  </p>
+                </div>
+                <div class="example-section welcome-api-endpoints-section example-section-is-code">
+                  <h5>API Endpoints</h5> <pre><code># Endpoint:
+https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql
+</code></pre> </div>
+              </div>
+            </div>
+            <div id="introduction-item-0" class="introduction-item" data-traverse-target="introduction-item-0">
+              <h2 class="introduction-item-title">Placeholder Title</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p>Placeholder Description</p>
+                </div>
+                <div class="doc-examples"> </div>
+              </div>
+            </div>
+          </div>
+          <h1 id="group-Operations-Queries" class="group-heading" data-traverse-target="group-Operations-Queries">Queries</h1>
+          <section id="query-getItem" class="operation operation-query" data-traverse-target="query-getItem">
+            <h2 class="operation-heading "> <code>getItem</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-Item"><code>Item</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>user_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> GetItem<span class="hljs-tag">(
+  <span class="hljs-code">$user_id</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$item_type</span>:<span class="hljs-type"> String!</span>
+)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">getItem<span class="hljs-tag">(
+    user_id: <span class="hljs-code">$user_id</span>,
+    item_type: <span class="hljs-code">$item_type</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">user_id</span>
+    <span class="hljs-symbol">item_type</span>
+    <span class="hljs-symbol">name</span>
+    <span class="hljs-symbol">category</span>
+    <span class="hljs-symbol">datetime</span>
+    <span class="hljs-symbol">address</span>
+    <span class="hljs-symbol">contact_num</span>
+    <span class="hljs-symbol">email</span>
+    <span class="hljs-symbol">details</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">content</span>
+    <span class="hljs-symbol">reviewer_id</span>
+    <span class="hljs-symbol">reviewer_name</span>
+    <span class="hljs-symbol">rating</span>
+    <span class="hljs-symbol">review</span>
+    <span class="hljs-symbol">follower_id</span>
+    <span class="hljs-symbol">follower_name</span>
+    <span class="hljs-symbol">partner_id</span>
+    <span class="hljs-symbol">partner_name</span>
+    <span class="hljs-symbol">partner_status</span>
+    <span class="hljs-symbol">image_url</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"getItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-listWithItemType" class="operation operation-query" data-traverse-target="query-listWithItemType">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading "> <code>listWithItemType</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-ItemConnection"><code>ItemConnection</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>limit</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>nextToken</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> ListWithItemType<span class="hljs-tag">(
+  <span class="hljs-code">$item_type</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$limit</span>:<span class="hljs-type"> Int,</span>
+  <span class="hljs-code">$nextToken</span>:<span class="hljs-type"> String
+</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">listWithItemType<span class="hljs-tag">(
+    item_type: <span class="hljs-code">$item_type</span>,
+    limit: <span class="hljs-code">$limit</span>,
+    nextToken: <span class="hljs-code">$nextToken</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">items <span class="hljs-tag">{
+      <span class="hljs-symbol">user_id</span>
+      <span class="hljs-symbol">item_type</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">category</span>
+      <span class="hljs-symbol">datetime</span>
+      <span class="hljs-symbol">address</span>
+      <span class="hljs-symbol">contact_num</span>
+      <span class="hljs-symbol">email</span>
+      <span class="hljs-symbol">details</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">reviewer_id</span>
+      <span class="hljs-symbol">reviewer_name</span>
+      <span class="hljs-symbol">rating</span>
+      <span class="hljs-symbol">review</span>
+      <span class="hljs-symbol">follower_id</span>
+      <span class="hljs-symbol">follower_name</span>
+      <span class="hljs-symbol">partner_id</span>
+      <span class="hljs-symbol">partner_name</span>
+      <span class="hljs-symbol">partner_status</span>
+      <span class="hljs-symbol">image_url</span>
+    }</span></span>
+    <span class="hljs-symbol">nextToken</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"listWithItemType"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Item</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-queryItemWithCategory" class="operation operation-query" data-traverse-target="query-queryItemWithCategory">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading "> <code>queryItemWithCategory</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-ItemConnection"><code>ItemConnection</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>category</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>first</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>after</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> QueryItemWithCategory<span class="hljs-tag">(
+  <span class="hljs-code">$item_type</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$category</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$first</span>:<span class="hljs-type"> Int,</span>
+  <span class="hljs-code">$after</span>:<span class="hljs-type"> String
+</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">queryItemWithCategory<span class="hljs-tag">(
+    item_type: <span class="hljs-code">$item_type</span>,
+    category: <span class="hljs-code">$category</span>,
+    first: <span class="hljs-code">$first</span>,
+    after: <span class="hljs-code">$after</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">items <span class="hljs-tag">{
+      <span class="hljs-symbol">user_id</span>
+      <span class="hljs-symbol">item_type</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">category</span>
+      <span class="hljs-symbol">datetime</span>
+      <span class="hljs-symbol">address</span>
+      <span class="hljs-symbol">contact_num</span>
+      <span class="hljs-symbol">email</span>
+      <span class="hljs-symbol">details</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">reviewer_id</span>
+      <span class="hljs-symbol">reviewer_name</span>
+      <span class="hljs-symbol">rating</span>
+      <span class="hljs-symbol">review</span>
+      <span class="hljs-symbol">follower_id</span>
+      <span class="hljs-symbol">follower_name</span>
+      <span class="hljs-symbol">partner_id</span>
+      <span class="hljs-symbol">partner_name</span>
+      <span class="hljs-symbol">partner_status</span>
+      <span class="hljs-symbol">image_url</span>
+    }</span></span>
+    <span class="hljs-symbol">nextToken</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"first"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"after"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"queryItemWithCategory"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Item</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-queryItemWithNamePrefix" class="operation operation-query" data-traverse-target="query-queryItemWithNamePrefix">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading "> <code>queryItemWithNamePrefix</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-ItemConnection"><code>ItemConnection</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>name_prefix</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>limit</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>nextToken</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> QueryItemWithNamePrefix<span class="hljs-tag">(
+  <span class="hljs-code">$item_type</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$name_prefix</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$limit</span>:<span class="hljs-type"> Int,</span>
+  <span class="hljs-code">$nextToken</span>:<span class="hljs-type"> String
+</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">queryItemWithNamePrefix<span class="hljs-tag">(
+    item_type: <span class="hljs-code">$item_type</span>,
+    name_prefix: <span class="hljs-code">$name_prefix</span>,
+    limit: <span class="hljs-code">$limit</span>,
+    nextToken: <span class="hljs-code">$nextToken</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">items <span class="hljs-tag">{
+      <span class="hljs-symbol">user_id</span>
+      <span class="hljs-symbol">item_type</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">category</span>
+      <span class="hljs-symbol">datetime</span>
+      <span class="hljs-symbol">address</span>
+      <span class="hljs-symbol">contact_num</span>
+      <span class="hljs-symbol">email</span>
+      <span class="hljs-symbol">details</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">reviewer_id</span>
+      <span class="hljs-symbol">reviewer_name</span>
+      <span class="hljs-symbol">rating</span>
+      <span class="hljs-symbol">review</span>
+      <span class="hljs-symbol">follower_id</span>
+      <span class="hljs-symbol">follower_name</span>
+      <span class="hljs-symbol">partner_id</span>
+      <span class="hljs-symbol">partner_name</span>
+      <span class="hljs-symbol">partner_status</span>
+      <span class="hljs-symbol">image_url</span>
+    }</span></span>
+    <span class="hljs-symbol">nextToken</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"name_prefix"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"queryItemWithNamePrefix"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Item</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-queryUserWithItemTypePrefix" class="operation operation-query" data-traverse-target="query-queryUserWithItemTypePrefix">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading "> <code>queryUserWithItemTypePrefix</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-ItemConnection"><code>ItemConnection</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>user_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type_prefix</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>limit</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>nextToken</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> QueryUserWithItemTypePrefix<span class="hljs-tag">(
+  <span class="hljs-code">$user_id</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$item_type_prefix</span>:<span class="hljs-type"> String!</span>,
+  <span class="hljs-code">$limit</span>:<span class="hljs-type"> Int,</span>
+  <span class="hljs-code">$nextToken</span>:<span class="hljs-type"> String
+</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">queryUserWithItemTypePrefix<span class="hljs-tag">(
+    user_id: <span class="hljs-code">$user_id</span>,
+    item_type_prefix: <span class="hljs-code">$item_type_prefix</span>,
+    limit: <span class="hljs-code">$limit</span>,
+    nextToken: <span class="hljs-code">$nextToken</span>
+  )</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">items <span class="hljs-tag">{
+      <span class="hljs-symbol">user_id</span>
+      <span class="hljs-symbol">item_type</span>
+      <span class="hljs-symbol">name</span>
+      <span class="hljs-symbol">category</span>
+      <span class="hljs-symbol">datetime</span>
+      <span class="hljs-symbol">address</span>
+      <span class="hljs-symbol">contact_num</span>
+      <span class="hljs-symbol">email</span>
+      <span class="hljs-symbol">details</span>
+      <span class="hljs-symbol">title</span>
+      <span class="hljs-symbol">content</span>
+      <span class="hljs-symbol">reviewer_id</span>
+      <span class="hljs-symbol">reviewer_name</span>
+      <span class="hljs-symbol">rating</span>
+      <span class="hljs-symbol">review</span>
+      <span class="hljs-symbol">follower_id</span>
+      <span class="hljs-symbol">follower_name</span>
+      <span class="hljs-symbol">partner_id</span>
+      <span class="hljs-symbol">partner_name</span>
+      <span class="hljs-symbol">partner_status</span>
+      <span class="hljs-symbol">image_url</span>
+    }</span></span>
+    <span class="hljs-symbol">nextToken</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"item_type_prefix"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"limit"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"queryUserWithItemTypePrefix"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Item</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <h1 id="group-Operations-Mutations" class="group-heading" data-traverse-target="group-Operations-Mutations">Mutations</h1>
+          <section id="mutation-createItem" class="operation operation-mutation" data-traverse-target="mutation-createItem">
+            <h2 class="operation-heading "> <code>createItem</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-Item"><code>Item</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>input</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-ItemInput"><code>ItemInput!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> CreateItem<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> ItemInput!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">createItem<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">user_id</span>
+    <span class="hljs-symbol">item_type</span>
+    <span class="hljs-symbol">name</span>
+    <span class="hljs-symbol">category</span>
+    <span class="hljs-symbol">datetime</span>
+    <span class="hljs-symbol">address</span>
+    <span class="hljs-symbol">contact_num</span>
+    <span class="hljs-symbol">email</span>
+    <span class="hljs-symbol">details</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">content</span>
+    <span class="hljs-symbol">reviewer_id</span>
+    <span class="hljs-symbol">reviewer_name</span>
+    <span class="hljs-symbol">rating</span>
+    <span class="hljs-symbol">review</span>
+    <span class="hljs-symbol">follower_id</span>
+    <span class="hljs-symbol">follower_name</span>
+    <span class="hljs-symbol">partner_id</span>
+    <span class="hljs-symbol">partner_name</span>
+    <span class="hljs-symbol">partner_status</span>
+    <span class="hljs-symbol">image_url</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ItemInput</span><span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"createItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-deleteItem" class="operation operation-mutation" data-traverse-target="mutation-deleteItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading "> <code>deleteItem</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-Item"><code>Item</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>input</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-DeleteItemInput"><code>DeleteItemInput!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> DeleteItem<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> DeleteItemInput!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">deleteItem<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">user_id</span>
+    <span class="hljs-symbol">item_type</span>
+    <span class="hljs-symbol">name</span>
+    <span class="hljs-symbol">category</span>
+    <span class="hljs-symbol">datetime</span>
+    <span class="hljs-symbol">address</span>
+    <span class="hljs-symbol">contact_num</span>
+    <span class="hljs-symbol">email</span>
+    <span class="hljs-symbol">details</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">content</span>
+    <span class="hljs-symbol">reviewer_id</span>
+    <span class="hljs-symbol">reviewer_name</span>
+    <span class="hljs-symbol">rating</span>
+    <span class="hljs-symbol">review</span>
+    <span class="hljs-symbol">follower_id</span>
+    <span class="hljs-symbol">follower_name</span>
+    <span class="hljs-symbol">partner_id</span>
+    <span class="hljs-symbol">partner_name</span>
+    <span class="hljs-symbol">partner_status</span>
+    <span class="hljs-symbol">image_url</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DeleteItemInput</span><span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"deleteItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-updateItem" class="operation operation-mutation" data-traverse-target="mutation-updateItem">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading "> <code>updateItem</code> </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an
+                    <a href="#definition-Item"><code>Item</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>input</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-ItemInput"><code>ItemInput!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> UpdateItem<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> ItemInput!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">updateItem<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">user_id</span>
+    <span class="hljs-symbol">item_type</span>
+    <span class="hljs-symbol">name</span>
+    <span class="hljs-symbol">category</span>
+    <span class="hljs-symbol">datetime</span>
+    <span class="hljs-symbol">address</span>
+    <span class="hljs-symbol">contact_num</span>
+    <span class="hljs-symbol">email</span>
+    <span class="hljs-symbol">details</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">content</span>
+    <span class="hljs-symbol">reviewer_id</span>
+    <span class="hljs-symbol">reviewer_name</span>
+    <span class="hljs-symbol">rating</span>
+    <span class="hljs-symbol">review</span>
+    <span class="hljs-symbol">follower_id</span>
+    <span class="hljs-symbol">follower_name</span>
+    <span class="hljs-symbol">partner_id</span>
+    <span class="hljs-symbol">partner_name</span>
+    <span class="hljs-symbol">partner_status</span>
+    <span class="hljs-symbol">image_url</span>
+  }</span></span>
+}</span></span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ItemInput</span><span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"updateItem"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <h1 id="group-Types" class="group-heading" data-traverse-target="group-Types">Types</h1>
+          <section id="definition-AWSDateTime" class="definition definition-scalar" data-traverse-target="definition-AWSDateTime">
+            <h2 class="definition-heading">AWSDateTime</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>AWSDateTime</code> scalar type provided by AWS AppSync, represents a valid
+                    <em>
+                      <strong>extended</strong>
+                    </em>
+                    <a href="https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations">ISO 8601 DateTime</a> string. In other words, this scalar type accepts datetime strings of the form <code>YYYY-MM-DDThh:mm:ss.SSSZ</code>. The scalar can also accept &quot;negative years&quot; of the form <code>-YYYY</code> which correspond to years before <code>0000</code>. For example, &quot;
+                    <strong>-2017-01-01T00:00Z</strong>&quot; and &quot;
+                    <strong>-9999-01-01T00:00Z</strong>&quot; are both valid datetime strings. The field after the two digit seconds field is a nanoseconds field. It can accept between 1 and 9 digits. So, for example, &quot;
+                    <strong>1970-01-01T12:00:00.2Z</strong>&quot;, &quot;
+                    <strong>1970-01-01T12:00:00.277Z</strong>&quot; and &quot;
+                    <strong>1970-01-01T12:00:00.123456789Z</strong>&quot; are all valid datetime strings. The seconds and nanoseconds fields are optional (the seconds field must be specified if the nanoseconds field is to be used). The
+                    <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_zone_designators">time zone offset</a> is compulsory for this scalar. The time zone offset must either be <code>Z</code> (representing the UTC time zone) or be in the format <code>±hh:mm:ss</code>. The seconds field in the timezone offset will be considered valid even though it is not part of the ISO 8601 standard.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">AWSDateTime</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-AWSEmail" class="definition definition-scalar" data-traverse-target="definition-AWSEmail">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">AWSEmail</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>AWSEmail</code> scalar type provided by AWS AppSync, represents an Email address string that complies with
+                    <a href="https://www.ietf.org/rfc/rfc822.txt">RFC 822</a>. For example, &quot;
+                    <strong>
+                      <a href="mailto:&#x75;&#115;&#x65;&#114;&#x6e;&#97;&#x6d;&#101;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#x65;&#x2e;&#99;&#111;&#x6d;">&#x75;&#115;&#x65;&#114;&#x6e;&#97;&#x6d;&#101;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#x65;&#x2e;&#99;&#111;&#x6d;</a>
+                    </strong>&quot; is a valid Email address.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">AWSEmail</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-AWSPhone" class="definition definition-scalar" data-traverse-target="definition-AWSPhone">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">AWSPhone</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>The <code>AWSPhone</code> scalar type provided by AWS AppSync, represents a valid Phone Number. Phone numbers are serialized and deserialized as Strings. Segments of the phone number may be whitespace delimited or hyphenated. The number can specify a country code at the beginning. However, United States numbers without country codes are still considered to be valid.</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">AWSPhone</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Boolean" class="definition definition-scalar" data-traverse-target="definition-Boolean">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Boolean</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>Built-in Boolean</p>
+                </div>
+              </div>
+              <div class="doc-examples"> </div>
+            </div>
+          </section>
+          <section id="definition-DeleteItemInput" class="definition definition-input-object" data-traverse-target="definition-DeleteItemInput">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">DeleteItemInput</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>user_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Int" class="definition definition-scalar" data-traverse-target="definition-Int">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Int</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>Built-in Int</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-number">987</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-Item" class="definition definition-object" data-traverse-target="definition-Item">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">Item</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>user_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>category</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>datetime</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSDateTime"><code>AWSDateTime</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>address</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>contact_num</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSPhone"><code>AWSPhone</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>email</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSEmail"><code>AWSEmail</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>details</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>title</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>content</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>reviewer_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>reviewer_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>rating</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>review</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>follower_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>follower_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>partner_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>partner_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>partner_status</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>image_url</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-ItemConnection" class="definition definition-object" data-traverse-target="definition-ItemConnection">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">ItemConnection</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Field Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>items</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Item"><code>[Item]</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td data-property-name="">
+                          <span class="property-name"><code>nextToken</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"items"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Item</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nextToken"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-ItemInput" class="definition definition-input-object" data-traverse-target="definition-ItemInput">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">ItemInput</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>user_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>item_type</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String!</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>category</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>datetime</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSDateTime"><code>AWSDateTime</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>address</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>contact_num</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSPhone"><code>AWSPhone</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>email</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-AWSEmail"><code>AWSEmail</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>details</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>title</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>content</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>reviewer_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>reviewer_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>rating</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-Int"><code>Int</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>review</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>follower_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>follower_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>partner_id</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>partner_name</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>partner_status</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>image_url</code></span> -
+                          <span class="property-type">
+                            <a href="#definition-String"><code>String</code></a>
+                          </span>
+                        </td>
+                        <td> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"user_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"item_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"category"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"datetime"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSDateTime</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"contact_num"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSPhone</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AWSEmail</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"details"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"reviewer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"reviewer_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"rating"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"review"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"follower_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"follower_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"partner_status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"image_url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-String" class="definition definition-scalar" data-traverse-target="definition-String">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">String</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-description doc-copy-section">
+                  <h5>Description</h5>
+                  <p>Built-in String</p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <html>
+                  <head></head>
+                  <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"abc123"</span>
+</code></pre> </body>
+                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="doc-row no-margin">
+            <div class="doc-copy doc-separator">
+              <a class="powered-by" href="https://github.com/anvilco/spectaql">Documentation by
+                <span>Anvil SpectaQL</span>
+              </a>
+            </div>
+          </div>
+        </article>
+        <div class="drawer-overlay"></div>
+      </div>
+    </div>
+  </body>
+</html>
