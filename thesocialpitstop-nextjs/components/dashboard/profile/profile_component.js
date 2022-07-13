@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
 import {
+  Autocomplete,
   Button,
   IconButton,
   MenuItem,
@@ -24,6 +25,7 @@ import {
 } from "./profile_component.style";
 import { useS3Upload } from 'next-s3-upload';
 import { CLOUDFRONT_URL } from "../../../constants/constants";
+import { AddressAutocomplete } from "./address_autocomplete";
 
 const ProfileComponent = () => {
   const { user } = useUser();
@@ -85,29 +87,37 @@ const ProfileComponent = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      updateProfile({
-        variables: {
-          name: values.name,
-          email: values.email,
-          details: values.details,
-          category: values.category,
-          address: values.address,
-          contact_num: parsePhoneNumber(values.contact_num, "SG").number,
-        },
-        onCompleted: (data) => {
-          console.log("complete");
-          console.log(data);
-          setOpenSnackbar(true);
-          formik.resetForm();
-        },
-      })
-        .then((msg) => console.log(msg))
-        .catch((error) => {
-          console.error(error);
-        });
+      // updateProfile({
+      //   variables: {
+      //     name: values.name,
+      //     email: values.email,
+      //     details: values.details,
+      //     category: values.category,
+      //     address: values.address,
+      //     contact_num: parsePhoneNumber(values.contact_num, "SG").number,
+      //   },
+      //   onCompleted: (data) => {
+      //     console.log("complete");
+      //     console.log(data);
+      //     setOpenSnackbar(true);
+      //     formik.resetForm();
+      //   },
+      // })
+      //   .then((msg) => console.log(msg))
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     },
   });
-
+  const defaultValue = 
+  {
+      "SEARCHVAL": "52059 (BUS STOP)",
+      "BLK_NO": "",
+      "ROAD_NAME": "BRADDELL RD",
+      "BUILDING": "52059 (BUS STOP)",
+      "ADDRESS": "52059 (BUS STOP) BRADDELL RD",
+      "POSTAL": "NIL"
+  }
   const handleInputChange = async (event) => {
     console.log(event);
     const objectUrl = URL.createObjectURL(event.target.files[0]);
@@ -153,7 +163,6 @@ const ProfileComponent = () => {
           </label>
         </ProfileImageSection>
         <ProfileTextField
-          style={{ marginBottom: "1rem" }}
           fullWidth
           id="name"
           name="name"
@@ -164,8 +173,7 @@ const ProfileComponent = () => {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
         />
-        <ProfileTextField
-          style={{ marginBottom: "1rem" }}
+        {/* <ProfileTextField
           fullWidth
           name="address"
           label="Address"
@@ -174,7 +182,14 @@ const ProfileComponent = () => {
           placeholder="Doe"
           error={formik.touched.address && Boolean(formik.errors.address)}
           helperText={formik.touched.address && formik.errors.address}
-        />
+        /> */}
+        <AddressAutocomplete 
+          name="address"
+          label="Address"
+          initialValue={defaultValue}
+          inputValue={formik.values.address || ""}
+          onChange={formik.handleChange}
+        /> 
         <TextField
           style={{ marginBottom: "1rem" }}
           fullWidth
@@ -196,7 +211,6 @@ const ProfileComponent = () => {
         </TextField>
         <ProfileTextField
           type="tel"
-          style={{ marginBottom: "1rem" }}
           fullWidth
           name="contact_num"
           value={formik.values.contact_num || ""}
@@ -208,7 +222,6 @@ const ProfileComponent = () => {
           helperText={formik.touched.contact_num && formik.errors.contact_num}
         />
         <ProfileTextField
-          style={{ marginBottom: "1rem" }}
           fullWidth
           name="details"
           value={formik.values.details || ""}
@@ -220,7 +233,6 @@ const ProfileComponent = () => {
           helperText={formik.touched.details && formik.errors.details}
         />
         <ProfileTextField
-          style={{ marginBottom: "1rem" }}
           fullWidth
           name="email"
           label="Email"
