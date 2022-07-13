@@ -1,20 +1,16 @@
-import * as React from "react";
+import { Checkbox } from "@mui/material";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import MenuIcon from "@mui/icons-material/Menu";
+import Drawer from "@mui/material/Drawer";
+import { Field, Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import categories from "../../constants/categories";
-import styled from "styled-components";
-import { CheckBox, ContactPageOutlined, Title } from "@mui/icons-material";
-import { Field, Form, Formik } from "formik";
-import { Checkbox, FormControlLabel, List, ListItem } from "@mui/material";
+import { useRouter } from 'next/router';
+import * as React from "react";
 import { useContext } from "react";
-import { ThemeContext } from "styled-components";
+import styled, { ThemeContext } from "styled-components";
+import categories from "../../constants/categories";
 import { FullWidthButton } from "../shared";
-import { useRouter } from 'next/router'
 
 const CheckboxDiv = styled.div`
   display: grid;
