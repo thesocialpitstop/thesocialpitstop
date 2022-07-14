@@ -9,15 +9,16 @@ export const SearchItemDiv = styled.div`
     @media (max-width: 768px) {
         padding-top: 4px;
     }
-    :hover {
-        color: #7f75ae;
-    }
+
 `;
 
 export const SearchItemTitle = styled.a`
     font-size: larger;
     font-weight: 600;
     //TRBL
+    :hover {
+        color: #7f75ae;
+    }
 `;
 export const SearchItemImage = styled.div`
 position: relative;

@@ -1,5 +1,4 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import Layout from '../components/layout';
 import {
   ApolloClient,
   InMemoryCache,
@@ -13,6 +12,7 @@ import '../styles/globals.css';
 import 'react-quill/dist/quill.snow.css';
 import { UserProvider } from '@auth0/nextjs-auth0';
 import { GRAPHQL_API_KEY, GRAPHQL_URL } from '../constants/constants';
+import Layout from '../components/global_layout/layout';
 
 
 const httpLink = createHttpLink({

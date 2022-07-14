@@ -10,7 +10,8 @@ import * as React from "react";
 import { useContext } from "react";
 import styled, { ThemeContext } from "styled-components";
 import categories from "../../constants/categories";
-import { FullWidthButton } from "../shared";
+import { FullWidthButton } from "../global_layout/shared";
+
 
 const CheckboxDiv = styled.div`
   display: grid;
@@ -60,7 +61,9 @@ export default function FilterDrawer({ setFilterInput }) {
 
         <Formik
           initialValues={{
-            checked: [],
+            checked: [
+              'volunteer-projects'
+            ],
           }}
           onSubmit={async (values) => {
             let categoryQueryString = "";

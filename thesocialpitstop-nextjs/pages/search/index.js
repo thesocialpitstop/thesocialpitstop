@@ -150,9 +150,9 @@ const SearchPage = () => {
       </SearchBarItemsDiv>
       <ResultsItemsDiv>
         <CategoryDropdownDiv>
-          <AnimatedShowMore toggle={DemoToggle} height={70}>
+          {/* <AnimatedShowMore toggle={DemoToggle} height={70}>
             <SearchCategoryList />
-          </AnimatedShowMore>
+          </AnimatedShowMore> */}
           <FilterDrawer setFilterInput={setFilterInput} />
         </CategoryDropdownDiv>
         <CategorySidebarDiv>
