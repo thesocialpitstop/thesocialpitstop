@@ -1,21 +1,10 @@
 import CsrItem from '../components/home_page/csr_item';
-import { 
-  Title, 
-  CarouselSection,
-  CarouselText,
-  CarouselSubtitle,
-  IntroSection,
-  IntroTitle,
-  IntroText,
-  UpcomingCarousel,
-  CsrItemsDiv,
-  HeroSection,
+import {
   CarouselImage,
-  CarouselImageContainer
-} from '../components/home_page/index.style'
+  CarouselImageContainer, CarouselSection, CarouselSubtitle, CarouselText, HeroSection, IntroSection
+} from '../components/home_page/index.style';
 import IntroItem from '../components/home_page/intro_item';
 import firework from "../public/images/firework.jpg";
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 
 const csrList = [
   {

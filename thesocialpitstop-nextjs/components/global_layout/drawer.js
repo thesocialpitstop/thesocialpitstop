@@ -1,23 +1,22 @@
-import * as React from "react";
+import { useUser } from "@auth0/nextjs-auth0";
+import MenuIcon from "@mui/icons-material/Menu";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
 import Link from "next/link";
-import { navbarItems } from "../constants/drawer_items";
-import { useUser } from "@auth0/nextjs-auth0";
-import { UserProfileDiv } from "./drawer.style";
+import * as React from "react";
+import { navbarItems } from "../../constants/drawer_items";
+import profileSvg from "../../public/icons/profile.svg";
 import { FullWidthButton } from "./shared";
-import profileSvg from "../public/icons/profile.svg";
+import { UserProfileDiv } from "./drawer.style";
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState(false);

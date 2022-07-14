@@ -4,15 +4,6 @@ import { useRouter } from 'next/router';
 import styled from "styled-components";
 import categories from "../../constants/categories";
 
-const CategoryItem = styled.div`
-  font-family: Montserrat, sans-serif;
-  padding: 5px 0px 5px 0px; //TRBL
-  color: blue;
-  :hover {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
 const categoryList = categories.map((item) => {
   return (
     <label key={item.name}>
@@ -24,7 +15,7 @@ const categoryList = categories.map((item) => {
 
 
 
-const CategoryTitle = styled.div`
+const CategoryTitle = styled.h1`
   font-family: Montserrat, sans-serif;
   @media (min-width: 768px) {
     font-size: large;
@@ -48,9 +39,10 @@ const SearchCategoryList = () => {
   return (
     <Formik
       initialValues={{
-        checked: [],
+        checked: []
       }}
       onSubmit={async (values) => {
+        console.log(values);
         let categoryQueryString = "";
         values.checked.forEach(data => {
           categoryQueryString += `category=${data}&`

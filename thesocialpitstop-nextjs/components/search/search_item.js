@@ -1,20 +1,14 @@
-import Image from "next/image"
-import Link from "next/link";
-import {
-    SearchItemDiv,
-    SearchItemTitle,
-    SearchItemImage,
-    SearchItemDescription,
-    SearchItemAddress,
-    SearchItemTextSection,
-} from './search_item.style';
 import { Card, Chip } from "@mui/material";
-import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
-import { CLOUDFRONT_URL } from "../../constants/constants";
+import Image from "next/image";
+import Link from "next/link";
 import categories from "../../constants/categories";
+import { CLOUDFRONT_URL } from "../../constants/constants";
+import {
+    SearchItemDiv, SearchItemImage, SearchItemTextSection, SearchItemTitle
+} from './search_item.style';
 
 const SearchItem = (props) => {
-    console.log(`${CLOUDFRONT_URL}/profile/${props?.item?.objectID}`);
+    // console.log(`${CLOUDFRONT_URL}/profile/${props?.item?.objectID}`);
     return(
             <a>
                 <Card>
@@ -35,7 +29,7 @@ const SearchItem = (props) => {
                             <Chip 
                                 label={categories.filter((cat) => cat.value === props?.item?.category)[0].name} 
                                 component="a" 
-                                href={`?${props?.item?.category}`} 
+                                href={`?category=${props?.item?.category}`} 
                                 clickable />
                             {/* <SearchItemAddress>
                                 {props?.item.address}
