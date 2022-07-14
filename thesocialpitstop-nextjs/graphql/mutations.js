@@ -53,7 +53,7 @@ export const UPDATE_PROFILE = gql`
   mutation MyMutation(
     $user_id: String!, 
     $item_type: String!,
-    $address: AWSJSON,
+    $address: String!,
     $category: String,
     $details: String,
     $email: AWSEmail,

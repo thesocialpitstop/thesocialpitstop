@@ -30,13 +30,17 @@ export const AddressAutocomplete = (props) => {
             style={{marginBottom: "1rem"}}
             id="dashboard-address-autocomplete"
             autoComplete
+            fullWidth
             forcePopupIcon={false}
             options={options}
             defaultValue={props.initialValue}
             getOptionLabel={(option) => option.ADDRESS}
             isOptionEqualToValue={(option, value) => option.ADDRESS === value.ADDRESS}
             onInputChange={onInputChange}
-            onChange={(event, value) => console.log(value)} // prints the selected value
+            onChange={(event, value) => {
+                console.log(value?.ADDRESS);
+                props.setFieldValue("address", value?.ADDRESS)
+            }} // prints the selected value
             loading={loading}
             renderInput={(params) => {
                 return (<TextField 

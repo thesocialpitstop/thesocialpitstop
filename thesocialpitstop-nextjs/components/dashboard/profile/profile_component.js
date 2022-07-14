@@ -85,39 +85,39 @@ const ProfileComponent = () => {
       email: userProfile?.email,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: values => {
       console.log(values);
-      // updateProfile({
-      //   variables: {
-      //     name: values.name,
-      //     email: values.email,
-      //     details: values.details,
-      //     category: values.category,
-      //     address: values.address,
-      //     contact_num: parsePhoneNumber(values.contact_num, "SG").number,
-      //   },
-      //   onCompleted: (data) => {
-      //     console.log("complete");
-      //     console.log(data);
-      //     setOpenSnackbar(true);
-      //     formik.resetForm();
-      //   },
-      // })
-      //   .then((msg) => console.log(msg))
-      //   .catch((error) => {
-      //     console.error(error);
-      //   });
+      updateProfile({
+        variables: {
+          name: values.name,
+          email: values.email,
+          details: values.details,
+          category: values.category,
+          address: values.address,
+          contact_num: parsePhoneNumber(values.contact_num, "SG").number,
+        },
+        onCompleted: (data) => {
+          console.log("complete");
+          console.log(data);
+          setOpenSnackbar(true);
+          formik.resetForm();
+        },
+      })
+        .then((msg) => console.log(msg))
+        .catch((error) => {
+          console.error(error);
+        });
     },
   });
-  const defaultValue = 
-  {
-      "SEARCHVAL": "52059 (BUS STOP)",
-      "BLK_NO": "",
-      "ROAD_NAME": "BRADDELL RD",
-      "BUILDING": "52059 (BUS STOP)",
-      "ADDRESS": "52059 (BUS STOP) BRADDELL RD",
-      "POSTAL": "NIL"
-  }
+  // const defaultValue = 
+  // {
+  //     "SEARCHVAL": "52059 (BUS STOP)",
+  //     "BLK_NO": "",
+  //     "ROAD_NAME": "BRADDELL RD",
+  //     "BUILDING": "52059 (BUS STOP)",
+  //     "ADDRESS": "52059 (BUS STOP) BRADDELL RD",
+  //     "POSTAL": "NIL"
+  // }
   const handleInputChange = async (event) => {
     console.log(event);
     const objectUrl = URL.createObjectURL(event.target.files[0]);
@@ -186,9 +186,9 @@ const ProfileComponent = () => {
         <AddressAutocomplete 
           name="address"
           label="Address"
-          initialValue={defaultValue}
+          initialValue={formik.values.address || ""}
           inputValue={formik.values.address || ""}
-          onChange={formik.handleChange}
+          setFieldValue={formik.setFieldValue}
         /> 
         <TextField
           style={{ marginBottom: "1rem" }}
