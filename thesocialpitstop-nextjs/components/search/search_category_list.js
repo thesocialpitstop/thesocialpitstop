@@ -39,7 +39,9 @@ const SearchCategoryList = () => {
   return (
     <Formik
       initialValues={{
-        checked: []
+        checked: [
+          
+        ]
       }}
       onSubmit={async (values) => {
         console.log(values);

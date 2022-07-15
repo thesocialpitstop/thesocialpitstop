@@ -1,6 +1,3 @@
-// import React from 'react';
-// import Link from 'next/link';
-// import Image from 'next/image';
 import { useMutation } from "@apollo/client";
 import {
   Button,
@@ -20,6 +17,7 @@ import { useRouter } from "next/router";
 import categories from "../../constants/categories";
 import { CREATE_PROFILE } from "../../graphql/mutations";
 import { profileCreateValidationSchema } from "../../components/dashboard/profile/create_validation_schema";
+import { AddressAutocomplete } from "../../components/dashboard/profile/address_autocomplete";
 const CreateProfile = () => {
   const parseJwt = (token) => {
     if (!token) {
@@ -58,7 +56,7 @@ const CreateProfile = () => {
           contact_num: parsePhoneNumber(`+65${values.phone}`, 'SG').number,
         },
         onCompleted: (data) => {
-          console.log("success");
+          console.log("success", data);
           if (user_id) {
             window.location = `https://the-social-pitstop.us.auth0.com/continue?state=${router.query.state}`;
           } else {
@@ -149,14 +147,21 @@ const CreateProfile = () => {
             onChange={formik.handleChange}
             value={formik.values.phone}
           />
-          <TextField
+          {/* <TextField
             margin="normal"
             id="address"
             name="address"
             label="Address"
             onChange={formik.handleChange}
             value={formik.values.address}
-          />
+          /> */}
+          <AddressAutocomplete 
+            name="address"
+            label="Address"
+            initialValue={formik.values.address || ""}
+            inputValue={formik.values.address || ""}
+            setFieldValue={formik.setFieldValue}
+          /> 
         </FormGroup>
 
         <FormGroup>
