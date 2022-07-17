@@ -8,7 +8,8 @@ const nextConfig = {
       'blogassets.singsaver.com.sg',
       's.gravatar.com',
       'imagesvc.meredithcorp.io',
-      'd1ex1xtzymn6tv.cloudfront.net'
+      'd1ex1xtzymn6tv.cloudfront.net',
+      'i.imgur.com'
     ]
   }
 }
