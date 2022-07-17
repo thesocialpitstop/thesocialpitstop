@@ -9,7 +9,8 @@ const nextConfig = {
       's.gravatar.com',
       'imagesvc.meredithcorp.io',
       'd1ex1xtzymn6tv.cloudfront.net',
-      'i.imgur.com'
+      'i.imgur.com',
+      'ui-avatars.com'
     ]
   }
 }

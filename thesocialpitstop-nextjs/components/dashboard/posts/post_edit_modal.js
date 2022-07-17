@@ -26,7 +26,7 @@ const style = {
 };
 
 export const validationSchema = yup.object({
-  title: yup.string("Enter your password").required("Name is required"),
+  title: yup.string("Enter your title").required("Name is required"),
   content: yup.string("Enter your password").required("Name is required"),
 });
 
