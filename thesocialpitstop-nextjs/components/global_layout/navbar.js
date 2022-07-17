@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
 import {
+  MobileIcon,
   Nav,
   NavbarContainer,
-  NavLogo,
-  MobileIcon,
   NavBtn,
   NavLinkItem,
+  NavLogo,
+  NavButton,
 } from "./navbar.style";
 
+import { useUser } from "@auth0/nextjs-auth0";
+import Image from "next/image";
 import Link from "next/link";
 import TemporaryDrawer from "./drawer";
-import { useUser } from '@auth0/nextjs-auth0';
 
 const Navbar = ({ toggle }) => {
-  const menuId = "main-menu";
-  const { user, error, isLoading } = useUser();
-  const link = user ?  "/api/auth/logout":"/api/auth/login";
+  const { user } = useUser();
+  const link = user ? "/api/auth/logout" : "/api/auth/login";
+  const text = user ? "LOGOUT" : "LOGIN";
 
   return (
     <>
@@ -24,7 +25,15 @@ const Navbar = ({ toggle }) => {
           <MobileIcon onClick={toggle}>
             <TemporaryDrawer />
           </MobileIcon>
-          <NavLogo href="/">The Social Pitstop</NavLogo>
+          <NavLogo href="/" passHref>
+            <a>
+              <Image
+                src="https://i.imgur.com/isQOODZ.png"
+                width="64"
+                height="64"
+              />
+            </a>
+          </NavLogo>
           <NavBtn>
             <Link href="/dashboard" passHref>
               <NavLinkItem>DASHBOARD</NavLinkItem>
@@ -32,16 +41,17 @@ const Navbar = ({ toggle }) => {
             <Link href="/profile" passHref>
               <NavLinkItem>PROFILE</NavLinkItem>
             </Link>
+
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>
             <Link href="/about-us" passHref>
               <NavLinkItem>ABOUT US</NavLinkItem>
-            </Link>        
-            <Link href={link} passHref>
-              {user ? <NavLinkItem>LOGOUT</NavLinkItem> : <NavLinkItem>LOGIN</NavLinkItem>}
             </Link>
           </NavBtn>
+          <Link href={link} passHref>
+            <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
+          </Link>
         </NavbarContainer>
       </Nav>
     </>

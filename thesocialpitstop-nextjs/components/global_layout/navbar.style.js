@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background: #000C26;
+  background: #fff;
   height: 56px;
   display: flex;
   justify-content: space-around;
@@ -18,20 +18,19 @@ export const Nav = styled.nav`
 
 export const NavbarContainer = styled.div`
   display: flex;
+  align-items: center;
+
   flex-direction: row;
   z-index: 1;
   width: 100%;
   max-width: 1100px;
-  @media screen and (max-width: 768px) {
-    justify-content: center;
-  }
+
   @media screen and (min-width: 768px) {
     justify-content: space-between;
   }
 `;
 
-export const NavLogo = styled.a`
-  color: #fff;
+export const NavLogo = styled(Link)`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -40,7 +39,6 @@ export const NavLogo = styled.a`
   font-style: normal;
   font-weight: normal;
   line-height: 32px;
-  color: #f0ead6;
   @media screen and (max-width: 768px) {
     font-size: 20px;
   }
@@ -54,12 +52,9 @@ export const NavLogo = styled.a`
   }
 `;
 export const MobileIcon = styled.div`
-  position: absolute;
-  display: block;
-  left: 0;
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  
   @media screen and (min-width: 768px) {
     display: none;
   }
@@ -108,6 +103,8 @@ export const NavLinks = styled(Link)`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 16px;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -117,7 +114,6 @@ export const NavBtnLink = styled(Link)`
   border-radius: 22px;
   border: 3px solid #f0ead6;
   text-align: center;
-  //padding: top right bottom left
   padding: 8px 24px 8px 24px;
   color: #f0ead6;
   display: block;
@@ -133,7 +129,6 @@ export const NavBtnLink = styled(Link)`
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
   &:hover {
     transition: all 0.2 ease-in-out;
@@ -148,10 +143,28 @@ export const NavLinkItem = styled.a`
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  color: #f0ead6;
-  margin-right: 40px;
   &:hover {
     transition: all 0.2 ease-in-out;
-    color: #ffffff;
+    text-decoration: underline;
+  }
+`;
+
+export const NavButton = styled.div`
+  background-image: linear-gradient(to right, #4b6cb7 0%, #182848  51%, #4b6cb7  100%);
+  margin: 10px;
+  padding: 15px 45px;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  :hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
