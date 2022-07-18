@@ -1,20 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
-import { GET_POST } from '../../graphql/queries';
+import { parseISO } from 'date-fns';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import 'react-quill/dist/quill.snow.css';
 import {
-  ProfilePage,
-  DetailsDiv,
-  Title,
-  ItemTitle,
-  ItemDetail,
-  TitleDiv,
-  Subtitle
+  TitleDiv
 } from '../../components/profile/[id].style';
 import { BlogPostAuthor, BlogPostPage, BlogPostSubtitle, BlogPostTitle } from '../../components/[user_id]/[post_id].style';
-import { parseISO } from 'date-fns'
-import Link from 'next/link';
-import 'react-quill/dist/quill.snow.css'
+import { GET_POST } from '../../graphql/queries';
 
 const Post = () => {
   const [postData, setPostData] = useState();
@@ -31,7 +25,6 @@ const Post = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setPostData(data.getItem)
     }
   }, [data]);

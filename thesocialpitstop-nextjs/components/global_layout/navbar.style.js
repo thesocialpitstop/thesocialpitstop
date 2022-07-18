@@ -149,7 +149,7 @@ export const NavLinkItem = styled.a`
   }
 `;
 
-export const NavButton = styled.div`
+export const NavButton = styled.button`
   background-image: linear-gradient(to right, #4b6cb7 0%, #182848  51%, #4b6cb7  100%);
   margin: 10px;
   padding: 15px 45px;
@@ -159,6 +159,7 @@ export const NavButton = styled.div`
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
+  cursor: pointer;
   :hover {
     background-position: right center; /* change the direction of the change here */
     color: #fff;

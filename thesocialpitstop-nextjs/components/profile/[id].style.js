@@ -112,3 +112,11 @@ export const DesktopView = styled.div`
       display: none;
     }
 `;
+
+export const FollowPartnerButtonDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+`;
+
+export const ImageAndTitleDiv = styled.div``;

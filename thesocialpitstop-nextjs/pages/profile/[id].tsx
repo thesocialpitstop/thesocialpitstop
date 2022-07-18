@@ -1,50 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/client';
-import { useUser } from '@auth0/nextjs-auth0';
-import { CREATE_REVIEW, CREATE_FOLLOW, DELETE_ITEM, CREATE_PARTNER } from '../../graphql/mutations';
-import { GET_PROFILE, GET_REVIEWS_OF_USER_LIMIT, GET_FOLLOWER, GET_PARTNER, GET_PAST_CSR_DATA } from "../../graphql/queries";
+import { useMutation, useQuery } from "@apollo/client";
+import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
-  ProfilePage,
-  DetailsDiv,
-  Title,
-  ItemTitle,
-  ItemDetail,
-  TitleDiv,
-  Subtitle,
-  PastCsrDiv,
-  PastCsrItem,
-  ReviewDiv,
-  ReviewUserDiv,
-  ReviewNameDiv,
-  ReviewContentDiv,
-  ReviewTitleDiv,
-  MobileTabPanel,
   DesktopView,
+  DetailsDiv,
+  FollowPartnerButtonDiv,
+  ItemDetail,
+  ItemTitle, MobileTabPanel,
+  PastCsrDiv,
+  ProfilePage,
+  ReviewDiv,
+  ReviewTitleDiv,
+  Subtitle,
+  Title,
+  TitleDiv
 } from "../../components/profile/[id].style";
-
-import ReviewItem from "../../components/profile/review_item";
-import Image from "next/image";
-import profileImage from "../../public/beach-cleanup.webp";
-import categories from "../../constants/categories";
 import {
-  Avatar,
-  Box,
-  Button,
-  Rating,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import PostItem from "../../components/profile/post_item";
-import ListReviewModal from "../../components/profile/list_review_modal";
-import CreateReviewModal from "../../components/profile/create_review_modal";
-import { useTheme } from "styled-components";
-import { boolean } from 'yup';
-import { ConstructionOutlined } from '@mui/icons-material';
-import Link from 'next/link';
+  CREATE_FOLLOW,
+  CREATE_PARTNER,
+  DELETE_ITEM
+} from "../../graphql/mutations";
+import {
+  GET_FOLLOWER,
+  GET_PARTNER,
+  GET_PAST_CSR_DATA,
+  GET_PROFILE,
+  GET_REVIEWS_OF_USER_LIMIT
+} from "../../graphql/queries";
 
-const TabPanel = (props) => {
+import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+import parsePhoneNumber from "libphonenumber-js";
+import Image from "next/image";
+import Link from "next/link";
+import CreateReviewModal from "../../components/profile/create_review_modal";
+import ListReviewModal from "../../components/profile/list_review_modal";
+import PartnershipModal from "../../components/profile/partnership_modal";
+import PostItem from "../../components/profile/post_item";
+import ReviewItem from "../../components/profile/review_item";
+import categories from "../../constants/categories";
+import { CLOUDFRONT_URL } from "../../constants/constants";
+import { Profile } from "../../models/profile";
+import { Post } from "../../models/post";
+import { Review } from "../../models/review";
+
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -57,19 +64,21 @@ const TabPanel = (props) => {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component='div'>{children}</Typography>
+          <Typography component={'span'} >{children}</Typography>
         </Box>
       )}
     </div>
   );
-};
+}
 
 const ProfileID = () => {
-  const [profileData, setProfileData] = useState();
-  const [reviewData, setReviewData] = useState();
-  const [pastCSRData, setPastCSRData] = useState();
+  const [profileData, setProfileData] = useState<Profile>();
+  const [reviewData, setReviewData] = useState<Review[]>();
+  const [pastCSRData, setPastCSRData] = useState<Post[]>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
   const [listReviewModal, setListReviewModalState] = useState(false);
+  const [phone, setPhone] = useState<string>();
+  const [partnershipModal, setPartnershipModalState] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const { id } = router.query;
@@ -77,7 +86,7 @@ const ProfileID = () => {
   const [createFollow] = useMutation(CREATE_FOLLOW);
   const [createPartner] = useMutation(CREATE_PARTNER);
   const [deleteItem] = useMutation(DELETE_ITEM);
-  const ownProfile = user && id == user.sub.split('|')[1];
+  const ownProfile = user && id == user.sub.split("|")[1];
 
   // Profile Data
   const { data: profile } = useQuery(GET_PROFILE, {
@@ -89,21 +98,22 @@ const ProfileID = () => {
 
   useEffect(() => {
     if (profile) {
-      // console.log(profile.getItem);
+      console.log(profile.getItem);
       setProfileData(profile.getItem);
+      setPhone(
+        profile?.getItem?.contact_num
+      );
     }
   }, [profile]);
-
-
 
   // Follow Data
   const { data: follower } = useQuery(GET_FOLLOWER, {
     variables: {
       user_id: id,
-      item_type: `FOLLOW#${user?.sub.split('|')[1]}`,
+      item_type: `FOLLOW#${user?.sub.split("|")[1]}`,
     },
-  });  
-  
+  });
+
   const { data: pastCSRPosts } = useQuery(GET_PAST_CSR_DATA, {
     variables: {
       user_id: id,
@@ -111,72 +121,49 @@ const ProfileID = () => {
   });
 
   useEffect(() => {
-    if(pastCSRPosts) {
-      console.log(pastCSRPosts)
+    if (pastCSRPosts) {
+      console.log(pastCSRPosts);
       setPastCSRData(pastCSRPosts.queryUserWithItemTypePrefix.items);
     }
-  },[pastCSRPosts])
+  }, [pastCSRPosts]);
 
   const handleFollow = (event) => {
     if (user) {
       if (follower?.getItem) {
         deleteItem({
           variables: {
-            item_type: `FOLLOW#${user.sub.split('|')[1]}`,
+            item_type: `FOLLOW#${user.sub.split("|")[1]}`,
             user_id: id,
-          }
+          },
         });
       } else {
         createFollow({
           variables: {
             datetime: new Date().toISOString(),
-            item_type: `FOLLOW#${user.sub.split('|')[1]}`,
+            item_type: `FOLLOW#${user.sub.split("|")[1]}`,
             user_id: id,
-            follower_id: user.sub.split('|')[1],
-            follower_name: user.nickname
-          }
-        })
+            follower_id: user.sub.split("|")[1],
+            follower_name: user.nickname,
+          },
+        });
       }
       router.reload();
     } else {
-      router.push('/api/auth/login');
+      router.push("/api/auth/login");
     }
-  }
+  };
 
   // Partner Data
   const { data: partnerData } = useQuery(GET_PARTNER, {
     variables: {
       user_id: id,
-      item_type: `PARTNER#${user?.sub.split('|')[1]}`,
+      item_type: `PARTNER#${user?.sub.split("|")[1]}`,
     },
   });
 
   const handlePartner = (event) => {
-    if (user) {
-      if (partnerData?.getItem) {
-        deleteItem({
-          variables: {
-            item_type: `PARTNER#${user.sub.split('|')[1]}`,
-            user_id: id,
-          }
-        });
-      } else {
-        createPartner({
-          variables: {
-            datetime: new Date().toISOString(),
-            item_type: `PARTNER#${user.sub.split('|')[1]}`,
-            user_id: id,
-            partner_id: user.sub.split('|')[1],
-            partner_name: user.nickname,
-            partner_status: "pending"
-          }
-        })
-      }
-      router.reload();
-    } else {
-      router.push('/api/auth/login');
-    }
-  }
+    setPartnershipModalState(true);
+  };
 
   // Review Data
   const {
@@ -209,35 +196,67 @@ const ProfileID = () => {
   }
 
   const Overview = () => {
+    const [src, setSrc] = React.useState(
+      `${CLOUDFRONT_URL}/${profileData?.user_id}`
+    );
     return (
       <>
         <TitleDiv>
+          <Image
+            src={src}
+            alt="profile_picture"
+            width={64}
+            height={64}
+            quality={100}
+            onError={() =>
+              setSrc(`https://ui-avatars.com/api/?name=${profileData?.name}`)
+            }
+          />
           <Title>{profileData?.name}</Title>
           <Subtitle>{profileData?.details}</Subtitle>
         </TitleDiv>
 
-        <Button variant="contained" onClick={ownProfile ? undefined : handleFollow} disabled={ownProfile}>
-          {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
-        </Button>
-        <Button variant="contained" onClick={ownProfile ? undefined : handlePartner} disabled={ownProfile}>
-          {user && partnerData?.getItem ? "Cancel Partnership Request" : "Send Partnership Request"}
-        </Button>
+        <FollowPartnerButtonDiv>
+          <Button
+            variant="contained"
+            onClick={ownProfile ? undefined : handleFollow}
+            disabled={ownProfile}
+          >
+            {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
+          </Button>
+          <Button
+            variant="contained"
+            onClick={ownProfile ? undefined : handlePartner}
+            disabled={ownProfile}
+          >
+            {user && partnerData?.getItem
+              ? "Cancel Partnership Request"
+              : "Send Partnership Request"}
+          </Button>
+        </FollowPartnerButtonDiv>
         <DetailsDiv>
           <ItemTitle>Category</ItemTitle>
           <ItemDetail>
-            {profileData?.category
-              ? <a href={`/search?category=${profileData?.category}`}>
-                  {categories.filter((cat) => cat.value === profileData?.category)[0].name}
-                </a>
-              : "Others"}
+            {profileData?.category ? (
+              <a href={`/search?category=${profileData?.category}`}>
+                {
+                  categories.filter(
+                    (cat) => cat.value === profileData?.category
+                  )[0].name
+                }
+              </a>
+            ) : (
+              "Others"
+            )}
           </ItemDetail>
           <ItemTitle>Address</ItemTitle>
           <ItemDetail>{profileData?.address}</ItemDetail>
           <ItemTitle>Contact No.</ItemTitle>
           <ItemDetail>
-            <a href={`tel:${profileData?.contact_num}`}>
-              {profileData?.contact_num}
-            </a>
+            {phone ? <a href={`tel:${profileData?.contact_num}`}>{parsePhoneNumber(
+          phone,
+          "SG"
+        ).formatInternational()}</a> : <></>}
           </ItemDetail>
           <ItemTitle>Website</ItemTitle>
           <ItemDetail>
@@ -253,22 +272,22 @@ const ProfileID = () => {
   });
 
   const pastCsrItems = pastCSRData?.map((content) => {
-    return <Link href={`/${id}/${content.item_type.split('#')[1]}`} passHref key={content.name}>
-      <a>
-        <PostItem key={content.name} content={content} />    
-      </a>
-    </Link>;
+    return (
+      <Link
+        href={`/${id}/${content.item_type.split("#")[1]}`}
+        passHref
+        key={content.name}
+      >
+        <a>
+          <PostItem key={content.name} content={content} />
+        </a>
+      </Link>
+    );
   });
 
   return (
     <ProfilePage>
       <MobileTabPanel>
-        <Image
-          src={profileImage}
-          alt="profile_picture"
-          layout="responsive"
-          quality={100}
-        />
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -289,7 +308,10 @@ const ProfileID = () => {
         </TabPanel>
         <TabPanel value={value} index={2}>
           {reviewItems}
-          <Button variant="outlined" onClick={() => setListReviewModalState(true)}>
+          <Button
+            variant="outlined"
+            onClick={() => setListReviewModalState(true)}
+          >
             View More Reviews
           </Button>
         </TabPanel>
@@ -306,13 +328,11 @@ const ProfileID = () => {
         setOpen={setCreateReviewModalState}
         id={id}
       />
+      <PartnershipModal
+        open={partnershipModal}
+        setOpen={setPartnershipModalState}
+      />
       <DesktopView>
-        <Image
-          src={profileImage}
-          alt="profile_picture"
-          layout="responsive"
-          quality={100}
-        />
         <Overview />
         <h1>Past CSR Activities</h1>
         <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
@@ -320,12 +340,24 @@ const ProfileID = () => {
         <ReviewDiv>
           <ReviewTitleDiv>
             <h1>Reviews</h1>
-            <Button variant="contained" onClick={() => setCreateReviewModalState(true)}>Leave A Review</Button>
+            <Button
+              variant="contained"
+              onClick={() => setCreateReviewModalState(true)}
+            >
+              Leave A Review
+            </Button>
           </ReviewTitleDiv>
-          {reviewItems}
-          <Button variant="outlined" onClick={() => setListReviewModalState(true)}>
-            View More Reviews
-          </Button>
+          {reviewData?.length == 0 ? <div>No Reviews Yet</div> : reviewItems}
+          {reviewData?.length == 0 ? (
+            <></>
+          ) : (
+            <Button
+              variant="outlined"
+              onClick={() => setListReviewModalState(true)}
+            >
+              View More Reviews
+            </Button>
+          )}
         </ReviewDiv>
       </DesktopView>
     </ProfilePage>
