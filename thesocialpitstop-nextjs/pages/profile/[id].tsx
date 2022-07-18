@@ -40,8 +40,8 @@ import PostItem from "../../components/profile/post_item";
 import ReviewItem from "../../components/profile/review_item";
 import categories from "../../constants/categories";
 import { CLOUDFRONT_URL } from "../../constants/constants";
-import { Profile } from "../../models/profile";
 import { Post } from "../../models/post";
+import { Profile } from "../../models/profile";
 import { Review } from "../../models/review";
 
 
@@ -197,8 +197,9 @@ const ProfileID = () => {
 
   const Overview = () => {
     const [src, setSrc] = React.useState(
-      `${CLOUDFRONT_URL}/${profileData?.user_id}`
+      `${CLOUDFRONT_URL}/profile/${profileData?.user_id}`
     );
+    console.log(src)
     return (
       <>
         <TitleDiv>
