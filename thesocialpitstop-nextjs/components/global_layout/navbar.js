@@ -50,10 +50,11 @@ const Navbar = ({ toggle }) => {
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>
           </NavBtn>
-          {user ? <></> : <Link href={link} passHref>
+          {user == undefined ? <Link href={link} passHref>
             <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
-          </Link>}
-          <NavbarUserProfile />
+          </Link> : <></>}
+          {user == undefined? <></>: 
+          <NavbarUserProfile />}
         </NavbarContainer>
       </Nav>
     </>
