@@ -18,6 +18,7 @@ import categories from "../../constants/categories";
 import { CREATE_PROFILE } from "../../graphql/mutations";
 import { profileCreateValidationSchema } from "../../components/dashboard/profile/create_validation_schema";
 import { AddressAutocomplete } from "../../components/dashboard/profile/address_autocomplete";
+import { AUTH0_URL } from "../../constants/constants";
 const CreateProfile = () => {
   const parseJwt = (token) => {
     if (!token) {
@@ -58,7 +59,7 @@ const CreateProfile = () => {
         onCompleted: (data) => {
           console.log("success", data);
           if (user_id) {
-            window.location = `https://the-social-pitstop.us.auth0.com/continue?state=${router.query.state}`;
+            router.push(`${AUTH0_URL}/continue?state=${router.query.state}`)
           } else {
             router.push("/dashboard");
           }

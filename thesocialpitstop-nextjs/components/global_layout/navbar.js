@@ -12,6 +12,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import Image from "next/image";
 import Link from "next/link";
 import TemporaryDrawer from "./drawer";
+import NavbarUserProfile from "../navbar/navbar_user_profile";
 
 const Navbar = ({ toggle }) => {
   const { user } = useUser();
@@ -49,9 +50,10 @@ const Navbar = ({ toggle }) => {
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>
           </NavBtn>
-          <Link href={link} passHref>
+          {user ? <></> : <Link href={link} passHref>
             <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
-          </Link>
+          </Link>}
+          <NavbarUserProfile />
         </NavbarContainer>
       </Nav>
     </>

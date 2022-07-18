@@ -7,44 +7,51 @@ import {
   DetailsDiv,
   FollowPartnerButtonDiv,
   ItemDetail,
-  ItemTitle,
-  ImageAndTitleDiv,
-  MobileTabPanel,
+  ItemTitle, MobileTabPanel,
   PastCsrDiv,
   ProfilePage,
   ReviewDiv,
   ReviewTitleDiv,
   Subtitle,
   Title,
-  TitleDiv,
+  TitleDiv
 } from "../../components/profile/[id].style";
 import {
   CREATE_FOLLOW,
   CREATE_PARTNER,
-  DELETE_ITEM,
+  DELETE_ITEM
 } from "../../graphql/mutations";
 import {
   GET_FOLLOWER,
   GET_PARTNER,
   GET_PAST_CSR_DATA,
   GET_PROFILE,
-  GET_REVIEWS_OF_USER_LIMIT,
+  GET_REVIEWS_OF_USER_LIMIT
 } from "../../graphql/queries";
 
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+import parsePhoneNumber from "libphonenumber-js";
 import Image from "next/image";
 import Link from "next/link";
 import CreateReviewModal from "../../components/profile/create_review_modal";
 import ListReviewModal from "../../components/profile/list_review_modal";
+import PartnershipModal from "../../components/profile/partnership_modal";
 import PostItem from "../../components/profile/post_item";
 import ReviewItem from "../../components/profile/review_item";
 import categories from "../../constants/categories";
-import profileImage from "../../public/beach-cleanup.webp";
 import { CLOUDFRONT_URL } from "../../constants/constants";
-import PartnershipModal from "../../components/profile/partnership_modal";
-import parsePhoneNumber from "libphonenumber-js";
+import { Profile } from "../../models/profile";
+import { Post } from "../../models/post";
+import { Review } from "../../models/review";
 
-const TabPanel = (props) => {
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -57,20 +64,20 @@ const TabPanel = (props) => {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component="div">{children}</Typography>
+          <Typography component={'span'} >{children}</Typography>
         </Box>
       )}
     </div>
   );
-};
+}
 
 const ProfileID = () => {
-  const [profileData, setProfileData] = useState();
-  const [reviewData, setReviewData] = useState();
-  const [pastCSRData, setPastCSRData] = useState();
+  const [profileData, setProfileData] = useState<Profile>();
+  const [reviewData, setReviewData] = useState<Review[]>();
+  const [pastCSRData, setPastCSRData] = useState<Post[]>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
   const [listReviewModal, setListReviewModalState] = useState(false);
-  const [phone, setPhone] = useState();
+  const [phone, setPhone] = useState<string>();
   const [partnershipModal, setPartnershipModalState] = useState(false);
   const [value, setValue] = React.useState(0);
   const router = useRouter();
@@ -94,10 +101,7 @@ const ProfileID = () => {
       console.log(profile.getItem);
       setProfileData(profile.getItem);
       setPhone(
-        parsePhoneNumber(
-          profile?.getItem?.contact_num,
-          "SG"
-        ).formatInternational()
+        profile?.getItem?.contact_num
       );
     }
   }, [profile]);
@@ -249,7 +253,10 @@ const ProfileID = () => {
           <ItemDetail>{profileData?.address}</ItemDetail>
           <ItemTitle>Contact No.</ItemTitle>
           <ItemDetail>
-            <a href={`tel:${profileData?.contact_num}`}>{phone}</a>
+            {phone ? <a href={`tel:${profileData?.contact_num}`}>{parsePhoneNumber(
+          phone,
+          "SG"
+        ).formatInternational()}</a> : <></>}
           </ItemDetail>
           <ItemTitle>Website</ItemTitle>
           <ItemDetail>
@@ -340,8 +347,8 @@ const ProfileID = () => {
               Leave A Review
             </Button>
           </ReviewTitleDiv>
-          {reviewData.length == 0 ? <div>No Reviews Yet</div> : reviewItems}
-          {reviewData.length == 0 ? (
+          {reviewData?.length == 0 ? <div>No Reviews Yet</div> : reviewItems}
+          {reviewData?.length == 0 ? (
             <></>
           ) : (
             <Button

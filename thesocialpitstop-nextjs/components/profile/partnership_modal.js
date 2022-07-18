@@ -1,19 +1,18 @@
+import { useMutation, useQuery } from "@apollo/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import {
   Box,
   Button,
-  Modal,
-  Rating,
-  TextField,
-  Typography,
+  Modal, TextField,
+  Typography
 } from "@mui/material";
-import { useState } from "react";
 import { useFormik } from "formik";
-import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_PARTNER, CREATE_REVIEW } from "../../graphql/mutations";
-import { useUser } from "@auth0/nextjs-auth0";
 import styled from "styled-components";
 import * as Yup from "yup";
 import { YupEmailValidation } from "../../constants/formik_validation";
+import { CREATE_PARTNER } from "../../graphql/mutations";
+import { useRouter } from 'next/router';
+import { GET_PARTNER } from "../../graphql/queries";
 
 const ParnerReqDiv = styled.div`
   display: flex;
@@ -30,11 +29,13 @@ const partnershipValidationModalSchema = Yup.object().shape({
   email: YupEmailValidation,
 });
 
-const PartnershipModal = ({ open, setOpen, id }) => {
+const PartnershipModal = ({ open, setOpen }) => {
+  const router = useRouter();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { user } = useUser();
   const [createPartner] = useMutation(CREATE_PARTNER);
+  const { id } = router.query;
 
   const style = {
     position: "absolute",
@@ -47,6 +48,14 @@ const PartnershipModal = ({ open, setOpen, id }) => {
     boxShadow: 24,
     p: 4,
   };
+
+    // Partner Data
+    const { data: partnerData } = useQuery(GET_PARTNER, {
+      variables: {
+        user_id: id,
+        item_type: `PARTNER#${user?.sub.split("|")[1]}`,
+      },
+    });
 
   const formik = useFormik({
     validationSchema: partnershipValidationModalSchema,
@@ -71,10 +80,14 @@ const PartnershipModal = ({ open, setOpen, id }) => {
               partner_id: user.sub.split('|')[1],
               partner_name: user.nickname,
               partner_status: "pending",
+            },
+            onCompleted: (data) => {
+              console.log(data);
+              handleClose();
+              router.reload();
             }
           })
         }
-        router.reload();
       } else {
         router.push('/api/auth/login');
       }
