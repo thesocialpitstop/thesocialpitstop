@@ -1,0 +1,1 @@
+[![codecov](https://codecov.io/gh/thesocialpitstop/thesocialpitstop/branch/main/graph/badge.svg?token=14B6G9943F)](https://codecov.io/gh/thesocialpitstop/thesocialpitstop)
