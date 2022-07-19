@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoriesPage from "../../../pages/categories"
+// import CategoriesPage from "../../../../pages/categories"
 import {render, fireEvent, waitFor, screen} from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import ProfileID from '../../../pages/profile/[id]'
