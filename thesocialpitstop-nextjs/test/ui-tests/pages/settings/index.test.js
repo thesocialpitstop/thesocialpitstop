@@ -4,7 +4,7 @@ import {render, fireEvent, waitFor, screen} from '@testing-library/react'
 import { ThemeProvider } from 'styled-components'
 import ProfileID from '../../../pages/profile/[id]'
 import { MockedProvider } from '@apollo/client/testing';
-import SettingsPage from '../../../pages/settings'
+import SettingsPage from '../../../../pages/settings'
 
 jest.mock('next/router', () => ({
     useRouter() {
