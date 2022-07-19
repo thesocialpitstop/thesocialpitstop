@@ -26,4 +26,6 @@ jobs:
       run: yarn install
 
     - name: Run the tests
-      run: yarn test -- --coverage
+      run: yarn test --coverage
+      with:
+        working-directory: thesocialpitstop-nextjs
