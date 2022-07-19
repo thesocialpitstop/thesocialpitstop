@@ -23,7 +23,7 @@ jobs:
         working-directory: thesocialpitstop-nextjs
 
       - name: Run the tests
-        run: npm test --coverage
+        run: yarn test --coverage
         working-directory: thesocialpitstop-nextjs
         
       - name: Upload coverage to Codecov

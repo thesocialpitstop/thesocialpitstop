@@ -27,6 +27,7 @@ jobs:
       - name: Install packages
         # run: npm install --legacy-peer-deps
         run: yarn install
+        working-directory: thesocialpitstop-nextjs
 
       # Run Cypress tests
       - name: Cypress run
