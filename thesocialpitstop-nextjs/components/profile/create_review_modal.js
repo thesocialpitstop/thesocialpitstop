@@ -1,16 +1,16 @@
-import {
-  Box,
-  Button,
-  Modal,
-  Rating,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-import { useFormik } from "formik";
-import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_REVIEW } from "../../graphql/mutations";
+import { useMutation } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
+import {
+    Box,
+    Button,
+    Modal,
+    Rating,
+    TextField,
+    Typography
+} from "@mui/material";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { CREATE_REVIEW } from "../../graphql/mutations";
 
 const CreateReviewModal = ({ open, setOpen, id }) => {
   const handleOpen = () => setOpen(true);
