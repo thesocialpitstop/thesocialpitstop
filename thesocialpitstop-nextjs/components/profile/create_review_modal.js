@@ -15,7 +15,7 @@ import { CREATE_REVIEW } from "../../graphql/mutations";
 const CreateReviewModal = ({ open, setOpen, id }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
   const [rating, setRatingValue] = useState(0);
   const [textFieldValue, setTextFieldValue] = useState();
   const [createReview, { data: updatedData }] = useMutation(CREATE_REVIEW);
@@ -57,9 +57,6 @@ const CreateReviewModal = ({ open, setOpen, id }) => {
     },
   });
 
-  const handleChange = (event) => {
-    setTextFieldValue(event.target.value);
-  };
 
   return (
     <Modal open={open} onClose={handleClose}>

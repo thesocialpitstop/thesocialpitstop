@@ -20,7 +20,7 @@ import {
   useProfile,
   useReviews
 } from "./api";
-
+import { EventModalContext, useEventModal } from "./event_context";
 const ProfileID = () => {
   const [profileData, setProfileData] = useState<Profile>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
@@ -28,6 +28,7 @@ const ProfileID = () => {
   const [reviewData, setReviewData] = useState<Review[]>();
   const [pastCSRData, setPastCSRData] = useState<Post[]>();
   const [partnershipModal, setPartnershipModalState] = useState(false);
+  const eventInfoModal = useEventModal();
   const router = useRouter();
   const { id } = router.query;
   const profile = useProfile(id);
@@ -97,15 +98,17 @@ const ProfileID = () => {
         open={partnershipModal}
         setOpen={setPartnershipModalState}
       />
-      <ProfileDesktopView
-        id={id}
-        profileData={profileData}
-        reviewItems={reviewItems}
-        pastCsrItems={pastCsrItems}
-        setPartnershipModalState={setPartnershipModalState}
-        setCreateReviewModalState={setCreateReviewModalState}
-        setListReviewModalState={setListReviewModalState}
-      />
+      <EventModalContext.Provider value={eventInfoModal}>
+        <ProfileDesktopView
+          id={id}
+          profileData={profileData}
+          reviewItems={reviewItems}
+          pastCsrItems={pastCsrItems}
+          setPartnershipModalState={setPartnershipModalState}
+          setCreateReviewModalState={setCreateReviewModalState}
+          setListReviewModalState={setListReviewModalState}
+        />
+      </EventModalContext.Provider>
     </ProfilePage>
   );
 };

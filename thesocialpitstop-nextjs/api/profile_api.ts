@@ -5,7 +5,7 @@ import {
   GET_PAST_CSR_DATA,
   GET_PROFILE,
   GET_REVIEWS_OF_USER_LIMIT,
-} from "../../graphql/queries";
+} from "../graphql/queries";
 
 export function usePastCSR(id) {
   console.log(id);

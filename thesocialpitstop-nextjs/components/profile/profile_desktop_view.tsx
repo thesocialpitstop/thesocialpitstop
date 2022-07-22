@@ -1,10 +1,11 @@
 import { Button } from "@mui/material"
+import { useContext } from "react"
+import { EventModalContext } from "../../pages/profile/event_context"
 import Events from "./events/events"
 import { Overview } from "./overview"
 import { DesktopView, PastCsrDiv, ReviewDiv, ReviewTitleDiv } from "./[id].style"
 
 export const ProfileDesktopView = ( {id, profileData, pastCsrItems,reviewItems, setPartnershipModalState, setCreateReviewModalState, setListReviewModalState,} ) => {
-    
     return (<DesktopView>
         <Overview id={id} profileData={profileData} setPartnershipModalState={setPartnershipModalState}/>
         <h1>Past CSR Activities</h1>
