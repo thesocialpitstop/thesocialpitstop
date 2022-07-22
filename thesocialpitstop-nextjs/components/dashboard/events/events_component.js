@@ -21,7 +21,6 @@ const EventsComponent = () => {
   });
 
   const openEditModal = (data) => {
-    console.log(data);
     setEditModal(true);
   };
 
@@ -37,9 +36,11 @@ const EventsComponent = () => {
   }, [eventData]);
 
   const eventItems = events.map((data) => {
-    return <EventItemAdmin data={data} eventId={setEventId} openModal={openEditModal}/>;
+    console.log(data);
+    return <EventItemAdmin key={data.user_id} data={data} eventId={setEventId} openModal={openEditModal}/>;
   });
 
+  
   return (
     <>
       <Button variant="contained" onClick={openCreateModal}>+ New Event</Button>

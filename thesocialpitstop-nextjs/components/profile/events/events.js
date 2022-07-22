@@ -21,7 +21,7 @@ const Events = (props) => {
   }, [eventData]);
 
   const eventItems = events?.map((element) => {
-    return <EventItem data={element} />;
+    return <EventItem data={element} key={element.item_type}/>;
   });
 
   console.log(eventItems)
