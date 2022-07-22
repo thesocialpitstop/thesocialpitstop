@@ -39,17 +39,14 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   useEffect(() => {
     setFollowText(user && follower?.getItem ? "FOLLOWING" : "FOLLOW");
     setFollow(user && follower?.getItem ? true : false);
+    setPhone(profileData?.contact_num);
+
   }, []);
 
   const partnerText =
     user && partnerData?.getItem
       ? "Cancel Partnership Request"
       : "Send Partnership Request";
-  console.log(src);
-
-  useEffect(() => {
-    setPhone(profileData?.contact_num);
-  }, []);
 
   const handlePartner = (event) => {
     setPartnershipModalState(true);
