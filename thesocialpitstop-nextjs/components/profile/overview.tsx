@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import categories from "../../constants/categories";
 import { CLOUDFRONT_URL } from "../../constants/constants";
 import { CREATE_FOLLOW, DELETE_ITEM } from "../../graphql/mutations";
-import { getFollowers, getPartners } from "../../pages/profile/api";
+import { useFollowers, usePartners } from "../../pages/profile/api";
 import {
   DetailsDiv,
   InformationDiv,
@@ -25,10 +25,10 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   const { user } = useUser();
   const [follow, setFollow] = useState(false);
   const [followText, setFollowText] = useState("");
-  const partnerData = getPartners(id);
+  const partnerData = usePartners(id);
   const router = useRouter();
 
-  const follower = getFollowers(id);
+  const follower = useFollowers(id);
   const ownProfile = user && id == user.sub.split("|")[1];
   const [followButtonDisabledState, setFollowButtonDisabledState] =
     useState(false);

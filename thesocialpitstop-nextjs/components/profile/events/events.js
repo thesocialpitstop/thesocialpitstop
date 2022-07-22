@@ -24,8 +24,6 @@ const Events = (props) => {
     return <EventItem data={element} key={element.item_type}/>;
   });
 
-  console.log(eventItems)
-
   return (
     <>
       <h1>Events</h1>

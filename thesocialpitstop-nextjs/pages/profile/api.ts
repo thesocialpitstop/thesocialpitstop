@@ -7,7 +7,7 @@ import {
   GET_REVIEWS_OF_USER_LIMIT,
 } from "../../graphql/queries";
 
-export function getPastCSR(id) {
+export function usePastCSR(id) {
   console.log(id);
   const { data: pastCSRPosts } = useQuery(GET_PAST_CSR_DATA, {
     variables: {
@@ -17,7 +17,7 @@ export function getPastCSR(id) {
   return pastCSRPosts;
 }
 
-export function getFollowers(id) {
+export function useFollowers(id) {
   const { data: follower } = useQuery(GET_FOLLOWER, {
     variables: {
       user_id: id,
@@ -27,7 +27,7 @@ export function getFollowers(id) {
   return follower;
 }
 
-export function getProfile(id) {
+export function useProfile(id) {
   // Profile Data
   const { data: profile } = useQuery(GET_PROFILE, {
     variables: {
@@ -38,7 +38,7 @@ export function getProfile(id) {
   return profile;
 }
 
-export function getPartners(id) {
+export function usePartners(id) {
       // Partner Data
   const { data: partnerData } = useQuery(GET_PARTNER, {
     variables: {
@@ -49,7 +49,7 @@ export function getPartners(id) {
   return partnerData;
 }
 
-export function getReviews(id) {
+export function useReviews(id) {
       // Review Data
   const {
     data: reviews,

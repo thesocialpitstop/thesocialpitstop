@@ -6,7 +6,7 @@ import { useState } from "react";
 import { CREATE_PARTNER } from "../../graphql/mutations";
 import { Post } from "../../models/post";
 import { Review } from "../../models/review";
-import { getFollowers } from "../../pages/profile/api";
+import { useFollowers } from "../../pages/profile/api";
 import Events from "./events/events";
 import { Overview } from "./overview";
 import PostItem from "./post_item";
@@ -41,7 +41,7 @@ function TabPanel(props: TabPanelProps) {
 
 export const ProfileMobileView = ({ profileData, id, setListReviewModalState, setPartnershipModalState }) => {
   const { user } = useUser();
-  const follower = getFollowers(id);
+  const follower = useFollowers(id);
   const [value, setValue] = useState(0);
 
   const [reviewData, setReviewData] = useState<Review[]>();

@@ -16,9 +16,9 @@ import { Post } from "../../models/post";
 import { Profile } from "../../models/profile";
 import { Review } from "../../models/review";
 import {
-  getPastCSR,
-  getProfile,
-  getReviews
+  usePastCSR,
+  useProfile,
+  useReviews
 } from "./api";
 
 const ProfileID = () => {
@@ -30,9 +30,9 @@ const ProfileID = () => {
   const [partnershipModal, setPartnershipModalState] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  const profile = getProfile(id);
-  const pastCSRPosts = getPastCSR(id);
-  const reviews = getReviews(id);
+  const profile = useProfile(id);
+  const pastCSRPosts = usePastCSR(id);
+  const reviews = useReviews(id);
 
   useEffect(() => {
     if (profile) {
