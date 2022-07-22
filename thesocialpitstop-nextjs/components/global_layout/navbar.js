@@ -44,9 +44,9 @@ const Navbar = ({ toggle }) => {
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>
           </NavBtn>
-          {user == undefined ? <Link href={link} passHref>
+          <a href={link}>
             <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
-          </Link> : <></>}
+          </a>
           {user == undefined? <></>: 
           <NavbarUserProfile />}
         </NavbarContainer>
