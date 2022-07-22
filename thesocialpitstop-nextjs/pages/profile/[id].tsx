@@ -19,7 +19,7 @@ import {
   usePastCSR,
   useProfile,
   useReviews
-} from "./api";
+} from "../../api/profile_api";
 import { EventModalContext, useEventModal } from "./event_context";
 const ProfileID = () => {
   const [profileData, setProfileData] = useState<Profile>();

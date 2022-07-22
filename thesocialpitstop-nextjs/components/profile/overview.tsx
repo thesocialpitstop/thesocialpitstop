@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import categories from "../../constants/categories";
 import { CLOUDFRONT_URL } from "../../constants/constants";
 import { CREATE_FOLLOW, DELETE_ITEM } from "../../graphql/mutations";
-import { useFollowers, usePartners } from "../../pages/profile/api";
+import { useFollowers, usePartners } from "../../api/profile_api";
 import {
   DetailsDiv,
   InformationDiv,
