@@ -1,6 +1,6 @@
 import { Button } from "@mui/material"
 import { useContext } from "react"
-import { EventModalContext } from "../../pages/profile/event_context"
+import { EventModalContext } from "./event_context"
 import Events from "./events/events"
 import { Overview } from "./overview"
 import { DesktopView, PastCsrDiv, ReviewDiv, ReviewTitleDiv } from "./[id].style"

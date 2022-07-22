@@ -20,7 +20,7 @@ import {
   useProfile,
   useReviews
 } from "../../api/profile_api";
-import { EventModalContext, useEventModal } from "./event_context";
+import { EventModalContext, useEventModal } from "../../components/profile/event_context";
 const ProfileID = () => {
   const [profileData, setProfileData] = useState<Profile>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);

@@ -11,7 +11,7 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import { parseISO } from "date-fns";
 import { useState } from "react";
 import RoomIcon from "@mui/icons-material/Room";
-import { EventModalContext } from "../../../pages/profile/event_context";
+import { EventModalContext } from "../event_context";
 
 const EventItem = (props) => {
   const [src, setSrc] = useState(props.image_url ? props.image_url : "/");
