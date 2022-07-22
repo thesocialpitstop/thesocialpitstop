@@ -20,7 +20,7 @@ import { validationSchema } from "./validation_schema";
 import {
   ProfileForm,
   ProfileTextField,
-  ProfileImageSection,
+  ProfileImageSection,DashboardProfileEdit,
   Input,
 } from "./profile_component.style";
 import { useS3Upload } from 'next-s3-upload';
@@ -73,6 +73,7 @@ const ProfileComponent = () => {
       </IconButton>
     </>
   );
+  console.log(userProfile?.address)
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -109,15 +110,6 @@ const ProfileComponent = () => {
         });
     },
   });
-  // const defaultValue = 
-  // {
-  //     "SEARCHVAL": "52059 (BUS STOP)",
-  //     "BLK_NO": "",
-  //     "ROAD_NAME": "BRADDELL RD",
-  //     "BUILDING": "52059 (BUS STOP)",
-  //     "ADDRESS": "52059 (BUS STOP) BRADDELL RD",
-  //     "POSTAL": "NIL"
-  // }
   const handleInputChange = async (event) => {
     console.log(event);
     const objectUrl = URL.createObjectURL(event.target.files[0]);
@@ -162,6 +154,7 @@ const ProfileComponent = () => {
             </Button>
           </label>
         </ProfileImageSection>
+        <DashboardProfileEdit>
         <ProfileTextField
           fullWidth
           id="name"
@@ -184,14 +177,14 @@ const ProfileComponent = () => {
           helperText={formik.touched.address && formik.errors.address}
         /> */}
         <AddressAutocomplete 
+          id="address"
           name="address"
           label="Address"
-          initialValue={formik.values.address || ""}
+          defaultValue={{"ADDRESS" : userProfile?.address}}
           inputValue={formik.values.address || ""}
           setFieldValue={formik.setFieldValue}
         /> 
         <TextField
-          style={{ marginBottom: "1rem" }}
           fullWidth
           select
           name="category"
@@ -251,6 +244,7 @@ const ProfileComponent = () => {
         >
           Save
         </Button>
+        </DashboardProfileEdit>
       </form>
     </ProfileForm>
   );

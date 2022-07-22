@@ -19,6 +19,7 @@ import PostsComponent from '../../components/dashboard/posts/posts_component';
 import { drawerItems } from '../../constants/drawer_items';
 import ProfileComponent from '../../components/dashboard/profile/profile_component';
 import PartnersComponent from '../../components/dashboard/partners/partners_component';
+import EventsComponent from '../../components/dashboard/events/events_component';
 
 const drawerWidth = 240;
 
@@ -40,6 +41,9 @@ const SettingsDrawer = () => {
           break;     
         case 'Partners':
           setUi(<PartnersComponent />);
+          break;
+        case 'Events':
+          setUi(<EventsComponent />);
           break;
       }
     }, [uiState])

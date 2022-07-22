@@ -1,124 +1,45 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { useUser } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  DesktopView,
-  DetailsDiv,
-  FollowPartnerButtonDiv,
-  ItemDetail,
-  ItemTitle, MobileTabPanel,
-  PastCsrDiv,
-  ProfilePage,
-  ReviewDiv,
-  ReviewTitleDiv,
-  Subtitle,
-  Title,
-  TitleDiv
+  ProfilePage
 } from "../../components/profile/[id].style";
-import {
-  CREATE_FOLLOW,
-  CREATE_PARTNER,
-  DELETE_ITEM
-} from "../../graphql/mutations";
-import {
-  GET_FOLLOWER,
-  GET_PARTNER,
-  GET_PAST_CSR_DATA,
-  GET_PROFILE,
-  GET_REVIEWS_OF_USER_LIMIT
-} from "../../graphql/queries";
 
-import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
-import parsePhoneNumber from "libphonenumber-js";
-import Image from "next/image";
 import Link from "next/link";
 import CreateReviewModal from "../../components/profile/create_review_modal";
 import ListReviewModal from "../../components/profile/list_review_modal";
 import PartnershipModal from "../../components/profile/partnership_modal";
 import PostItem from "../../components/profile/post_item";
+import { ProfileDesktopView } from "../../components/profile/profile_desktop_view";
+import { ProfileMobileView } from "../../components/profile/profile_mobile_view";
 import ReviewItem from "../../components/profile/review_item";
-import categories from "../../constants/categories";
-import { CLOUDFRONT_URL } from "../../constants/constants";
 import { Post } from "../../models/post";
 import { Profile } from "../../models/profile";
 import { Review } from "../../models/review";
-
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component={'span'} >{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+import {
+  getPastCSR,
+  getProfile,
+  getReviews
+} from "./api";
 
 const ProfileID = () => {
   const [profileData, setProfileData] = useState<Profile>();
-  const [reviewData, setReviewData] = useState<Review[]>();
-  const [pastCSRData, setPastCSRData] = useState<Post[]>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
   const [listReviewModal, setListReviewModalState] = useState(false);
-  const [phone, setPhone] = useState<string>();
+  const [reviewData, setReviewData] = useState<Review[]>();
+  const [pastCSRData, setPastCSRData] = useState<Post[]>();
   const [partnershipModal, setPartnershipModalState] = useState(false);
-  const [value, setValue] = React.useState(0);
   const router = useRouter();
   const { id } = router.query;
-  const { user } = useUser();
-  const [createFollow] = useMutation(CREATE_FOLLOW);
-  const [createPartner] = useMutation(CREATE_PARTNER);
-  const [deleteItem] = useMutation(DELETE_ITEM);
-  const ownProfile = user && id == user.sub.split("|")[1];
-
-  // Profile Data
-  const { data: profile } = useQuery(GET_PROFILE, {
-    variables: {
-      user_id: id,
-      item_type: "SOO-PROFILE",
-    },
-  });
+  const profile = getProfile(id);
+  const pastCSRPosts = getPastCSR(id);
+  const reviews = getReviews(id);
 
   useEffect(() => {
     if (profile) {
-      console.log(profile.getItem);
+      console.log(profile);
       setProfileData(profile.getItem);
-      setPhone(
-        profile?.getItem?.contact_num
-      );
     }
   }, [profile]);
-
-  // Follow Data
-  const { data: follower } = useQuery(GET_FOLLOWER, {
-    variables: {
-      user_id: id,
-      item_type: `FOLLOW#${user?.sub.split("|")[1]}`,
-    },
-  });
-
-  const { data: pastCSRPosts } = useQuery(GET_PAST_CSR_DATA, {
-    variables: {
-      user_id: id,
-    },
-  });
 
   useEffect(() => {
     if (pastCSRPosts) {
@@ -127,146 +48,12 @@ const ProfileID = () => {
     }
   }, [pastCSRPosts]);
 
-  const handleFollow = (event) => {
-    if (user) {
-      if (follower?.getItem) {
-        deleteItem({
-          variables: {
-            item_type: `FOLLOW#${user.sub.split("|")[1]}`,
-            user_id: id,
-          },
-        });
-      } else {
-        createFollow({
-          variables: {
-            datetime: new Date().toISOString(),
-            item_type: `FOLLOW#${user.sub.split("|")[1]}`,
-            user_id: id,
-            follower_id: user.sub.split("|")[1],
-            follower_name: user.nickname,
-          },
-        });
-      }
-      router.reload();
-    } else {
-      router.push("/api/auth/login");
-    }
-  };
-
-  // Partner Data
-  const { data: partnerData } = useQuery(GET_PARTNER, {
-    variables: {
-      user_id: id,
-      item_type: `PARTNER#${user?.sub.split("|")[1]}`,
-    },
-  });
-
-  const handlePartner = (event) => {
-    setPartnershipModalState(true);
-  };
-
-  // Review Data
-  const {
-    data: reviews,
-    loading,
-    error,
-  } = useQuery(GET_REVIEWS_OF_USER_LIMIT, {
-    variables: {
-      user_id: id,
-      limit: 2,
-    },
-  });
-
   useEffect(() => {
     if (reviews) {
-      console.log(reviews.queryUserWithItemTypePrefix.items);
+      console.log(reviews);
       setReviewData(reviews.queryUserWithItemTypePrefix.items);
     }
   }, [reviews]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
-
-  const Overview = () => {
-    const [src, setSrc] = React.useState(
-      `${CLOUDFRONT_URL}/profile/${profileData?.user_id}`
-    );
-    console.log(src)
-    return (
-      <>
-        <TitleDiv>
-          <Image
-            src={src}
-            alt="profile_picture"
-            width={64}
-            height={64}
-            quality={100}
-            onError={() =>
-              setSrc(`https://ui-avatars.com/api/?name=${profileData?.name}`)
-            }
-          />
-          <Title>{profileData?.name}</Title>
-          <Subtitle>{profileData?.details}</Subtitle>
-        </TitleDiv>
-
-        <FollowPartnerButtonDiv>
-          <Button
-            variant="contained"
-            onClick={ownProfile ? undefined : handleFollow}
-            disabled={ownProfile}
-          >
-            {user && follower?.getItem ? "- Unfollow" : "+ Follow"}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={ownProfile ? undefined : handlePartner}
-            disabled={ownProfile}
-          >
-            {user && partnerData?.getItem
-              ? "Cancel Partnership Request"
-              : "Send Partnership Request"}
-          </Button>
-        </FollowPartnerButtonDiv>
-        <DetailsDiv>
-          <ItemTitle>Category</ItemTitle>
-          <ItemDetail>
-            {profileData?.category ? (
-              <a href={`/search?category=${profileData?.category}`}>
-                {
-                  categories.filter(
-                    (cat) => cat.value === profileData?.category
-                  )[0].name
-                }
-              </a>
-            ) : (
-              "Others"
-            )}
-          </ItemDetail>
-          <ItemTitle>Address</ItemTitle>
-          <ItemDetail>{profileData?.address}</ItemDetail>
-          <ItemTitle>Contact No.</ItemTitle>
-          <ItemDetail>
-            {phone ? <a href={`tel:${profileData?.contact_num}`}>{parsePhoneNumber(
-          phone,
-          "SG"
-        ).formatInternational()}</a> : <></>}
-          </ItemDetail>
-          <ItemTitle>Website</ItemTitle>
-          <ItemDetail>
-            <a href={`mailto:${profileData?.email}`}>{profileData?.email}</a>
-          </ItemDetail>
-        </DetailsDiv>
-      </>
-    );
-  };
 
   const reviewItems = reviewData?.map((rev) => {
     return <ReviewItem key={rev.reviewer_id} data={rev} />;
@@ -288,35 +75,12 @@ const ProfileID = () => {
 
   return (
     <ProfilePage>
-      <MobileTabPanel>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            variant="scrollable"
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab label="Overview" {...a11yProps(0)} />
-            <Tab label="Past CSR Activities" {...a11yProps(1)} />
-            <Tab label="Reviews" {...a11yProps(2)} />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          <Overview />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          {reviewItems}
-          <Button
-            variant="outlined"
-            onClick={() => setListReviewModalState(true)}
-          >
-            View More Reviews
-          </Button>
-        </TabPanel>
-      </MobileTabPanel>
+      <ProfileMobileView
+        profileData={profileData}
+        id={id}
+        setListReviewModalState={setListReviewModalState}
+        setPartnershipModalState={setPartnershipModalState}
+      />
       <ListReviewModal
         open={listReviewModal}
         setOpen={setListReviewModalState}
@@ -333,34 +97,15 @@ const ProfileID = () => {
         open={partnershipModal}
         setOpen={setPartnershipModalState}
       />
-      <DesktopView>
-        <Overview />
-        <h1>Past CSR Activities</h1>
-        <PastCsrDiv>{pastCsrItems}</PastCsrDiv>
-
-        <ReviewDiv>
-          <ReviewTitleDiv>
-            <h1>Reviews</h1>
-            <Button
-              variant="contained"
-              onClick={() => setCreateReviewModalState(true)}
-            >
-              Leave A Review
-            </Button>
-          </ReviewTitleDiv>
-          {reviewData?.length == 0 ? <div>No Reviews Yet</div> : reviewItems}
-          {reviewData?.length == 0 ? (
-            <></>
-          ) : (
-            <Button
-              variant="outlined"
-              onClick={() => setListReviewModalState(true)}
-            >
-              View More Reviews
-            </Button>
-          )}
-        </ReviewDiv>
-      </DesktopView>
+      <ProfileDesktopView
+        id={id}
+        profileData={profileData}
+        reviewItems={reviewItems}
+        pastCsrItems={pastCsrItems}
+        setPartnershipModalState={setPartnershipModalState}
+        setCreateReviewModalState={setCreateReviewModalState}
+        setListReviewModalState={setListReviewModalState}
+      />
     </ProfilePage>
   );
 };

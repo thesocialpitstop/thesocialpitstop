@@ -4,7 +4,6 @@ import { Card } from "@mui/material";
 import algoliasearch from 'algoliasearch';
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import AnimatedShowMore from "react-animated-show-more";
 import PlaceholderLoading from "react-placeholder-loading";
 import { Autocomplete } from "../../components/search/autocomplete/autocomplete";
 import { DemoToggle } from "../../components/search/demo_toggle";

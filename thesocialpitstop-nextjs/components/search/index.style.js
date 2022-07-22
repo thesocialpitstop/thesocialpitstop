@@ -1,6 +1,5 @@
 import { Button, TextField } from "@mui/material";
 import styled from "styled-components";
-import AnimatedShowMore from 'react-animated-show-more';
 
 export const SearchPageDiv = styled.div`
   display: grid;

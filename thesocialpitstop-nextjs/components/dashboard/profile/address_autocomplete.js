@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ONE_MAP_API_URL } from "../../../constants/constants";
 
 export const AddressAutocomplete = (props) => {
+    console.log(props);
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -27,13 +28,12 @@ export const AddressAutocomplete = (props) => {
     
     return (
         <Autocomplete 
-            style={{marginBottom: "1rem"}}
             id="dashboard-address-autocomplete"
             autoComplete
             fullWidth
             forcePopupIcon={false}
             options={options}
-            defaultValue={props.initialValue}
+            defaultValue={props.defaultValue}
             getOptionLabel={(option) => option.ADDRESS}
             isOptionEqualToValue={(option, value) => option.ADDRESS === value.ADDRESS}
             onInputChange={onInputChange}

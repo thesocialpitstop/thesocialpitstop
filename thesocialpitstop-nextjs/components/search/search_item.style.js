@@ -12,7 +12,9 @@ export const SearchItemDiv = styled.div`
 
 `;
 
-export const SearchItemTitle = styled.a`
+export const SearchItemTitle = styled.div`
+    cursor: pointer;
+    text-overflow: ellipsis;
     font-size: larger;
     font-weight: 600;
     //TRBL
@@ -21,7 +23,7 @@ export const SearchItemTitle = styled.a`
     }
 `;
 export const SearchItemImage = styled.div`
-position: relative;
+    position: relative;
 `;
 export const SearchItemDescription = styled.div`
 `;
@@ -29,4 +31,3 @@ export const SearchItemAddress = styled.div``;
 export const SearchItemTextSection = styled.div`
     padding: 8px 16px;
 `;
-export const SearchItemImageSection = styled(Image)``;

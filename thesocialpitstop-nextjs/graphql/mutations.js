@@ -248,3 +248,53 @@ export const UPDATE_PARTNER = gql`
     }
   }
 `
+
+export const CREATE_EVENT = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $datetime: AWSDateTime,
+    $event_name: String,
+    $event_date: AWSDateTime,
+    $event_details: String,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        datetime: $datetime
+        event_name: $event_name
+        event_date: $event_date
+        event_details: $event_details
+      }
+    ) {
+      datetime
+      event_name
+      event_date
+      event_details
+    }
+  }
+`
+
+export const UPDATE_EVENT = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $content: String!,
+    $title: String!,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        content: $content,
+        title: $title,
+      }
+    )  {
+      user_id
+      item_type
+      content
+      title
+    }
+  }
+`

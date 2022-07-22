@@ -7271,11 +7271,6 @@ quill@^1.3.7:
     parchment "^1.1.4"
     quill-delta "^3.6.2"
 
-react-animated-show-more@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-animated-show-more/-/react-animated-show-more-1.0.2.tgz#51701bb9f362256d597cd680ac9995fe66403635"
-  integrity sha512-o49oIUDrMGHfW1/AFYy0sjJQ0Ezks+W4IOD7Ko6N6U6Q3fWLPrPM40SSmg/GXKlm80Ae0+8FJdb/QgiBbgfGoQ==
-
 react-dom-factories@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.2.tgz#eb7705c4db36fb501b3aa38ff759616aa0ff96e0"

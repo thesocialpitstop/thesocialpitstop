@@ -21,6 +21,7 @@ const NavbarUserProfile = () => {
       />
       <DropdownContent>
         <DropdownContentLink href="/profile">My Profile</DropdownContentLink>
+        <DropdownContentLink href="/dashboard">Dashboard</DropdownContentLink>
         <DropdownContentLink href="/api/auth/logout">Logout</DropdownContentLink>
       </DropdownContent>
 

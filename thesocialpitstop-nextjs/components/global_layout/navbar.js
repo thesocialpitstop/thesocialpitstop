@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TemporaryDrawer from "./drawer";
 import NavbarUserProfile from "../navbar/navbar_user_profile";
+import { SOCIAL_PITSTOP_LOGO_URL } from "../../constants/constants";
 
 const Navbar = ({ toggle }) => {
   const { user } = useUser();
@@ -29,20 +30,13 @@ const Navbar = ({ toggle }) => {
           <NavLogo href="/" passHref>
             <a>
               <Image
-                src="https://i.imgur.com/isQOODZ.png"
+                src={SOCIAL_PITSTOP_LOGO_URL}
                 width="64"
                 height="64"
               />
             </a>
           </NavLogo>
           <NavBtn>
-            <Link href="/dashboard" passHref>
-              <NavLinkItem>DASHBOARD</NavLinkItem>
-            </Link>
-            <Link href="/profile" passHref>
-              <NavLinkItem>PROFILE</NavLinkItem>
-            </Link>
-
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>
