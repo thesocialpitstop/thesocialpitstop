@@ -10,7 +10,15 @@ const nextConfig = {
       'imagesvc.meredithcorp.io',
       'd1ex1xtzymn6tv.cloudfront.net'
     ]
-  }
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: "/docs/graphql",
+        destination: "/graphql/index.html",
+      }
+    ]
+}
 }
 
 module.exports = nextConfig

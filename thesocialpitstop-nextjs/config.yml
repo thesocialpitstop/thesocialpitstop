@@ -1,6 +1,6 @@
 spectaql:
-  logoFile: ./icons/logo.png
-  faviconFile: ./icons/logo.png
+  logoFile: /icons/logo.png
+  faviconFile: /icons/logo.png
   displayAllServers: true
 
 introspection:
@@ -16,18 +16,13 @@ extensions:
 
 info:
   title: TheSocialPitstop GraphQL API Reference
-  description: This is the documentation for TheSocialPitstop's GraphQL API.
-  termsOfService: https://www.example.com/terms (Placeholder)
+  description: This is the documentation for TheSocialPitstop's GraphQL API. In this reference, you will find functions that we have used in our website to retrieve information about our users.
   contact:
     name: TheSocialPitstop Support
-    url: https://thesocialpitstop.vercel.app/contact-us (to be created)
-    # email: tsp.orbital@gmail.com
+    email: tsp.orbital@gmail.com
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-introItems:
-    - title: Placeholder Title
-      description: Placeholder Description
 
 servers:
   - url: https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql
