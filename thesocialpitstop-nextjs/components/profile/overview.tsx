@@ -157,7 +157,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
             </ItemDetail>
             <ItemTitle>Address</ItemTitle>
             <ItemDetail>
-              {profileData? <a target="_blank" href={`${GOOGLE_MAPS_SEARCH_URL}${profileData?.address}`}>
+              {profileData? <a target="_blank" rel="noreferrer" href={`${GOOGLE_MAPS_SEARCH_URL}${profileData?.address}`}>
                 {profileData?.address}
               </a> : <></>}
             </ItemDetail>
