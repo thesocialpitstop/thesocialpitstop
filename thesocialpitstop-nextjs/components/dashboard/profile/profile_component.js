@@ -26,13 +26,16 @@ import {
   Input,
 } from "./profile_component.style";
 import { useS3Upload } from "next-s3-upload";
-import { CLOUDFRONT_URL, SOO_PROFILE_STRING } from "../../../constants/constants";
+import {
+  CLOUDFRONT_URL,
+  SOO_PROFILE_STRING,
+} from "../../../constants/constants";
 import { AddressAutocomplete } from "./address_autocomplete";
 
 const sooNeeds = [
-  { title: "Volunteering", value: "volunteering"},
-  { title: "Funding", value: "funding"}
-]
+  { title: "Volunteering", value: "volunteering" },
+  { title: "Funding", value: "funding" },
+];
 
 const ProfileComponent = () => {
   const { user } = useUser();
@@ -45,7 +48,9 @@ const ProfileComponent = () => {
   });
   const SUCCESS_MESSAGE = "Profile Successfully Saved";
   const FAILURE_MESSAGE = "Failed to save";
-  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/profile/${user?.sub.split("|")[1]}`);
+  const [src, setSrc] = useState(
+    `${CLOUDFRONT_URL}/profile/${user?.sub.split("|")[1]}`
+  );
   const [snackbarMessage, setSnackbarMessage] = useState(SUCCESS_MESSAGE);
   const [userProfile, setUserProfile] = useState([]);
   const [phoneNum, setPhoneNum] = useState();
@@ -111,7 +116,7 @@ const ProfileComponent = () => {
           category: values.category,
           address: values.address,
           contact_num: parsePhoneNumber(values.contact_num, "SG").number,
-          needs: needs
+          needs: needs,
         },
         onCompleted: (data) => {
           console.log("complete");
@@ -136,11 +141,17 @@ const ProfileComponent = () => {
         request: {
           body: {
             directory: "profile",
-            user_id: user.sub.split("|")[1],
+            filename: user.sub.split("|")[1],
           },
         },
       },
-    });
+    })
+      .then((data) => {
+        console.log("finish");
+      })
+      .catch((e) => console.error(e));
+
+      setSrc(objectUrl);
     setUserProfile((prevState) => ({
       ...prevState,
       image_url: objectUrl,
@@ -192,14 +203,18 @@ const ProfileComponent = () => {
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
             />
-            {userProfile ? <AddressAutocomplete
-              id="address"
-              name="address"
-              label="Address"
-              defaultValue={{ ADDRESS: userProfile?.address }}
-              inputValue={formik.values.address || ""}
-              setFieldValue={formik.setFieldValue}
-            /> : <></>}
+            {userProfile ? (
+              <AddressAutocomplete
+                id="address"
+                name="address"
+                label="Address"
+                defaultValue={{ ADDRESS: userProfile?.address }}
+                inputValue={formik.values.address || ""}
+                setFieldValue={formik.setFieldValue}
+              />
+            ) : (
+              <></>
+            )}
             <TextField
               fullWidth
               select
@@ -218,7 +233,7 @@ const ProfileComponent = () => {
                 );
               })}
             </TextField>
-            <Autocomplete 
+            <Autocomplete
               multiple
               id="needs"
               name="needs"
@@ -227,14 +242,16 @@ const ProfileComponent = () => {
               onChange={(event, newValue) => {
                 setNeeds([
                   ...fixedOptions,
-                  ...newValue.filter((option) => fixedOptions.indexOf(option.value) === -1),
-                ])
+                  ...newValue.filter(
+                    (option) => fixedOptions.indexOf(option.value) === -1
+                  ),
+                ]);
               }}
               options={sooNeeds}
               getOptionLabel={(option) => option.title || ""}
-              renderTags={(tagValue, getTagProps) => 
+              renderTags={(tagValue, getTagProps) =>
                 tagValue.map((option, index) => (
-                  <Chip 
+                  <Chip
                     key={option.value}
                     label={option.title}
                     {...getTagProps({ index })}

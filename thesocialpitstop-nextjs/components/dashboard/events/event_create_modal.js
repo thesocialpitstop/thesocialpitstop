@@ -53,7 +53,7 @@ const EventCreateModal = ({ open, setOpen }) => {
           request: {
             body: {
               directory: "event",
-              eventID: eventID,
+              filename: eventID,
             },
           },
         },
