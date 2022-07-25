@@ -6,7 +6,7 @@ import { useState } from "react";
 import { CREATE_PARTNER } from "../../graphql/mutations";
 import { Post } from "../../models/post";
 import { Review } from "../../models/review";
-import { useFollowers } from "../../api/profile_api";
+import { useFollowers } from "../../global_api/profile_api";
 import Events from "./events/events";
 import { Overview } from "./overview";
 import PostItem from "./post_item";

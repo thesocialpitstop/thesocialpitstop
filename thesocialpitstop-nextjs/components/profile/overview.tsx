@@ -5,7 +5,7 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useFollowers, usePartners } from "../../api/profile_api";
+import { useFollowers, usePartners } from "../../global_api/profile_api";
 import categories from "../../constants/categories";
 import {
   CLOUDFRONT_URL,
