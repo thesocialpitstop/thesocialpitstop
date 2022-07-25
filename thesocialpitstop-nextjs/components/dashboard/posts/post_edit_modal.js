@@ -1,4 +1,11 @@
-import { Button, IconButton, Modal, Snackbar, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Modal,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
@@ -26,17 +33,14 @@ const style = {
 };
 
 export const validationSchema = yup.object({
-  title: yup.string("Enter your title").required("Name is required"),
+  title: yup.string("Enter your title").required("title is required"),
   content: yup.string("Enter your password").required("Name is required"),
 });
 
-const ReactQuill = dynamic(
-  import("react-quill"),
-  {
-    ssr: false,
-    loading: () => <p>Loading...</p>
-  }
-);
+const ReactQuill = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 const PostEditModal = ({ open, setOpen, postId }) => {
   const handleOpen = () => setOpen(true);
@@ -52,7 +56,7 @@ const PostEditModal = ({ open, setOpen, postId }) => {
     error: postsError,
   } = useQuery(GET_POST, {
     variables: {
-      user_id: user?.sub.split('|')[1],
+      user_id: user?.sub.split("|")[1],
       item_type: postId,
     },
   });
@@ -61,11 +65,10 @@ const PostEditModal = ({ open, setOpen, postId }) => {
     { data: updatedData, loading: updateLoading, error: updateError },
   ] = useMutation(UPDATE_POST, {
     variables: {
-      user_id: user?.sub.split('|')[1],
+      user_id: user?.sub.split("|")[1],
       item_type: postId,
     },
   });
-
 
   useEffect(() => {
     if (posts) {
@@ -76,18 +79,6 @@ const PostEditModal = ({ open, setOpen, postId }) => {
       console.log(error);
     }
   }, [posts]);
-
-  const handleSubmit = (values) => {
-    console.log(values);
-
-  }
-
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
-  };
   const action = (
     <>
       <IconButton
@@ -104,7 +95,7 @@ const PostEditModal = ({ open, setOpen, postId }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      title: titleText,
+      title: posts?.getItem?.title,
       content: contentText,
     },
     validationSchema: validationSchema,
@@ -113,7 +104,7 @@ const PostEditModal = ({ open, setOpen, postId }) => {
       updatePost({
         variables: {
           title: values.title,
-          content: values.content
+          content: values.content,
         },
         onCompleted: (data) => {
           console.log("complete");
@@ -124,36 +115,42 @@ const PostEditModal = ({ open, setOpen, postId }) => {
       });
     },
   });
- 
-
 
   return (
-    
     <Modal
       open={open}
       onClose={handleClose}
       aria-labelledby="edit-post-modal"
       aria-describedby="Modal to edit post"
     >
-
       <Box sx={style}>
         <form onSubmit={formik.handleSubmit}>
-          <Typography id="edit-post-modal-title" variant="h6" component="h2">
-            Title
-          </Typography>
-          <TextField  fullWidth value={titleText} />
+          <TextField
+            id="title"
+            name="title"
+            label="Post Title"
+            fullWidth
+            value={posts?.getItem?.title}
+            onChange={formik.handleChange}
+          />
           <Typography id="edit-post-modal-content" variant="h6" component="h2">
             Content
           </Typography>
-          {postsLoading ? "loading" : <ReactQuill 
-            modules={modules} 
-            formats={formats}
-            theme="snow" 
-            defaultValue={contentText}
-            style={{ height:300, marginBottom: "100px" }}
-            onChange={setContentText}
-          />}
-          <Button type="submit" variant="contained">Save</Button>
+          {postsLoading ? (
+            "loading"
+          ) : (
+            <ReactQuill
+              modules={modules}
+              formats={formats}
+              theme="snow"
+              defaultValue={contentText}
+              style={{ height: 300, marginBottom: "170px" }}
+              onChange={setContentText}
+            />
+          )}
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
         </form>
       </Box>
     </Modal>

@@ -3,6 +3,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import {
   Autocomplete,
   Button,
+  Chip,
   IconButton,
   MenuItem,
   Snackbar,
@@ -21,11 +22,17 @@ import {
   ProfileForm,
   ProfileTextField,
   ProfileImageSection,
+  DashboardProfileEdit,
   Input,
 } from "./profile_component.style";
-import { useS3Upload } from 'next-s3-upload';
-import { CLOUDFRONT_URL } from "../../../constants/constants";
+import { useS3Upload } from "next-s3-upload";
+import { CLOUDFRONT_URL, SOO_PROFILE_STRING } from "../../../constants/constants";
 import { AddressAutocomplete } from "./address_autocomplete";
+
+const sooNeeds = [
+  { title: "Volunteering", value: "volunteering"},
+  { title: "Funding", value: "funding"}
+]
 
 const ProfileComponent = () => {
   const { user } = useUser();
@@ -33,16 +40,22 @@ const ProfileComponent = () => {
   const { data: userData } = useQuery(GET_PROFILE, {
     variables: {
       user_id: user?.sub.split("|")[1],
-      item_type: `SOO-PROFILE`,
+      item_type: SOO_PROFILE_STRING,
     },
   });
+  const SUCCESS_MESSAGE = "Profile Successfully Saved";
+  const FAILURE_MESSAGE = "Failed to save";
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/profile/${user?.sub.split("|")[1]}`);
+  const [snackbarMessage, setSnackbarMessage] = useState(SUCCESS_MESSAGE);
   const [userProfile, setUserProfile] = useState([]);
   const [phoneNum, setPhoneNum] = useState();
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [needs, setNeeds] = useState([]);
+  const fixedOptions = [];
   const [updateProfile] = useMutation(UPDATE_PROFILE, {
     variables: {
       user_id: user?.sub.split("|")[1],
-      item_type: `SOO-PROFILE`,
+      item_type: SOO_PROFILE_STRING,
     },
     refetchQueries: [{ query: GET_PROFILE }, "MyQuery"],
   });
@@ -73,20 +86,23 @@ const ProfileComponent = () => {
       </IconButton>
     </>
   );
+  console.log(userProfile?.address);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       name: userProfile?.name,
-      address: userProfile?.address,
       category: userProfile?.category,
       contact_num: phoneNum?.nationalNumber,
+      address: userProfile?.address,
       details: userProfile?.details,
       email: userProfile?.email,
+      needs: userProfile?.needs,
     },
     validationSchema: validationSchema,
-    onSubmit: values => {
+    onSubmit: (values) => {
       console.log(values);
+      console.log(needs);
       updateProfile({
         variables: {
           name: values.name,
@@ -95,6 +111,7 @@ const ProfileComponent = () => {
           category: values.category,
           address: values.address,
           contact_num: parsePhoneNumber(values.contact_num, "SG").number,
+          needs: needs
         },
         onCompleted: (data) => {
           console.log("complete");
@@ -106,18 +123,11 @@ const ProfileComponent = () => {
         .then((msg) => console.log(msg))
         .catch((error) => {
           console.error(error);
+          setSnackbarMessage(FAILURE_MESSAGE);
+          setOpenSnackbar(true);
         });
     },
   });
-  // const defaultValue = 
-  // {
-  //     "SEARCHVAL": "52059 (BUS STOP)",
-  //     "BLK_NO": "",
-  //     "ROAD_NAME": "BRADDELL RD",
-  //     "BUILDING": "52059 (BUS STOP)",
-  //     "ADDRESS": "52059 (BUS STOP) BRADDELL RD",
-  //     "POSTAL": "NIL"
-  // }
   const handleInputChange = async (event) => {
     console.log(event);
     const objectUrl = URL.createObjectURL(event.target.files[0]);
@@ -126,10 +136,10 @@ const ProfileComponent = () => {
         request: {
           body: {
             directory: "profile",
-            user_id: user.sub.split('|')[1],
-          }
-        }
-      }
+            user_id: user.sub.split("|")[1],
+          },
+        },
+      },
     });
     setUserProfile((prevState) => ({
       ...prevState,
@@ -143,114 +153,146 @@ const ProfileComponent = () => {
         open={openSnackbar}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="Profile Successfully Saved"
+        message={snackbarMessage}
         action={action}
       />
       <form onSubmit={formik.handleSubmit}>
-        <ProfileImageSection>
-          <Image src={`${CLOUDFRONT_URL}/profile/${user?.sub.split("|")[1]}`} width={64} height={64} />
-
-          <label htmlFor="contained-button-file">
-            <Input
-              accept="image/*"
-              id="contained-button-file"
-              type="file"
-              onChange={handleInputChange}
+        <div>
+          <ProfileImageSection>
+            <Image
+              src={src}
+              width={64}
+              height={64}
+              onError={() =>
+                setSrc(`https://ui-avatars.com/api/?name=${userProfile?.name}`)
+              }
             />
-            <Button variant="contained" component="span">
-              Upload
-            </Button>
-          </label>
-        </ProfileImageSection>
-        <ProfileTextField
-          fullWidth
-          id="name"
-          name="name"
-          label="Name"
-          value={formik.values.name || ""}
-          onChange={formik.handleChange}
-          placeholder="Jane"
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-        />
-        {/* <ProfileTextField
-          fullWidth
-          name="address"
-          label="Address"
-          value={formik.values.address || ""}
-          onChange={formik.handleChange}
-          placeholder="Doe"
-          error={formik.touched.address && Boolean(formik.errors.address)}
-          helperText={formik.touched.address && formik.errors.address}
-        /> */}
-        <AddressAutocomplete 
-          name="address"
-          label="Address"
-          initialValue={formik.values.address || ""}
-          inputValue={formik.values.address || ""}
-          setFieldValue={formik.setFieldValue}
-        /> 
-        <TextField
-          style={{ marginBottom: "1rem" }}
-          fullWidth
-          select
-          name="category"
-          value={formik.values.category || ""}
-          onChange={formik.handleChange}
-          label="Category"
-          error={formik.touched.category && Boolean(formik.errors.category)}
-          helperText={formik.touched.category && formik.errors.category}
-        >
-          {categories.map((option) => {
-            return (
-              <MenuItem key={option.value} value={option.value}>
-                {option.name}
-              </MenuItem>
-            );
-          })}
-        </TextField>
-        <ProfileTextField
-          type="tel"
-          fullWidth
-          name="contact_num"
-          value={formik.values.contact_num || ""}
-          onChange={formik.handleChange}
-          label="Contact Number"
-          error={
-            formik.touched.contact_num && Boolean(formik.errors.contact_num)
-          }
-          helperText={formik.touched.contact_num && formik.errors.contact_num}
-        />
-        <ProfileTextField
-          fullWidth
-          name="details"
-          value={formik.values.details || ""}
-          onChange={formik.handleChange}
-          label="Details"
-          multiline
-          rows={4}
-          error={formik.touched.details && Boolean(formik.errors.details)}
-          helperText={formik.touched.details && formik.errors.details}
-        />
-        <ProfileTextField
-          fullWidth
-          name="email"
-          label="Email"
-          value={formik.values.email || ""}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-          placeholder="hello@socialpitstop.com"
-          onChange={formik.handleChange}
-          type="email"
-        />
 
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={!formik.dirty || !formik.validateForm}
-        >
-          Save
-        </Button>
+            <label htmlFor="contained-button-file">
+              <Input
+                type="file"
+                accept=".png,.jpg"
+                id="contained-button-file"
+                onChange={handleInputChange}
+              />
+              <Button variant="contained" component="span">
+                Upload
+              </Button>
+            </label>
+          </ProfileImageSection>
+          <DashboardProfileEdit>
+            <ProfileTextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Name"
+              value={formik.values.name || ""}
+              onChange={formik.handleChange}
+              placeholder="Jane"
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+            {userProfile ? <AddressAutocomplete
+              id="address"
+              name="address"
+              label="Address"
+              defaultValue={{ ADDRESS: userProfile?.address }}
+              inputValue={formik.values.address || ""}
+              setFieldValue={formik.setFieldValue}
+            /> : <></>}
+            <TextField
+              fullWidth
+              select
+              name="category"
+              value={formik.values.category || ""}
+              onChange={formik.handleChange}
+              label="Category"
+              error={formik.touched.category && Boolean(formik.errors.category)}
+              helperText={formik.touched.category && formik.errors.category}
+            >
+              {categories.map((option) => {
+                return (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.name}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+            <Autocomplete 
+              multiple
+              id="needs"
+              name="needs"
+              label="needs"
+              value={needs}
+              onChange={(event, newValue) => {
+                setNeeds([
+                  ...fixedOptions,
+                  ...newValue.filter((option) => fixedOptions.indexOf(option.value) === -1),
+                ])
+              }}
+              options={sooNeeds}
+              getOptionLabel={(option) => option.title || ""}
+              renderTags={(tagValue, getTagProps) => 
+                tagValue.map((option, index) => (
+                  <Chip 
+                    key={option.value}
+                    label={option.title}
+                    {...getTagProps({ index })}
+                    disabled={fixedOptions.indexOf(option) !== -1}
+                  />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField {...params} label="Needs" placeholder="Needs" />
+              )}
+              setFieldValue={formik.setFieldValue}
+            />
+            <ProfileTextField
+              type="tel"
+              fullWidth
+              name="contact_num"
+              value={formik.values.contact_num || ""}
+              onChange={formik.handleChange}
+              label="Contact Number"
+              error={
+                formik.touched.contact_num && Boolean(formik.errors.contact_num)
+              }
+              helperText={
+                formik.touched.contact_num && formik.errors.contact_num
+              }
+            />
+            <ProfileTextField
+              fullWidth
+              name="details"
+              value={formik.values.details || ""}
+              onChange={formik.handleChange}
+              label="Details"
+              multiline
+              rows={4}
+              error={formik.touched.details && Boolean(formik.errors.details)}
+              helperText={formik.touched.details && formik.errors.details}
+            />
+            <ProfileTextField
+              fullWidth
+              name="email"
+              label="Email"
+              value={formik.values.email || ""}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              placeholder="hello@socialpitstop.com"
+              onChange={formik.handleChange}
+              type="email"
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={!formik.dirty || !formik.validateForm}
+            >
+              Save
+            </Button>
+          </DashboardProfileEdit>
+        </div>
       </form>
     </ProfileForm>
   );

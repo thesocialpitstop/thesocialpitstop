@@ -12,5 +12,6 @@ export const navbarItems = [
 export const drawerItems = [
     "Profile",
     "Posts",
-    "Partners"
+    "Partners",
+    "Events"
 ];

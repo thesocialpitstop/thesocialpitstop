@@ -55,24 +55,6 @@ export const GET_PROFILE_CATEGORY = gql`
   }
 `;
 
-export const QUERY_WITH_NAME_PREFIX = gql`
-  query MyQuery($name_prefix: String!){
-    queryItemWithNamePrefix(item_type: "SOO-PROFILE", name_prefix: $name_prefix) {
-      items {
-        address
-        category
-        contact_num
-        datetime
-        details
-        email
-        item_type
-        name
-        user_id
-      }
-    }
-  }
-`;
-
 export const GET_PAST_CSR_DATA = gql`
   query MyQuery($user_id: String!){
     queryUserWithItemTypePrefix(item_type_prefix: "POST", user_id: $user_id) {
@@ -81,6 +63,38 @@ export const GET_PAST_CSR_DATA = gql`
         item_type
         datetime
         title
+      }
+    }
+  }
+`;
+
+export const GET_ALL_EVENTS_OF_USER = gql`
+  query MyQuery($user_id: String!){
+    queryUserWithItemTypePrefix(item_type_prefix: "EVENT", user_id: $user_id) {
+      items {
+        user_id
+        item_type
+        event_name
+        event_date
+        event_details
+        event_location
+        image_url
+      }
+    }
+  }
+`;
+
+export const GET_EVENT = gql`
+  query MyQuery($user_id: String!){
+    getItem(item_type: $item_type, user_id: $user_id) {
+      items {
+        user_id
+        item_type
+        event_name
+        event_date
+        event_details
+        event_location
+        image_url
       }
     }
   }
@@ -161,3 +175,18 @@ export const LIST_PARTNERS_OF_USER = gql`
     }
   }
 `;
+
+export const CHECK_REVIEW_EXIST = gql`
+  query MyQuery($user_id: String!, $limit: Int) {
+    getItem(item_type: $item_type, user_id: $user_id)  {
+      items {
+        content
+        name
+        title
+        datetime
+        item_type
+      }
+    }
+  }
+`;
+

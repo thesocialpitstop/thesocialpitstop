@@ -12,12 +12,6 @@ const ProfilePage = () =>  {
   useEffect(() => {
     router.push(`/profile/${user.sub.split('|')[1]}`);
   }, [user])
-  
-  
-
-  // return (
-
-  // )
 }
 
 export default withPageAuthRequired(ProfilePage);

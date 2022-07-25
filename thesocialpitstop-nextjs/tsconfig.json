@@ -23,8 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "cypress/*"
-  ],
+    "cypress/*"],
   "exclude": [
     "node_modules"
   ]

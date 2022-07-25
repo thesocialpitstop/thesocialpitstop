@@ -150,6 +150,10 @@ export const NavLinkItem = styled.a`
 `;
 
 export const NavButton = styled.button`
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
   background-image: linear-gradient(to right, #4b6cb7 0%, #182848  51%, #4b6cb7  100%);
   margin: 10px;
   padding: 15px 45px;

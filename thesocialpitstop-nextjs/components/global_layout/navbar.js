@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TemporaryDrawer from "./drawer";
 import NavbarUserProfile from "../navbar/navbar_user_profile";
+import { SOCIAL_PITSTOP_LOGO_URL } from "../../constants/constants";
 
 const Navbar = ({ toggle }) => {
   const { user } = useUser();
@@ -28,21 +29,10 @@ const Navbar = ({ toggle }) => {
           </MobileIcon>
           <NavLogo href="/" passHref>
             <a>
-              <Image
-                src="https://i.imgur.com/isQOODZ.png"
-                width="64"
-                height="64"
-              />
+              <Image src={SOCIAL_PITSTOP_LOGO_URL} width="64" height="64" />
             </a>
           </NavLogo>
           <NavBtn>
-            <Link href="/dashboard" passHref>
-              <NavLinkItem>DASHBOARD</NavLinkItem>
-            </Link>
-            <Link href="/profile" passHref>
-              <NavLinkItem>PROFILE</NavLinkItem>
-            </Link>
-
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>
@@ -50,11 +40,16 @@ const Navbar = ({ toggle }) => {
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>
           </NavBtn>
-          {user == undefined ? <Link href={link} passHref>
-            <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
-          </Link> : <></>}
-          {user == undefined? <></>: 
-          <NavbarUserProfile />}
+
+          {user == undefined ? (
+            <a href={link}>
+            <NavButton>{text}</NavButton>
+          </a>
+          ) : (
+            
+            <></>
+          )}
+          {user == undefined ? <></> : <NavbarUserProfile />}
         </NavbarContainer>
       </Nav>
     </>

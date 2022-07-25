@@ -1,9 +1,9 @@
 import { Autocomplete, TextField } from "@mui/material"
-import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from "react";
 import { ONE_MAP_API_URL } from "../../../constants/constants";
 
 export const AddressAutocomplete = (props) => {
+    console.log(props);
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -14,6 +14,9 @@ export const AddressAutocomplete = (props) => {
             .then(data => {
                 setLoading(false);
                 setOptions(data.results);
+            })
+            .catch((error) => {
+                console.log("ONE MAP DOWN")
             });      
     }
 
@@ -27,14 +30,13 @@ export const AddressAutocomplete = (props) => {
     
     return (
         <Autocomplete 
-            style={{marginBottom: "1rem"}}
             id="dashboard-address-autocomplete"
             autoComplete
             fullWidth
             forcePopupIcon={false}
             options={options}
-            defaultValue={props.initialValue}
-            getOptionLabel={(option) => option.ADDRESS}
+            defaultValue={props.defaultValue}
+            getOptionLabel={(option) => option.ADDRESS || ""}
             isOptionEqualToValue={(option, value) => option.ADDRESS === value.ADDRESS}
             onInputChange={onInputChange}
             onChange={(event, value) => {

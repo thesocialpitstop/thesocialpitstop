@@ -59,6 +59,7 @@ export const UPDATE_PROFILE = gql`
     $email: AWSEmail,
     $name: String
     $contact_num: AWSPhone,
+    $needs: [String],
   ) {
     updateItem(
       input: {
@@ -70,6 +71,7 @@ export const UPDATE_PROFILE = gql`
         category: $category,
         address: $address,
         contact_num: $contact_num
+        needs: $needs
       }
     ) {
       name
@@ -78,6 +80,7 @@ export const UPDATE_PROFILE = gql`
       category
       address
       contact_num
+      needs
     }
   }
 `
@@ -245,6 +248,59 @@ export const UPDATE_PARTNER = gql`
       }
     ) {
       partner_status
+    }
+  }
+`
+
+export const CREATE_EVENT = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $datetime: AWSDateTime,
+    $event_name: String,
+    $event_date: AWSDateTime,
+    $event_details: String,
+    $event_location: String,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        datetime: $datetime
+        event_name: $event_name
+        event_date: $event_date
+        event_details: $event_details
+        event_location: $event_location
+      }
+    ) {
+      datetime
+      event_name
+      event_date
+      event_details
+      event_location
+    }
+  }
+`
+
+export const UPDATE_EVENT = gql`
+  mutation MyMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $content: String!,
+    $title: String!,
+  ) {
+    updateItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        content: $content,
+        title: $title,
+      }
+    )  {
+      user_id
+      item_type
+      content
+      title
     }
   }
 `

@@ -13,7 +13,7 @@ export const ProfilePage = styled.div`
 
 export const TitleDiv = styled.div`
   @media (max-width: 768px) {
-      padding: 8px;
+    padding: 8px;
   }
 `;
 
@@ -26,20 +26,37 @@ export const Subtitle = styled.h2`
   font-family: Montserrat, sans-serif;
 `;
 
+export const InformationDiv = styled.div`
+  display: grid;
+  @media (min-width: 768px) {
+    grid-template-columns: 2fr 1fr;
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    grid-template-rows: 1fr 2fr;
+    flex-direction: column;
+  }
+`;
+
+export const NameAndDetailsDiv = styled.div`
+`;
+
 export const DetailsDiv = styled.div`
-  padding: 5px;
+  padding: 12px;
   background-color: rgba(127, 117, 174, 0.3);
   margin-top: 8px;
+  border-radius: 25px;
   @media (max-width: 768px) {
-      padding: 8px;
+    padding: 8px;
   }
 `;
 export const ItemTitle = styled.div`
   color: gray;
   font-size: small;
   font-family: Montserrat, sans-serif;
-
 `;
+
+
 
 export const ItemDetail = styled.div`
   font-family: Montserrat, sans-serif;
@@ -71,8 +88,9 @@ export const PastCsrItem = styled.div`
 
 export const ReviewDiv = styled.div`
   @media (max-width: 768px) {
-      padding: 8px;
-  }`;
+    padding: 8px;
+  }
+`;
 
 export const ReviewItemDiv = styled.div`
   display: grid;
@@ -91,6 +109,9 @@ export const ReviewUserDiv = styled.div`
 
 export const ReviewNameDiv = styled.div`
   font-weight: 600;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ReviewContentDiv = styled.div``;
@@ -98,25 +119,21 @@ export const ReviewContentDiv = styled.div``;
 export const ReviewTitleDiv = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px
+  gap: 10px;
 `;
 
 export const MobileTabPanel = styled.div`
   @media (min-width: 768px) {
-      display: none;
-    }
+    display: none;
+  }
 `;
 
 export const DesktopView = styled.div`
   @media (max-width: 768px) {
-      display: none;
-    }
+    display: none;
+  }
 `;
 
-export const FollowPartnerButtonDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-`;
+export const EventsDiv = styled.div``;
 
 export const ImageAndTitleDiv = styled.div``;
