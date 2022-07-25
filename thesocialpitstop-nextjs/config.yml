@@ -1,0 +1,31 @@
+spectaql:
+  logoFile: /icons/logo.png
+  faviconFile: /icons/logo.png
+  displayAllServers: true
+
+introspection:
+  url: https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql
+  headers:
+    x-api-key: da2-bwl2iyelpngehpeibkilozu2jq
+  removeTrailingPeriodFromDescriptions: false
+  queryNameStrategy: capitalizeFirst
+  fieldExpansionDepth: 2
+
+extensions:
+  graphqlScalarExamples: true
+
+info:
+  title: TheSocialPitstop GraphQL API Reference
+  description: This is the documentation for TheSocialPitstop's GraphQL API. In this reference, you will find functions that we have used in our website to retrieve information about our users.
+  contact:
+    name: TheSocialPitstop Support
+    email: tsp.orbital@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: https://x2zpvsawy5hatarddisdsrpwva.appsync-api.ap-southeast-1.amazonaws.com/graphql
+    production: true
+    headers:
+      - x-api-key: da2-bwl2iyelpngehpeibkilozu2jq

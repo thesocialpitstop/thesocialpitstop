@@ -12,7 +12,15 @@ const nextConfig = {
       'i.imgur.com',
       'ui-avatars.com'
     ]
-  }
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: "/docs/graphql",
+        destination: "/graphql/index.html",
+      }
+    ]
+}
 }
 
 module.exports = nextConfig

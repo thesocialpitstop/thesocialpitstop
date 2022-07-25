@@ -13,7 +13,7 @@ defaults:
     working-directory: thesocialpitstop-nextjs
 
 jobs:
-  build:
+  testing:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -23,16 +23,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Install NPM dependencies
+      # Install dependencies
       - name: Install packages
-        # run: npm install --legacy-peer-deps
         run: yarn install
+        working-directory: thesocialpitstop-nextjs
 
       # Run Cypress tests
-      - name: Cypress run
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v4
         with:
           install: false
           build: npm run build
           start: npm start
           working-directory: thesocialpitstop-nextjs
+      
+      # Run Jest tests
+      - name: Run Jest tests
+        run: yarn test --coverage
+        working-directory: thesocialpitstop-nextjs
+      
+      # Upload coverage report
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        
