@@ -51,7 +51,7 @@ export const AddressAutocomplete = (props) => {
                         ...params.inputProps,
                         autoComplete: 'new-password',
                       }}                    
-                    label="AUTOCOMPLETE Address" 
+                    label="Address" 
                     variant="outlined" />)
             }}
             noOptionsText={"Please enter a longer search term"}

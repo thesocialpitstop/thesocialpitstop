@@ -129,7 +129,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
             <Button
               variant="contained"
               onClick={ownProfile ? undefined : handlePartner}
-              disabled={ownProfile}
+              disabled={ownProfile || user ==undefined}
             >
               {partnerText}
             </Button>
