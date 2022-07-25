@@ -26,6 +26,21 @@ export const Subtitle = styled.h2`
   font-family: Montserrat, sans-serif;
 `;
 
+export const InformationDiv = styled.div`
+  display: grid;
+  @media (min-width: 768px) {
+    grid-template-columns: 2fr 1fr;
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    grid-template-rows: 1fr 2fr;
+    flex-direction: column;
+  }
+`;
+
+export const NameAndDetailsDiv = styled.div`
+`;
+
 export const DetailsDiv = styled.div`
   padding: 5px;
   background-color: rgba(127, 117, 174, 0.3);
@@ -40,16 +55,7 @@ export const ItemTitle = styled.div`
   font-family: Montserrat, sans-serif;
 `;
 
-export const InformationDiv = styled.div`
-  display: flex;
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
+
 
 export const ItemDetail = styled.div`
   font-family: Montserrat, sans-serif;

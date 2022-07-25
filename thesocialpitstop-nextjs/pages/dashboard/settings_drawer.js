@@ -69,7 +69,7 @@ const SettingsDrawer = () => {
         );
 
         return (
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', maxWidth: "900px", margin: "0 auto" }}>
             <CssBaseline />
             <AppBar
               position="fixed"

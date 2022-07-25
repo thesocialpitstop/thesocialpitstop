@@ -36,7 +36,6 @@ const EventsComponent = () => {
   }, [eventData]);
 
   const eventItems = events.map((data) => {
-    console.log(data);
     return <EventItemAdmin key={data.user_id} data={data} eventId={setEventId} openModal={openEditModal}/>;
   });
 
@@ -50,7 +49,9 @@ const EventsComponent = () => {
         eventId={eventId}
       />
       <EventCreateModal open={createModalState} setOpen={setCreateModal} />
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px"}}>
       {eventItems}
+      </div>
     </>
   );
 };

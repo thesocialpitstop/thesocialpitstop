@@ -29,11 +29,7 @@ const Navbar = ({ toggle }) => {
           </MobileIcon>
           <NavLogo href="/" passHref>
             <a>
-              <Image
-                src={SOCIAL_PITSTOP_LOGO_URL}
-                width="64"
-                height="64"
-              />
+              <Image src={SOCIAL_PITSTOP_LOGO_URL} width="64" height="64" />
             </a>
           </NavLogo>
           <NavBtn>
@@ -44,11 +40,16 @@ const Navbar = ({ toggle }) => {
               <NavLinkItem>ABOUT US</NavLinkItem>
             </Link>
           </NavBtn>
-          <a href={link}>
-            <NavButton>{<NavLinkItem>{text}</NavLinkItem>}</NavButton>
+
+          {user == undefined ? (
+            <a href={link}>
+            <NavButton>{text}</NavButton>
           </a>
-          {user == undefined? <></>: 
-          <NavbarUserProfile />}
+          ) : (
+            
+            <></>
+          )}
+          {user == undefined ? <></> : <NavbarUserProfile />}
         </NavbarContainer>
       </Nav>
     </>

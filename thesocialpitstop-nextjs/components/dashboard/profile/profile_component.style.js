@@ -2,7 +2,6 @@ import { TextField } from "@mui/material";
 import styled from "styled-components";
 
 export const ProfileForm = styled.div`
-  display: flex;
   justify-content: center;
 `;
 

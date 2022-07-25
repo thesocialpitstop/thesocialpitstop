@@ -59,6 +59,7 @@ export const UPDATE_PROFILE = gql`
     $email: AWSEmail,
     $name: String
     $contact_num: AWSPhone,
+    $needs: [String],
   ) {
     updateItem(
       input: {
@@ -70,6 +71,7 @@ export const UPDATE_PROFILE = gql`
         category: $category,
         address: $address,
         contact_num: $contact_num
+        needs: $needs
       }
     ) {
       name
@@ -78,6 +80,7 @@ export const UPDATE_PROFILE = gql`
       category
       address
       contact_num
+      needs
     }
   }
 `
@@ -257,6 +260,7 @@ export const CREATE_EVENT = gql`
     $event_name: String,
     $event_date: AWSDateTime,
     $event_details: String,
+    $event_location: String,
   ) {
     updateItem(
       input: {
@@ -266,12 +270,14 @@ export const CREATE_EVENT = gql`
         event_name: $event_name
         event_date: $event_date
         event_details: $event_details
+        event_location: $event_location
       }
     ) {
       datetime
       event_name
       event_date
       event_details
+      event_location
     }
   }
 `

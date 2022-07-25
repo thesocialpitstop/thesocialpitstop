@@ -1,11 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
 import CloseIcon from "@mui/icons-material/Close";
-import { Button, IconButton, Modal, TextField } from "@mui/material";
+import { Button, IconButton, Input, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { CLOUDFRONT_URL } from "../../../constants/constants";
 import { UPDATE_POST } from "../../../graphql/mutations";
 import { GET_ALL_EVENTS_OF_USER } from "../../../graphql/queries";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
@@ -30,6 +31,7 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
   const handleClose = () => setOpen(false);
   const { user } = useUser();
   const [event, setEvent] = useState();
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/event/${eventId}`);
 
   const {
     data: eventData,
@@ -79,7 +81,7 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
     initialValues: {
       event_name: event?.event_name,
       event_details: event?.event_details,
-      event_location: event?.event_location
+      event_location: event?.event_location,
     },
     onSubmit: (values) => {
       console.log(values);
@@ -98,8 +100,25 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
           <div
             style={{ display: "flex", gap: "16px", flexDirection: "column" }}
           >
-            <Image src={event?.image_url} height={64} width={64} />
-            <Button variant="contained">Upload Image</Button>
+            <Image
+              src={src}
+              height={64}
+              width={64}
+              onError={() =>
+                setSrc(`https://ui-avatars.com/api/?name=${event?.event_name}`)
+              }
+            />
+            <Button variant="contained" component="label">
+              Upload
+              <input
+                hidden
+                type="file"
+                accept=".png,.jpg"
+                id="contained-button-file"
+                onChange={(event) => {
+                  formik.setFieldValue("file", event.currentTarget.files[0])}}
+              />
+            </Button>
             <TextField
               fullWidth
               id="event_name"
@@ -112,7 +131,7 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
               id="event_location"
               name="event_location"
               label="event_location"
-              defaultValue={{"ADDRESS" : event?.event_location}}
+              defaultValue={{ ADDRESS: event?.event_location }}
               inputValue={formik.values.event_location || ""}
               setFieldValue={formik.setFieldValue}
             />

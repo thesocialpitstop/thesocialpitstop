@@ -81,7 +81,6 @@ export const ProfileMobileView = ({ profileData, id, setListReviewModalState, se
     );
   });
 
-
   return (
     <MobileTabPanel>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -113,7 +112,7 @@ export const ProfileMobileView = ({ profileData, id, setListReviewModalState, se
         </Button>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Events id="62a0f21a372cb39d2ba2ced0" />
+        <Events id={id} />
       </TabPanel>
     </MobileTabPanel>
   );

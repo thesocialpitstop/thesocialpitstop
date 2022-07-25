@@ -15,7 +15,7 @@ import {
   ItemDetail,
   ItemTitle,
   Title,
-  TitleDiv,
+  TitleDiv,NameAndDetailsDiv
 } from "./[id].style";
 
 export const Overview = ({ profileData, id, setPartnershipModalState }) => {
@@ -39,9 +39,14 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   useEffect(() => {
     setFollowText(user && follower?.getItem ? "FOLLOWING" : "FOLLOW");
     setFollow(user && follower?.getItem ? true : false);
-    setPhone(profileData?.contact_num);
-
+    
   }, []);
+
+  useEffect(() => {
+    if(profileData) {
+      setPhone(profileData?.contact_num);
+    }
+  }, [profileData])
 
   const partnerText =
     user && partnerData?.getItem
@@ -130,10 +135,10 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
           </div>
         </div>
         <InformationDiv>
-          <div>
+          <NameAndDetailsDiv>
             <Title>{profileData?.name}</Title>
             {profileData?.details}
-          </div>
+          </NameAndDetailsDiv>
           <DetailsDiv>
             <ItemTitle>Category</ItemTitle>
             <ItemDetail>

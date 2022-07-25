@@ -9,7 +9,7 @@ import { DropdownContent, DropdownContentLink, ProfileImage, ProfileSection } fr
 const NavbarUserProfile = () => {
   const { user } = useUser();
   const userID = user?.sub.split("|")[1];
-  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/${userID}`);
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/profile/${userID}`);
 
   return (
     <ProfileSection>

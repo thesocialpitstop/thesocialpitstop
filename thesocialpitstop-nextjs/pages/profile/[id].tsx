@@ -38,6 +38,7 @@ const ProfileID = () => {
   useEffect(() => {
     if (profile) {
       console.log(profile);
+      console.log(profile.needs);
       setProfileData(profile.getItem);
     }
   }, [profile]);

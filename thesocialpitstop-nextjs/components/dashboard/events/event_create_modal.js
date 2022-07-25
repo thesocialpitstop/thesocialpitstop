@@ -8,16 +8,20 @@ import { CREATE_EVENT } from "../../../graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { GET_ALL_EVENTS_OF_USER } from "../../../graphql/queries";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useS3Upload } from "next-s3-upload";
+import Image from "next/image";
+import { PLACEHOLDER_IMAGE } from "../../../constants/constants";
 
 const EventCreateModal = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true);
+  const { uploadToS3 } = useS3Upload();
   const handleClose = () => setOpen(false);
+  const [picture, setPicture] = useState();
   const { user } = useUser();
   const [createEvent] = useMutation(CREATE_EVENT);
-
-  const handleInputChange = async (event) => {
-    console.log(event);
-  };
+  const { router } = useRouter();
 
   const action = (
     <>
@@ -37,21 +41,36 @@ const EventCreateModal = ({ open, setOpen }) => {
     initialValues: {
       eventName: "",
       eventDetails: "",
+      file: null,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      let eventID = `EVENT#${Math.floor(Date.now() / 1000)}`;
       console.log(values);
+      await uploadToS3(values.file, {
+        endpoint: {
+          request: {
+            body: {
+              directory: "event",
+              eventID: eventID,
+            },
+          },
+        },
+      });
       createEvent({
         variables: {
           user_id: user?.sub.split("|")[1],
-          item_type: `EVENT#${Math.floor(Date.now() / 1000)}`,
+          item_type: eventID,
           datetime: new Date().toISOString(),
           event_name: values.eventName,
           event_date: new Date().toISOString(),
           event_details: values.eventDetails,
+          event_location: values.address,
         },
         onCompleted: (data) => {
           setOpen(false);
           console.log("success");
+          console.log(data);
+          router.reload();
         },
         onError: (error) => {
           console.error(error);
@@ -73,10 +92,33 @@ const EventCreateModal = ({ open, setOpen }) => {
           <div
             style={{ display: "flex", gap: "16px", flexDirection: "column" }}
           >
-            <Button variant="contained" component="label">
-              Upload
-              <input hidden accept="image/*" multiple type="file" />
-            </Button>
+            <div style={{ display: "flex", gap: "16px", flexDirection: "row" }}>
+              <Image
+                width={64}
+                height={64}
+                src={picture ? picture : PLACEHOLDER_IMAGE}
+              />
+              <Button variant="contained" component="label">
+                Upload
+                <input
+                  hidden
+                  type="file"
+                  accept=".png,.jpg"
+                  id="file"
+                  name="file"
+                  onChange={(event) => {
+                    const fileReader = new FileReader();
+                    fileReader.onload = () => {
+                      if (fileReader.readyState === 2) {
+                        formik.setFieldValue("file", fileReader.result);
+                        setPicture(fileReader.result);
+                      }
+                    };
+                    fileReader.readAsDataURL(event.target.files[0]);
+                  }}
+                />
+              </Button>
+            </div>
 
             <TextField
               fullWidth
@@ -88,6 +130,7 @@ const EventCreateModal = ({ open, setOpen }) => {
             />
 
             <AddressAutocomplete
+              id="address"
               name="address"
               label="Address"
               inputValue={formik.values.address || ""}
