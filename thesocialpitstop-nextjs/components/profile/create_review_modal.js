@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useProfile } from "../../api/profile_api";
+import { useProfile } from "../../global_api/profile_api";
 import { CLOUDFRONT_URL } from "../../constants/constants";
 import { CREATE_REVIEW } from "../../graphql/mutations";
 import * as yup from "yup";

@@ -20,7 +20,7 @@ import {
   usePastCSR,
   useProfile,
   useReviews
-} from "../../api/profile_api";
+} from "../../global_api/profile_api";
 import { EventModalContext, useEventModal } from "../../components/profile/event_context";
 import { useUser } from "@auth0/nextjs-auth0";
 const ProfileID = () => {
