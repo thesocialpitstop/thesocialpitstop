@@ -235,6 +235,7 @@ const ProfileComponent = () => {
               renderTags={(tagValue, getTagProps) => 
                 tagValue.map((option, index) => (
                   <Chip 
+                    key={option.value}
                     label={option.title}
                     {...getTagProps({ index })}
                     disabled={fixedOptions.indexOf(option) !== -1}
