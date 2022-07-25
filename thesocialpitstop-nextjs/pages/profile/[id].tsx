@@ -16,11 +16,13 @@ import { Post } from "../../models/post";
 import { Profile } from "../../models/profile";
 import { Review } from "../../models/review";
 import {
+  useCheckReview,
   usePastCSR,
   useProfile,
   useReviews
 } from "../../api/profile_api";
 import { EventModalContext, useEventModal } from "../../components/profile/event_context";
+import { useUser } from "@auth0/nextjs-auth0";
 const ProfileID = () => {
   const [profileData, setProfileData] = useState<Profile>();
   const [createReviewModal, setCreateReviewModalState] = useState(false);
@@ -31,14 +33,19 @@ const ProfileID = () => {
   const eventInfoModal = useEventModal();
   const router = useRouter();
   const { id } = router.query;
+  const { user } = useUser();
+  const userId = user?.sub.split("|")[1];
   const profile = useProfile(id);
   const pastCSRPosts = usePastCSR(id);
+  const reviewExist = useCheckReview(id, userId);
   const reviews = useReviews(id);
 
   useEffect(() => {
+    if(reviewExist) console.log(reviewExist)
+  },[reviewExist])
+
+  useEffect(() => {
     if (profile) {
-      console.log(profile);
-      console.log(profile.needs);
       setProfileData(profile.getItem);
     }
   }, [profile]);

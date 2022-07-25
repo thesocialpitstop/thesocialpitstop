@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
 import { PLACEHOLDER_IMAGE } from "../../../constants/constants";
+import { eventCreateModalValidationSchema } from "./event_create_modal_validation_schema";
 
 const EventCreateModal = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true);
@@ -38,6 +39,7 @@ const EventCreateModal = ({ open, setOpen }) => {
 
   const formik = useFormik({
     enableReinitialize: true,
+    validationSchema: eventCreateModalValidationSchema,
     initialValues: {
       eventName: "",
       eventDetails: "",
@@ -146,7 +148,9 @@ const EventCreateModal = ({ open, setOpen }) => {
               onChange={formik.handleChange}
               value={formik.values.eventDetails}
             />
-            <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained" 
+          disabled={!(formik.isValid && formik.dirty && !formik.isSubmitting)}
+          >
               Submit New Event
             </Button>
           </div>

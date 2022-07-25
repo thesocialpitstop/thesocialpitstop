@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export const EventCard = styled.div`
@@ -5,9 +6,15 @@ export const EventCard = styled.div`
     border-style: solid;
     width: 270px;
     height: 2fr;
+    border-radius: 25px;
   }
   @media (max-width: 768px) {
   }
+`;
+
+export const EventCardImage = styled(Image)`
+   border-radius: 25px 25px 0px 0px;
+
 `;
 
 export const EventCardTitle = styled.h2`

@@ -21,7 +21,7 @@ const ListReviewModal = ({ open, setOpen, profileData, initialItems, openCreateR
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const reviewItems = initialItems?.map((rev) => {
-        return <ReviewItem key={rev.reviewer_id} data={rev}/>
+        return <ReviewItem key={rev.item_type} data={rev}/>
     });
     return (
         <Modal
@@ -42,14 +42,14 @@ const ListReviewModal = ({ open, setOpen, profileData, initialItems, openCreateR
                     </Button>
 
                 </HeadingDiv>
-                <RatingDiv>
+                {/* <RatingDiv>
                     <span>4.2</span>
                     <Rating 
                         name={profileData?.name}
                         value={4}
                         readOnly
                     />
-                </RatingDiv>
+                </RatingDiv> */}
                 {reviewItems}
             </Box>
         </Modal>

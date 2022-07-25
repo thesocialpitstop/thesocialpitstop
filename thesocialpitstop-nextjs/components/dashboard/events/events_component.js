@@ -36,7 +36,7 @@ const EventsComponent = () => {
   }, [eventData]);
 
   const eventItems = events.map((data) => {
-    return <EventItemAdmin key={data.user_id} data={data} eventId={setEventId} openModal={openEditModal}/>;
+    return <EventItemAdmin key={data.item_type} data={data} eventId={setEventId} openModal={openEditModal}/>;
   });
 
   

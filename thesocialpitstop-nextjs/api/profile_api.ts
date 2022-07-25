@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import {
+  CHECK_REVIEW_EXIST,
   GET_FOLLOWER,
   GET_PARTNER,
   GET_PAST_CSR_DATA,
@@ -36,6 +37,17 @@ export function useProfile(id) {
     },
   });
   return profile;
+}
+
+export function useCheckReview(pageId, currentId) {
+  // Profile Data
+  const { data: review } = useQuery(CHECK_REVIEW_EXIST, {
+    variables: {
+      user_id: pageId,
+      item_type: `REVIEW#${currentId}`,
+    },
+  });
+  return review;
 }
 
 export function usePartners(id) {

@@ -5,17 +5,19 @@ import { parsePhoneNumber } from "libphonenumber-js";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import categories from "../../constants/categories";
-import { CLOUDFRONT_URL } from "../../constants/constants";
-import { CREATE_FOLLOW, DELETE_ITEM } from "../../graphql/mutations";
 import { useFollowers, usePartners } from "../../api/profile_api";
+import categories from "../../constants/categories";
+import {
+  CLOUDFRONT_URL,
+  GOOGLE_MAPS_SEARCH_URL
+} from "../../constants/constants";
+import { CREATE_FOLLOW, DELETE_ITEM } from "../../graphql/mutations";
 import {
   DetailsDiv,
   InformationDiv,
   ItemDetail,
-  ItemTitle,
-  Title,
-  TitleDiv,NameAndDetailsDiv
+  ItemTitle, NameAndDetailsDiv, Title,
+  TitleDiv
 } from "./[id].style";
 
 export const Overview = ({ profileData, id, setPartnershipModalState }) => {
@@ -39,14 +41,13 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   useEffect(() => {
     setFollowText(user && follower?.getItem ? "FOLLOWING" : "FOLLOW");
     setFollow(user && follower?.getItem ? true : false);
-    
   }, []);
 
   useEffect(() => {
-    if(profileData) {
+    if (profileData) {
       setPhone(profileData?.contact_num);
     }
-  }, [profileData])
+  }, [profileData]);
 
   const partnerText =
     user && partnerData?.getItem
@@ -155,7 +156,11 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
               )}
             </ItemDetail>
             <ItemTitle>Address</ItemTitle>
-            <ItemDetail>{profileData?.address}</ItemDetail>
+            <ItemDetail>
+              {profileData? <a target="_blank" href={`${GOOGLE_MAPS_SEARCH_URL}${profileData?.address}`}>
+                {profileData?.address}
+              </a> : <></>}
+            </ItemDetail>
             <ItemTitle>Contact No.</ItemTitle>
             <ItemDetail>
               {phone ? (

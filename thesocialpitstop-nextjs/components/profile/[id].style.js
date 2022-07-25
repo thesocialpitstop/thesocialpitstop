@@ -42,9 +42,10 @@ export const NameAndDetailsDiv = styled.div`
 `;
 
 export const DetailsDiv = styled.div`
-  padding: 5px;
+  padding: 12px;
   background-color: rgba(127, 117, 174, 0.3);
   margin-top: 8px;
+  border-radius: 25px;
   @media (max-width: 768px) {
     padding: 8px;
   }
@@ -108,6 +109,9 @@ export const ReviewUserDiv = styled.div`
 
 export const ReviewNameDiv = styled.div`
   font-weight: 600;
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ReviewContentDiv = styled.div``;

@@ -2,6 +2,7 @@ import Image from "next/image";
 import PropTypes from "prop-types";
 import {
   EventCard,
+  EventCardImage,
   EventCardInfo,
   EventCardTitle,
   EventCardDate,
@@ -17,7 +18,7 @@ const EventItem = (props) => {
   const [src, setSrc] = useState(props.image_url ? props.image_url : "/");
   return (
     <EventCard>
-      <Image
+      <EventCardImage
         src={src}
         layout="responsive"
         height={64}

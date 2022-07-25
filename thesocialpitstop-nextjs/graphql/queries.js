@@ -175,3 +175,18 @@ export const LIST_PARTNERS_OF_USER = gql`
     }
   }
 `;
+
+export const CHECK_REVIEW_EXIST = gql`
+  query MyQuery($user_id: String!, $limit: Int) {
+    getItem(item_type: $item_type, user_id: $user_id)  {
+      items {
+        content
+        name
+        title
+        datetime
+        item_type
+      }
+    }
+  }
+`;
+

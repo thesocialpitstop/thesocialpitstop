@@ -7,6 +7,7 @@ export const PostItemDiv = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+    border-radius: 25px;
 `;
 
 export const PostItemTitleDiv = styled.div`
@@ -17,6 +18,7 @@ export const PostItemTitleDiv = styled.div`
 `;
 
 export const PostImage = styled(Image)`
+    border-radius: 25px;
     transition: all .4s;
     :hover {
         transform: scale(1.05);
