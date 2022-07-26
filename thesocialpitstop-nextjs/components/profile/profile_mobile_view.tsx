@@ -41,7 +41,7 @@ function TabPanel(props: TabPanelProps) {
 
 export const ProfileMobileView = ({ profileData, id, setListReviewModalState, setPartnershipModalState }) => {
   const { user } = useUser();
-  const follower = useFollowers(id);
+  const follower = useFollowers(id, user?.sub.split("|")[1]);
   const [value, setValue] = useState(0);
 
   const [reviewData, setReviewData] = useState<Review[]>();

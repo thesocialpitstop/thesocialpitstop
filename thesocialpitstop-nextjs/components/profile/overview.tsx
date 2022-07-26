@@ -27,10 +27,10 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   const { user } = useUser();
   const [follow, setFollow] = useState(false);
   const [followText, setFollowText] = useState("");
-  const partnerData = usePartners(id);
+  const partnerData = usePartners(id, user?.sub.split("|")[1]);
   const router = useRouter();
 
-  const follower = useFollowers(id);
+  const followData = useFollowers(id, user?.sub.split("|")[1]);
   const ownProfile = user && id == user.sub.split("|")[1];
   const [followButtonDisabledState, setFollowButtonDisabledState] =
     useState(false);
@@ -39,9 +39,9 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   const [phone, setPhone] = useState<string>();
 
   useEffect(() => {
-    setFollowText(user && follower?.getItem ? "FOLLOWING" : "FOLLOW");
-    setFollow(user && follower?.getItem ? true : false);
-  }, []);
+    setFollowText(user && followData?.getItem ? "FOLLOWING" : "FOLLOW");
+    setFollow(user && followData?.getItem ? true : false);
+  }, [followData]);
 
   useEffect(() => {
     if (profileData) {
@@ -60,7 +60,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
 
   const handleFollow = (event) => {
     if (user) {
-      if (follower?.getItem) {
+      if (followData?.getItem) {
         setFollowButtonDisabledState(true);
         deleteItem({
           variables: {
@@ -68,7 +68,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
             user_id: id,
           },
           onCompleted: (data) => {
-            console.log(data);
+            // console.log(data);
             setFollowButtonDisabledState(false);
             setFollow(false);
             setFollowText("FOLLOW");
@@ -86,7 +86,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
             follower_name: user.nickname,
           },
           onCompleted: (data) => {
-            console.log(data);
+            // console.log(data);
             // router.reload();
             setFollowButtonDisabledState(false);
             setFollow(true);

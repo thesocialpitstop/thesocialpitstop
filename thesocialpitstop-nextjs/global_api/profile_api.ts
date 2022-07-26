@@ -9,7 +9,6 @@ import {
 } from "../graphql/queries";
 
 export function usePastCSR(id) {
-  console.log(id);
   const { data: pastCSRPosts } = useQuery(GET_PAST_CSR_DATA, {
     variables: {
       user_id: id,
@@ -18,11 +17,11 @@ export function usePastCSR(id) {
   return pastCSRPosts;
 }
 
-export function useFollowers(id) {
+export function useFollowers(followed_id, follower_id) {
   const { data: follower } = useQuery(GET_FOLLOWER, {
     variables: {
-      user_id: id,
-      item_type: `FOLLOW#${id}`,
+      user_id: followed_id,
+      item_type: `FOLLOW#${follower_id}`,
     },
   });
   return follower;
@@ -50,12 +49,12 @@ export function useCheckReview(pageId, currentId) {
   return review;
 }
 
-export function usePartners(id) {
+export function usePartners(requested_id, requesting_id) {
       // Partner Data
   const { data: partnerData } = useQuery(GET_PARTNER, {
     variables: {
-      user_id: id,
-      item_type: `PARTNER#${id}`,
+      user_id: requested_id,
+      item_type: `PARTNER#${requesting_id}`,
     },
   });
   return partnerData;
