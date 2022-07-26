@@ -68,10 +68,10 @@ export default function FilterDrawer({ setFilterInput }) {
           onSubmit={async (values) => {
             let categoryQueryString = "";
             values.checked.forEach(data => {
-              categoryQueryString += `category=${data}&`
+              categoryQueryString += `&category=${data}`
             })
             setFilterInput(values);
-            router.push(`/search?query=&${categoryQueryString}`);
+            router.push(`/search?query=${router.query.query}${categoryQueryString}`);
           }}
         >
           {({ values, resetForm }) => (
