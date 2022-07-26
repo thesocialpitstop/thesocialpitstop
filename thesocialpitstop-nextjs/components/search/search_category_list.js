@@ -47,9 +47,9 @@ const SearchCategoryList = () => {
         console.log(values);
         let categoryQueryString = "";
         values.checked.forEach(data => {
-          categoryQueryString += `category=${data}&`
+          categoryQueryString += `&category=${data}`
         })
-        router.push(`/search?query=&${categoryQueryString}`);
+        router.push(`/search?query=${router.query.query}${categoryQueryString}`);
       }}
     >
       {({ values, resetForm }) => (

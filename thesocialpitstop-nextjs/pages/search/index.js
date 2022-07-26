@@ -37,7 +37,6 @@ import InfiniteScroll from "react-infinite-scroller";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
-  const [textInput, setTextInput] = useState();
   const [filterInput, setFilterInput] = useState();
   const router = useRouter();
   const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
@@ -71,13 +70,13 @@ const SearchPage = () => {
   }, [router.query.query, router.query.category]);
 
   const filterBuilder = (props) => {
-    console.log(props);
+    // console.log(props);
     //For each one, we have to add category:<Category Query> + OR (except for last one)
     //If there is one item it will not be array.
     let filterCategory = "";
     //only one filter, so the query will be a string
     if (typeof props == "string") {
-      console.log("string!!");
+      // console.log("string!!");
       return `category:${router.query.category}`;
     }
     //More than one filter, query will be array
@@ -139,10 +138,6 @@ const SearchPage = () => {
     );
   });
 
-  const handleChange = (e) => {
-    setTextInput(e.target.value);
-  };
-
   return (
     <SearchPageDiv>
       <SearchBarItemsDiv>
@@ -162,8 +157,11 @@ const SearchPage = () => {
               query: router.query.query
             }}
             onSubmit={(event) => {
-              console.log(event);
-              router.push(`/search?query=${event.state.query}`, undefined, {
+              let categoryQueryString = router.query.category;
+              if (typeof router.query.category == "object") {
+                categoryQueryString = categoryQueryString.map((data) => `&category=${data}`).join('');
+              }
+              router.push(`/search?query=${event.state.query}${categoryQueryString}`, undefined, {
                 shallow: true,
               });
             }}
