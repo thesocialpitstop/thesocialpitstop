@@ -30,7 +30,7 @@ export const AddressAutocomplete = (props) => {
         });
     };
 
-    const onInputChange = (event, value, reason) => {
+    const handleInputChange = (event, value, reason) => {
         if (value?.length > 2) {
             getData(value);
         } else {
@@ -38,12 +38,25 @@ export const AddressAutocomplete = (props) => {
         }
     };
 
+    const handleBlur = async (event) => {
+        setState({
+            ...state,
+            address: { ADDRESS: event.target.value }
+        });
+        await props.setFieldValue('address', event.target.value);
+        await props.setFieldTouched("address", true);
+        setState({
+            ...state,
+            address: { ADDRESS: event.target.value }
+        });
+    }
+
     useEffect(() => {
         setState({
             ...state,
             address: props.defaultValue
-    });
-    }, [props.defaultValue])
+        });
+    }, [props.defaultValue]);
 
     return (
         <Autocomplete
@@ -55,8 +68,9 @@ export const AddressAutocomplete = (props) => {
             value={state.address}
             getOptionLabel={(option) => option.ADDRESS || ""}
             isOptionEqualToValue={(option, value) => option.ADDRESS === value?.ADDRESS}
-            onInputChange={onInputChange}
+            onInputChange={handleInputChange}
             onChange={handleChange} // prints the selected value
+            onBlur={handleBlur}
             loading={loading}
             renderInput={(params) => {
                 return (<TextField
@@ -65,6 +79,7 @@ export const AddressAutocomplete = (props) => {
                         ...params.inputProps,
                         autoComplete: 'new-password',
                     }}
+                    name="address"
                     label="Address"
                     variant="outlined" />)
             }}
