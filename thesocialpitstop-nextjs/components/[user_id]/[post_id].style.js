@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export const BlogPostPage = styled.div`
@@ -19,4 +20,11 @@ export const BlogPostSubtitle = styled.div`
 
 export const BlogPostAuthor = styled.span`
     color: #7f75ae;
+`;
+
+export const BlogPostImage = styled(Image)``;
+
+export const BlogPostImageDiv = styled.div`
+    max-width: 500px;
+    margin: 0 auto;
 `;

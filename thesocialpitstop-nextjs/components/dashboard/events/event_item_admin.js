@@ -9,7 +9,7 @@ import {
 } from "./event_item_admin.style";
 
 const EventItemAdmin = (props) => {
-  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/event/${props.data.item_type}`);
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/${props.data.event_image}`);
   return (
     <>
       <EventItemAdminCard>
@@ -28,12 +28,21 @@ const EventItemAdmin = (props) => {
         </EventItemAdminDetail>
         <Button
           onClick={() => {
-            console.log("SET EVENT ID", props.data.item_type);
             props.eventId(props.data.item_type);
-            props.openModal();
+            props.openModal(props);
           }}
         >
           Edit
+        </Button>
+        <Button
+            sx={{ bgcolor: "error.main" }}
+
+        variant="contained"
+          onClick={() => {
+            console.log("delete event")
+          }}
+        >
+          Delete
         </Button>
       </EventItemAdminCard>
     </>

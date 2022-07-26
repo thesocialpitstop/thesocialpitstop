@@ -22,6 +22,7 @@ export const CREATE_PROFILE = gql`
     $name: String!,
     $user_id: String!,
     $item_type: String!
+    $needs: [String]
   ) {
     createItem(
       input: {
@@ -34,6 +35,7 @@ export const CREATE_PROFILE = gql`
         name: $name,
         item_type: $item_type,
         user_id: $user_id,
+        needs: $needs
       }
     ) {
       address
@@ -45,6 +47,7 @@ export const CREATE_PROFILE = gql`
       name
       item_type
       user_id
+      needs
     }
   }
 `;
@@ -173,7 +176,7 @@ export const CREATE_REVIEW = gql`
 
 // FOLLOW
 export const CREATE_FOLLOW = gql`
-  mutation MyMutation(
+  mutation CreateFollowMutation(
     $datetime: AWSDateTime,
     $item_type: String!, 
     $user_id: String!,
@@ -200,7 +203,7 @@ export const CREATE_FOLLOW = gql`
 
 // PARTNER
 export const CREATE_PARTNER = gql`
-  mutation MyMutation(
+  mutation CreatePartnerMutation(
     $datetime: AWSDateTime,
     $item_type: String!, 
     $user_id: String!,
@@ -229,7 +232,7 @@ export const CREATE_PARTNER = gql`
 `
 
 export const UPDATE_PARTNER = gql`
-  mutation MyMutation(
+  mutation UpdatePartnerMutation(
     $datetime: AWSDateTime,
     $item_type: String!, 
     $user_id: String!,
@@ -253,7 +256,7 @@ export const UPDATE_PARTNER = gql`
 `
 
 export const CREATE_EVENT = gql`
-  mutation MyMutation(
+  mutation CreateEventMutation(
     $user_id: String!,
     $item_type: String!,
     $datetime: AWSDateTime,
@@ -261,6 +264,40 @@ export const CREATE_EVENT = gql`
     $event_date: AWSDateTime,
     $event_details: String,
     $event_location: String,
+    $event_image: String,
+  ) {
+    createItem(
+      input: {
+        user_id: $user_id,
+        item_type: $item_type,
+        datetime: $datetime
+        event_name: $event_name
+        event_date: $event_date
+        event_details: $event_details
+        event_location: $event_location
+        event_image: $event_image
+      }
+    ) {
+      datetime
+      event_name
+      event_date
+      event_details
+      event_location
+      event_image
+    }
+  }
+`
+
+export const UPDATE_EVENT = gql`
+  mutation UpdateEventMutation(
+    $user_id: String!,
+    $item_type: String!,
+    $datetime: AWSDateTime,
+    $event_name: String,
+    $event_date: AWSDateTime,
+    $event_details: String,
+    $event_location: String,
+    $event_image: String,
   ) {
     updateItem(
       input: {
@@ -271,36 +308,16 @@ export const CREATE_EVENT = gql`
         event_date: $event_date
         event_details: $event_details
         event_location: $event_location
-      }
-    ) {
-      datetime
-      event_name
-      event_date
-      event_details
-      event_location
-    }
-  }
-`
-
-export const UPDATE_EVENT = gql`
-  mutation MyMutation(
-    $user_id: String!,
-    $item_type: String!,
-    $content: String!,
-    $title: String!,
-  ) {
-    updateItem(
-      input: {
-        user_id: $user_id,
-        item_type: $item_type,
-        content: $content,
-        title: $title,
+        event_image: $event_image
       }
     )  {
       user_id
       item_type
-      content
-      title
+      event_name
+      event_date
+      event_details
+      event_location
+      event_image
     }
   }
 `

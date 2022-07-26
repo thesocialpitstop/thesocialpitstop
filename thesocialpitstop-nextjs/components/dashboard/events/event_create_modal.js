@@ -1,82 +1,81 @@
+import { useMutation } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
 import CloseIcon from "@mui/icons-material/Close";
-import { Button, IconButton, Input, Modal, TextField } from "@mui/material";
+import { Button, IconButton, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import modal_style, { modalStyle } from "../modal_style";
-import { CREATE_EVENT } from "../../../graphql/mutations";
-import { useMutation } from "@apollo/client";
-import { GET_ALL_EVENTS_OF_USER } from "../../../graphql/queries";
-import { AddressAutocomplete } from "../profile/address_autocomplete";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { PLACEHOLDER_IMAGE } from "../../../constants/constants";
+import { CREATE_EVENT } from "../../../graphql/mutations";
+import { modalStyle } from "../modal_style";
+import { AddressAutocomplete } from "../profile/address_autocomplete";
 import { eventCreateModalValidationSchema } from "./event_create_modal_validation_schema";
 
 const EventCreateModal = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true);
   const { uploadToS3 } = useS3Upload();
   const handleClose = () => setOpen(false);
-  const [picture, setPicture] = useState();
+  const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useUser();
-  const [createEvent] = useMutation(CREATE_EVENT);
+  const [createEvent] = useMutation(CREATE_EVENT, {
+    variables: {
+      user_id: user?.sub.split("|")[1],
+      item_type: "hello",
+    },
+  });
   const { router } = useRouter();
-
-  const action = (
-    <>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </>
-  );
 
   const formik = useFormik({
     enableReinitialize: true,
     validationSchema: eventCreateModalValidationSchema,
     initialValues: {
       eventName: "",
+      address: "",
       eventDetails: "",
       file: null,
     },
     onSubmit: async (values) => {
-      let eventID = `EVENT#${Math.floor(Date.now() / 1000)}`;
+      let currentTimestamp = Math.floor(Date.now() / 1000);
+      let eventID = `EVENT#${currentTimestamp}`;
+      let date = new Date().toISOString();
       console.log(values);
-      await uploadToS3(values.file, {
+
+
+
+      await uploadToS3(selectedImage, {
         endpoint: {
           request: {
             body: {
               directory: "event",
-              eventID: eventID,
+              user_id: currentTimestamp,
             },
           },
         },
-      });
-      createEvent({
-        variables: {
-          user_id: user?.sub.split("|")[1],
-          item_type: eventID,
-          datetime: new Date().toISOString(),
-          event_name: values.eventName,
-          event_date: new Date().toISOString(),
-          event_details: values.eventDetails,
-          event_location: values.address,
-        },
-        onCompleted: (data) => {
-          setOpen(false);
-          console.log("success");
-          console.log(data);
-          router.reload();
-        },
-        onError: (error) => {
-          console.error(error);
-        },
+      }).then((data) => {
+        console.log(data);
+        createEvent({
+          variables: {
+            user_id: user?.sub.split("|")[1],
+            item_type: eventID,
+            datetime: date ,
+            event_name: values.eventName,
+            event_date: date,
+            event_details: values.eventDetails,
+            event_location: values.address,
+            event_image: data.key,
+          },
+          onCompleted: (data) => {
+            setOpen(false);
+            console.log("success");
+            console.log(data);
+          },
+          onError: (error) => {
+            console.error(error);
+          },
+        });
       });
     },
   });
@@ -98,7 +97,11 @@ const EventCreateModal = ({ open, setOpen }) => {
               <Image
                 width={64}
                 height={64}
-                src={picture ? picture : PLACEHOLDER_IMAGE}
+                src={
+                  selectedImage
+                    ? URL.createObjectURL(selectedImage)
+                    : PLACEHOLDER_IMAGE
+                }
               />
               <Button variant="contained" component="label">
                 Upload
@@ -109,14 +112,7 @@ const EventCreateModal = ({ open, setOpen }) => {
                   id="file"
                   name="file"
                   onChange={(event) => {
-                    const fileReader = new FileReader();
-                    fileReader.onload = () => {
-                      if (fileReader.readyState === 2) {
-                        formik.setFieldValue("file", fileReader.result);
-                        setPicture(fileReader.result);
-                      }
-                    };
-                    fileReader.readAsDataURL(event.target.files[0]);
+                    setSelectedImage(event.target.files[0]);
                   }}
                 />
               </Button>
@@ -148,9 +144,13 @@ const EventCreateModal = ({ open, setOpen }) => {
               onChange={formik.handleChange}
               value={formik.values.eventDetails}
             />
-            <Button type="submit" variant="contained" 
-          disabled={!(formik.isValid && formik.dirty && !formik.isSubmitting)}
-          >
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={
+                !(formik.isValid && formik.dirty && !formik.isSubmitting)
+              }
+            >
               Submit New Event
             </Button>
           </div>

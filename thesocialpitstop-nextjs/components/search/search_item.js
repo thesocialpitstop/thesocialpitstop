@@ -12,6 +12,7 @@ import {
 } from "./search_item.style";
 
 const SearchItem = (props) => {
+  console.log(props);
   const [src, setSrc] = useState(
     `${CLOUDFRONT_URL}/profile/${props?.item?.objectID}`
   );
@@ -47,6 +48,9 @@ const SearchItem = (props) => {
             href={`?category=${props?.item?.category}`}
             clickable
           />
+          {/* {props?.item?.needs.map((s) => {
+            return <>{s.S}</>
+          })} */}
         </SearchItemTextSection>
       </SearchItemDiv>
     </Card>

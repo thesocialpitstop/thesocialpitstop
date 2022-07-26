@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -13,6 +13,8 @@ const EventsComponent = () => {
   const { user } = useUser();
   const [editModalState, setEditModal] = useState(false);
   const [createModalState, setCreateModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState();
+  const [deleteModalState, setDeleteModalState] = useState(false);
 
   const { data: eventData } = useQuery(GET_ALL_EVENTS_OF_USER, {
     variables: {
@@ -21,12 +23,18 @@ const EventsComponent = () => {
   });
 
   const openEditModal = (data) => {
+    console.log(data.data);
+    setSelectedEvent(data.data);
     setEditModal(true);
   };
 
   const openCreateModal = () => {
     setCreateModal(true);
   };
+
+  const openDeleteModal = () => {
+    setDeleteModalState(true);
+  }
 
   useEffect(() => {
     if (eventData) {
@@ -39,7 +47,6 @@ const EventsComponent = () => {
     return <EventItemAdmin key={data.item_type} data={data} eventId={setEventId} openModal={openEditModal}/>;
   });
 
-  
   return (
     <>
       <Button variant="contained" onClick={openCreateModal}>+ New Event</Button>
@@ -47,10 +54,11 @@ const EventsComponent = () => {
         open={editModalState}
         setOpen={setEditModal}
         eventId={eventId}
+        data={selectedEvent}
       />
       <EventCreateModal open={createModalState} setOpen={setCreateModal} />
       <div style={{ display: "flex", flexDirection: "column", gap: "8px"}}>
-      {eventItems}
+        {eventItems}
       </div>
     </>
   );

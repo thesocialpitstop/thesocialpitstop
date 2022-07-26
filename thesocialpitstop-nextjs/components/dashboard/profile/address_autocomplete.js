@@ -3,7 +3,6 @@ import { useState } from "react";
 import { ONE_MAP_API_URL } from "../../../constants/constants";
 
 export const AddressAutocomplete = (props) => {
-    console.log(props);
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -51,7 +50,7 @@ export const AddressAutocomplete = (props) => {
                         ...params.inputProps,
                         autoComplete: 'new-password',
                       }}                    
-                    label="AUTOCOMPLETE Address" 
+                    label="Address" 
                     variant="outlined" />)
             }}
             noOptionsText={"Please enter a longer search term"}
