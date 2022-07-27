@@ -10,8 +10,10 @@ import {
   BlogPostPage,
   BlogPostSubtitle,
   BlogPostTitle,
+  BlogPostImage,
+  BlogPostImageDiv,
 } from "../../components/[user_id]/[post_id].style";
-import { SOO_PROFILE_STRING } from "../../constants/constants";
+import { CLOUDFRONT_URL, SOO_PROFILE_STRING } from "../../constants/constants";
 import { GET_POST, GET_PROFILE } from "../../graphql/queries";
 
 const Post = () => {
@@ -19,6 +21,9 @@ const Post = () => {
   const [userProfile, setUserProfile] = useState();
   const router = useRouter();
   const { user_id, post_id } = router.query;
+  const [src, setSrc] = useState(
+    `${CLOUDFRONT_URL}/posts/${router.query.post_id}`
+  );
   const { data: profile } = useQuery(GET_PROFILE, {
     variables: {
       user_id: user_id,
@@ -44,19 +49,31 @@ const Post = () => {
 
   return (
     <BlogPostPage>
-      {userProfile ? <TitleDiv>
-        <BlogPostTitle>{postData?.title}</BlogPostTitle>
-        <BlogPostSubtitle>
-          <span>Posted By </span>
-          <BlogPostAuthor>
-            <Link href={`/profile/${postData?.user_id}`} passHref>
-              {userProfile?.name}
-            </Link>
-          </BlogPostAuthor>
-          <span> on </span>
-          {parseISO(postData?.datetime).toDateString()}
-        </BlogPostSubtitle>
-      </TitleDiv> : <></>}
+      {userProfile ? (
+        <TitleDiv>
+          <BlogPostImageDiv>
+            <BlogPostImage
+              layout="responsive"
+              width={128}
+              height={128}
+              src={src}
+            />
+          </BlogPostImageDiv>
+          <BlogPostTitle>{postData?.title}</BlogPostTitle>
+          <BlogPostSubtitle>
+            <span>Posted By </span>
+            <BlogPostAuthor>
+              <Link href={`/profile/${postData?.user_id}`} passHref>
+                {userProfile?.name}
+              </Link>
+            </BlogPostAuthor>
+            <span> on </span>
+            {parseISO(postData?.datetime).toDateString()}
+          </BlogPostSubtitle>
+        </TitleDiv>
+      ) : (
+        <></>
+      )}
 
       <div className="ql-editor" v-html="result">
         <div dangerouslySetInnerHTML={{ __html: postData?.content }}></div>

@@ -22,7 +22,7 @@ import {
 
 export const Overview = ({ profileData, id, setPartnershipModalState }) => {
   const [src, setSrc] = useState(
-    `${CLOUDFRONT_URL}/profile/${profileData?.user_id}`
+    `${CLOUDFRONT_URL}/profile/${id}`
   );
   const { user } = useUser();
   const [follow, setFollow] = useState(false);
@@ -86,7 +86,7 @@ export const Overview = ({ profileData, id, setPartnershipModalState }) => {
             follower_name: user.nickname,
           },
           onCompleted: (data) => {
-            // console.log(data);
+            console.log(data);
             // router.reload();
             setFollowButtonDisabledState(false);
             setFollow(true);

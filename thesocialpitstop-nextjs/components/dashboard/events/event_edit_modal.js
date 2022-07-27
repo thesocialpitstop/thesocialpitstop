@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
+import { FormatStrikethroughOutlined } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button, IconButton, Input, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
@@ -7,8 +8,8 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CLOUDFRONT_URL } from "../../../constants/constants";
-import { UPDATE_POST } from "../../../graphql/mutations";
-import { GET_ALL_EVENTS_OF_USER } from "../../../graphql/queries";
+import { UPDATE_EVENT, UPDATE_POST } from "../../../graphql/mutations";
+import { GET_ALL_EVENTS_OF_USER, GET_EVENT } from "../../../graphql/queries";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
 
 const style = {
@@ -25,19 +26,18 @@ const style = {
   p: 4,
 };
 
-const EventEditModal = ({ open, setOpen, eventId }) => {
-  console.log(eventId);
+const EventEditModal = ({ open, setOpen, eventId, data }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { user } = useUser();
   const [event, setEvent] = useState();
-  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/event/${eventId}`);
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/event/${eventId.split("#")[1]}`);
 
   const {
     data: eventData,
     loading: eventLoading,
     error: eventError,
-  } = useQuery(GET_ALL_EVENTS_OF_USER, {
+  } = useQuery(GET_EVENT, {
     variables: {
       user_id: user?.sub.split("|")[1],
       item_type: eventId,
@@ -45,46 +45,42 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
   });
   const [
     updateEvent,
-    { data: updatedData, loading: updateLoading, error: updateError },
-  ] = useMutation(UPDATE_POST, {
+  ] = useMutation(UPDATE_EVENT, {
     variables: {
       user_id: user?.sub.split("|")[1],
       item_type: eventId,
     },
+    refetchQueries: [{ query: GET_ALL_EVENTS_OF_USER }, "GetAllEvents"],
+
   });
 
   useEffect(() => {
     if (eventData) {
-      console.log(eventData.queryUserWithItemTypePrefix.items[0]);
-      setEvent(eventData.queryUserWithItemTypePrefix.items[0]);
-    }
-    if (eventError) {
-      console.log(eventError);
+      console.log(eventData);
+      setEvent(eventData.getItem)
     }
   }, [eventData]);
 
-  const action = (
-    <>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </>
-  );
-
   const formik = useFormik({
-    enableReinitialize: true,
     initialValues: {
-      event_name: event?.event_name,
-      event_details: event?.event_details,
-      event_location: event?.event_location,
+      event_name: data?.event_name,
+      event_details: data?.event_details,
+      address: data?.event_location,
     },
+    enableReinitialize: true,
     onSubmit: (values) => {
       console.log(values);
+      updateEvent({
+        variables: {
+          event_name: values.event_name,
+          event_details: values.event_details,
+          event_location: values.event_location,
+        }, 
+        onCompleted: (data) => {
+          console.log(data);
+          handleClose();
+        }
+      })
     },
   });
 
@@ -124,7 +120,7 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
               id="event_name"
               name="event_name"
               label="Event Name"
-              value={event?.event_name}
+              value={formik.values.event_name || ""}
               onChange={formik.handleChange}
             />
             <AddressAutocomplete
@@ -142,7 +138,7 @@ const EventEditModal = ({ open, setOpen, eventId }) => {
               label="Event Details"
               rows={4}
               multiline
-              value={event?.event_details}
+              value={formik.values.event_details || ""}
               onChange={formik.handleChange}
             />
             <Button type="submit" variant="contained">

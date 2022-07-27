@@ -69,7 +69,7 @@ export const GET_PAST_CSR_DATA = gql`
 `;
 
 export const GET_ALL_EVENTS_OF_USER = gql`
-  query MyQuery($user_id: String!){
+  query GetAllEvents($user_id: String!){
     queryUserWithItemTypePrefix(item_type_prefix: "EVENT", user_id: $user_id) {
       items {
         user_id
@@ -78,24 +78,22 @@ export const GET_ALL_EVENTS_OF_USER = gql`
         event_date
         event_details
         event_location
-        image_url
+        event_image
       }
     }
   }
 `;
 
 export const GET_EVENT = gql`
-  query MyQuery($user_id: String!){
+  query GetEventQuery($user_id: String!, $item_type: String!){
     getItem(item_type: $item_type, user_id: $user_id) {
-      items {
-        user_id
-        item_type
-        event_name
-        event_date
-        event_details
-        event_location
-        image_url
-      }
+      user_id
+      item_type
+      event_name
+      event_date
+      event_details
+      event_location
+      event_image
     }
   }
 `;

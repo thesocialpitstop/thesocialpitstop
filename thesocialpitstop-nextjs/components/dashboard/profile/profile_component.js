@@ -26,16 +26,13 @@ import {
   Input,
 } from "./profile_component.style";
 import { useS3Upload } from "next-s3-upload";
-import { CLOUDFRONT_URL, SOO_PROFILE_STRING } from "../../../constants/constants";
+import { CLOUDFRONT_URL, SOO_NEEDS, SOO_PROFILE_STRING } from "../../../constants/constants";
 import { AddressAutocomplete } from "./address_autocomplete";
-
-const sooNeeds = [
-  { title: "Volunteering", value: "volunteering"},
-  { title: "Funding", value: "funding"}
-]
+import { useRouter } from "next/router";
 
 const ProfileComponent = () => {
   const { user } = useUser();
+  const router = useRouter();
   const { uploadToS3 } = useS3Upload();
   const { data: userData } = useQuery(GET_PROFILE, {
     variables: {
@@ -140,7 +137,7 @@ const ProfileComponent = () => {
           },
         },
       },
-    });
+    }).then(() => router.reload());
     setUserProfile((prevState) => ({
       ...prevState,
       image_url: objectUrl,
@@ -224,20 +221,20 @@ const ProfileComponent = () => {
               id="needs"
               name="needs"
               label="needs"
-              value={needs}
+              value={SOO_NEEDS}
               onChange={(event, newValue) => {
                 setNeeds([
                   ...fixedOptions,
-                  ...newValue.filter((option) => fixedOptions.indexOf(option.value) === -1),
+                  ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
                 ])
               }}
-              options={sooNeeds}
-              getOptionLabel={(option) => option.title || ""}
+              options={SOO_NEEDS}
+              getOptionLabel={(option) => option || ""}
               renderTags={(tagValue, getTagProps) => 
                 tagValue.map((option, index) => (
                   <Chip 
-                    key={option.value}
-                    label={option.title}
+                    key={option}
+                    label={option}
                     {...getTagProps({ index })}
                     disabled={fixedOptions.indexOf(option) !== -1}
                   />
