@@ -196,6 +196,7 @@ const ProfileComponent = () => {
               defaultValue={{ ADDRESS: userProfile?.address }}
               inputValue={formik.values.address || ""}
               setFieldValue={formik.setFieldValue}
+              setFieldTouched={formik.setFieldTouched}
             /> : <></>}
             <TextField
               fullWidth
