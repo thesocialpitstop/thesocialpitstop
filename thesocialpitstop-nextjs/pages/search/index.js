@@ -32,8 +32,8 @@ import {
   ALGOLIA_INDEX_NAME,
 } from "../../constants/algolia";
 import { NO_ITEM_MESSAGE } from "../../constants/errors";
-import ProductItem from "./product_item";
 import InfiniteScroll from "react-infinite-scroller";
+import ProductItem from "../../components/search/product_item";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);

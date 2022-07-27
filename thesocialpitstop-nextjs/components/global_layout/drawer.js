@@ -13,10 +13,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
-import { navbarItems } from "../../constants/drawer_items";
+import { drawerItems, navbarItems } from "../../constants/drawer_items";
 import profileSvg from "../../public/icons/profile.svg";
 import { FullWidthButton } from "./shared";
 import { UserProfileDiv } from "./drawer.style";
+import { MdAccountCircle, MdChildCare, MdExplore, MdList, MdSearch } from "react-icons/md";
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState(false);
@@ -46,7 +47,7 @@ export default function TemporaryDrawer() {
   const loggedInUser = () => {
     return (
       <>
-        <Image src={profileSvg} layout="fixed" width={64} height={64}/>
+        <Image src={profileSvg} layout="fixed" width={64} height={64} />
         {user.email}
         {AuthButton()}
         <Link href={"/dashboard"} passHref>
@@ -75,18 +76,49 @@ export default function TemporaryDrawer() {
         {user ? loggedInUser() : notLoggedInUser()}
       </UserProfileDiv>
       <List>
-        {navbarItems.map((item) => (
-          <Link key={item.name} href={item.path}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {user ? <Link key="Profile" href="/profile">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MdAccountCircle />
+              </ListItemIcon>
+              <ListItemText primary="Profile" />
+            </ListItemButton>
+          </ListItem>
+        </Link> : <></>}
+
+        <Link key="Explore" href="/search">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MdSearch />
+              </ListItemIcon>
+              <ListItemText primary="Explore" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link key="Categories" href="/categories">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MdList />
+              </ListItemIcon>
+              <ListItemText primary="Categories" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
+
+        <Link key="About Us" href="/aboutus">
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <MdChildCare />
+              </ListItemIcon>
+              <ListItemText primary="About Us" />
+            </ListItemButton>
+          </ListItem>
+        </Link>
       </List>
       <Divider />
     </Box>

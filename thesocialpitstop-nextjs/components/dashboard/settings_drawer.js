@@ -15,11 +15,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import PostsComponent from '../../components/dashboard/posts/posts_component';
+import PostsComponent from './posts/posts_component';
 import { drawerItems } from '../../constants/drawer_items';
-import ProfileComponent from '../../components/dashboard/profile/profile_component';
-import PartnersComponent from '../../components/dashboard/partners/partners_component';
-import EventsComponent from '../../components/dashboard/events/events_component';
+import ProfileComponent from './profile/profile_component';
+import PartnersComponent from './partners/partners_component';
+import EventsComponent from './events/events_component';
 
 const drawerWidth = 240;
 

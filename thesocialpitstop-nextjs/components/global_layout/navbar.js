@@ -33,6 +33,9 @@ const Navbar = ({ toggle }) => {
             </a>
           </NavLogo>
           <NavBtn>
+          <Link href="/search" passHref>
+              <NavLinkItem>EXPLORE</NavLinkItem>
+            </Link>
             <Link href="/categories" passHref>
               <NavLinkItem>CATEGORIES</NavLinkItem>
             </Link>
