@@ -157,7 +157,7 @@ const SearchPage = () => {
               query: router.query.query
             }}
             onSubmit={(event) => {
-              let categoryQueryString = router.query.category;
+              let categoryQueryString = router.query.category ?? "";
               if (typeof router.query.category == "object") {
                 categoryQueryString = categoryQueryString.map((data) => `&category=${data}`).join('');
               }
