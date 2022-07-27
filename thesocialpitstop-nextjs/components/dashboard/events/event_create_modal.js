@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { useUser } from "@auth0/nextjs-auth0";
-import CloseIcon from "@mui/icons-material/Close";
-import { Button, IconButton, Modal, TextField } from "@mui/material";
+import { Button, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import { useS3Upload } from "next-s3-upload";
@@ -42,9 +41,6 @@ const EventCreateModal = ({ open, setOpen }) => {
       let eventID = `EVENT#${currentTimestamp}`;
       let date = new Date().toISOString();
       console.log(values);
-
-
-
       await uploadToS3(selectedImage, {
         endpoint: {
           request: {
