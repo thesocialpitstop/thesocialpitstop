@@ -167,7 +167,7 @@ const SearchPage = () => {
             }}
             getSources={({ query }) => [
               {
-                sourceId: "tsp_PROD",
+                sourceId: ALGOLIA_INDEX_NAME,
                 getItems() {
                   return getAlgoliaResults({
                     searchClient,
