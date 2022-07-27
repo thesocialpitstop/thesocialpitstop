@@ -13,9 +13,10 @@ import { parseISO } from "date-fns";
 import { useState } from "react";
 import RoomIcon from "@mui/icons-material/Room";
 import { EventModalContext } from "../event_context";
+import { CLOUDFRONT_URL } from "../../../constants/constants";
 
 const EventItem = (props) => {
-  const [src, setSrc] = useState(props.image_url ? props.image_url : "/");
+  const [src, setSrc] = useState(`${CLOUDFRONT_URL}/${props.data.event_image}`);
   return (
     <EventCard>
       <EventCardImage
