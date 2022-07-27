@@ -12,18 +12,5 @@ export const navbarItems = [
 ];
 
 export const drawerItems = [
-    {
-        name: "Profile",
-        path: "/profile",
-        icon: MdAccountCircle
-    },
-    {
-        name: "Categories",
-        path: "/categories"
-    },
-    {
-        name: "About Us",
-        path: "/about-us"
-        
-    }
+    "Profile", "Posts", "Partners", "Events"
 ];

@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import SettingsDrawer from "./settings_drawer";
+import SettingsDrawer from "../../components/dashboard/settings_drawer";
 
 const SettingsPage = () => {
     return (
