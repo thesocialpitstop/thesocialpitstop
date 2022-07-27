@@ -1,3 +1,5 @@
+import { MdAccountCircle } from "react-icons/md";
+
 export const navbarItems = [
     {
         name: "Categories",
@@ -10,8 +12,18 @@ export const navbarItems = [
 ];
 
 export const drawerItems = [
-    "Profile",
-    "Posts",
-    "Partners",
-    "Events"
+    {
+        name: "Profile",
+        path: "/profile",
+        icon: MdAccountCircle
+    },
+    {
+        name: "Categories",
+        path: "/categories"
+    },
+    {
+        name: "About Us",
+        path: "/about-us"
+        
+    }
 ];
