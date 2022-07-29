@@ -5,13 +5,17 @@ import { Box } from "@mui/system";
 import { useFormik } from "formik";
 import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { PLACEHOLDER_IMAGE } from "../../../constants/constants";
 import { CREATE_EVENT } from "../../../graphql/mutations";
-import { modalStyle } from "../modal_style";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
 import { eventCreateModalValidationSchema } from "./event_create_modal_validation_schema";
+import {
+  EventModalDiv,
+  EventModalImage, EventModalInfoDiv,
+  eventModalStyle,
+  EventModalUploadSection
+} from "./event_modals.style";
 
 const EventCreateModal = ({ open, setOpen }) => {
   const handleOpen = () => setOpen(true);
@@ -25,7 +29,6 @@ const EventCreateModal = ({ open, setOpen }) => {
       item_type: "hello",
     },
   });
-  const { router } = useRouter();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -56,7 +59,7 @@ const EventCreateModal = ({ open, setOpen }) => {
           variables: {
             user_id: user?.sub.split("|")[1],
             item_type: eventID,
-            datetime: date ,
+            datetime: date,
             event_name: values.eventName,
             event_date: date,
             event_details: values.eventDetails,
@@ -83,22 +86,21 @@ const EventCreateModal = ({ open, setOpen }) => {
       aria-labelledby="edit-event-modal"
       aria-describedby="Modal to edit event"
     >
-      <Box sx={modalStyle}>
+      <Box sx={eventModalStyle}>
         <h1>Create New Event</h1>
         <form onSubmit={formik.handleSubmit}>
-          <div
-            style={{ display: "flex", gap: "16px", flexDirection: "column" }}
-          >
-            <div style={{ display: "flex", gap: "16px", flexDirection: "row" }}>
-              <Image
-                width={64}
-                height={64}
-                src={
-                  selectedImage
-                    ? URL.createObjectURL(selectedImage)
-                    : PLACEHOLDER_IMAGE
-                }
-              />
+          <EventModalDiv>
+            <EventModalUploadSection>
+              <EventModalImage>
+                <Image
+                  layout="fill"
+                  src={
+                    selectedImage
+                      ? URL.createObjectURL(selectedImage)
+                      : PLACEHOLDER_IMAGE
+                  }
+                />
+              </EventModalImage>
               <Button variant="contained" component="label">
                 Upload
                 <input
@@ -112,44 +114,46 @@ const EventCreateModal = ({ open, setOpen }) => {
                   }}
                 />
               </Button>
-            </div>
+            </EventModalUploadSection>
 
-            <TextField
-              fullWidth
-              id="eventName"
-              name="eventName"
-              label="Event Name"
-              onChange={formik.handleChange}
-              value={formik.values.eventName}
-            />
+            <EventModalInfoDiv>
+              <TextField
+                fullWidth
+                id="eventName"
+                name="eventName"
+                label="Event Name"
+                onChange={formik.handleChange}
+                value={formik.values.eventName}
+              />
 
-            <AddressAutocomplete
-              id="address"
-              name="address"
-              label="Address"
-              inputValue={formik.values.address || ""}
-              setFieldValue={formik.setFieldValue}
-            />
-            <TextField
-              fullWidth
-              id="eventDetails"
-              name="eventDetails"
-              label="Event Details"
-              rows={4}
-              multiline
-              onChange={formik.handleChange}
-              value={formik.values.eventDetails}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={
-                !(formik.isValid && formik.dirty && !formik.isSubmitting)
-              }
-            >
-              Submit New Event
-            </Button>
-          </div>
+              <AddressAutocomplete
+                id="address"
+                name="address"
+                label="Address"
+                inputValue={formik.values.address || ""}
+                setFieldValue={formik.setFieldValue}
+              />
+              <TextField
+                fullWidth
+                id="eventDetails"
+                name="eventDetails"
+                label="Event Details"
+                rows={4}
+                multiline
+                onChange={formik.handleChange}
+                value={formik.values.eventDetails}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={
+                  !(formik.isValid && formik.dirty && !formik.isSubmitting)
+                }
+              >
+                Submit New Event
+              </Button>
+            </EventModalInfoDiv>
+          </EventModalDiv>
         </form>
       </Box>
     </Modal>

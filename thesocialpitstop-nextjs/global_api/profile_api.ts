@@ -1,4 +1,5 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { DELETE_ITEM } from "../graphql/mutations";
 import {
   CHECK_REVIEW_EXIST,
   GET_FOLLOWER,
@@ -50,7 +51,7 @@ export function useCheckReview(pageId, currentId) {
 }
 
 export function usePartners(requested_id, requesting_id) {
-      // Partner Data
+  // Partner Data
   const { data: partnerData } = useQuery(GET_PARTNER, {
     variables: {
       user_id: requested_id,
@@ -61,10 +62,8 @@ export function usePartners(requested_id, requesting_id) {
 }
 
 export function useReviews(id) {
-      // Review Data
-  const {
-    data: reviews,
-  } = useQuery(GET_REVIEWS_OF_USER_LIMIT, {
+  // Review Data
+  const { data: reviews } = useQuery(GET_REVIEWS_OF_USER_LIMIT, {
     variables: {
       user_id: id,
       limit: 2,
@@ -72,3 +71,4 @@ export function useReviews(id) {
   });
   return reviews;
 }
+
