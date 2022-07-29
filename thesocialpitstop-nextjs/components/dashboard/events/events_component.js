@@ -49,7 +49,7 @@ const EventsComponent = () => {
 
   const eventItems = events.map((data) => {
     return (
-      <EventIdContext.Provider value={{eventId, setEventId}}>
+      <EventIdContext.Provider key={data.item_type} value={{eventId, setEventId}}>
         <EventItemAdmin
           key={data.item_type}
           data={data}

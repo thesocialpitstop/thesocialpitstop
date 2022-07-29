@@ -28,20 +28,6 @@ const EventDeleteModal = ({ open, setOpen, userId }) => {
     refetchQueries: [{ query: GET_ALL_EVENTS_OF_USER }, "GetAllEvents"],
   });
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    height: "fit-content(20em)",
-    width: "90%",
-    height: "30%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "white",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-
   return (
     <Dialog
       open={open}
