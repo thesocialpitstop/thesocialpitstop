@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import { parseISO } from "date-fns";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CLOUDFRONT_URL } from "../../../constants/constants";
+import { EventIdContext } from "./events_component";
 import {
   EventItemAdminCard,
   EventItemAdminDetail,
@@ -10,6 +11,8 @@ import {
 
 const EventItemAdmin = (props) => {
   const [src, setSrc] = useState(`${CLOUDFRONT_URL}/${props.data.event_image}`);
+  const {eventId, setEventId} = useContext(EventIdContext);  
+
   return (
     <>
       <EventItemAdminCard>
@@ -29,7 +32,7 @@ const EventItemAdmin = (props) => {
         <Button
           onClick={() => {
             props.eventId(props.data.item_type);
-            props.openModal(props);
+            props.openEditModal(props);
           }}
         >
           Edit
@@ -40,6 +43,8 @@ const EventItemAdmin = (props) => {
         variant="contained"
           onClick={() => {
             console.log("delete event")
+            props.openDeleteModal();
+            setEventId(props.data.item_type);
           }}
         >
           Delete

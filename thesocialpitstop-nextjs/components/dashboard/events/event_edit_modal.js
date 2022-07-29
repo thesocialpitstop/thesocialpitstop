@@ -6,47 +6,11 @@ import { useFormik } from "formik";
 import { useS3Upload } from "next-s3-upload";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { CLOUDFRONT_URL } from "../../../constants/constants";
 import { UPDATE_EVENT } from "../../../graphql/mutations";
 import { GET_ALL_EVENTS_OF_USER, GET_EVENT } from "../../../graphql/queries";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  height: "fit-content(20em)",
-  width: "90%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "white",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const EventEditModalDiv = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 16px;
-`;
-
-const EventEditModalImageDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const EventEditModalImage = styled.div`
-  position: relative;
-  height: 100%;
-`;
-
-const EventEditModalInfoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
+import { EventModalDiv, EventModalImage, EventModalInfoDiv, eventModalStyle, EventModalUploadSection } from "./event_modals.style";
 
 const EventEditModal = ({ open, setOpen, eventId, data }) => {
   const handleOpen = () => setOpen(true);
@@ -80,7 +44,7 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
     if (eventData) {
       console.log(eventData);
       setEvent(eventData.getItem);
-      setSrc(`${CLOUDFRONT_URL}/${eventData.getItem.event_image}`)
+      setSrc(`${CLOUDFRONT_URL}/${eventData?.getItem?.event_image}`)
     }
   }, [eventData]);
 
@@ -143,23 +107,23 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
       aria-labelledby="edit-event-modal"
       aria-describedby="Modal to edit event"
     >
-      <Box sx={style}>
+      <Box sx={eventModalStyle}>
+      <h1>Edit Event</h1>
+
         <form onSubmit={formik.handleSubmit}>
-          <EventEditModalDiv>
-            <EventEditModalImageDiv>
-              <EventEditModalImage>
+          <EventModalDiv>
+            <EventModalUploadSection>
+              <EventModalImage>
                 <Image
                   src={src}
                   layout="fill"
-                  width={64}
-                  height={64}
                   onError={() =>
                     setSrc(
                       `https://ui-avatars.com/api/?name=${event?.event_name}`
                     )
                   }
                 />
-              </EventEditModalImage>
+              </EventModalImage>
 
               <Button variant="contained" component="label">
                 Upload
@@ -175,9 +139,9 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
                   }}
                 />
               </Button>
-            </EventEditModalImageDiv>
+            </EventModalUploadSection>
 
-            <EventEditModalInfoDiv>
+            <EventModalInfoDiv>
               <TextField
                 fullWidth
                 id="event_name"
@@ -207,8 +171,8 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
               <Button type="submit" variant="contained">
                 Save
               </Button>
-            </EventEditModalInfoDiv>
-          </EventEditModalDiv>
+            </EventModalInfoDiv>
+          </EventModalDiv>
         </form>
       </Box>
     </Modal>
