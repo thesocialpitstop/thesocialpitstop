@@ -46,10 +46,11 @@ const SearchCategoryList = () => {
       onSubmit={async (values) => {
         console.log(values);
         let categoryQueryString = "";
+        let queryString = "";
         values.checked.forEach(data => {
           categoryQueryString += `&category=${data}`
         })
-        router.push(`/search?query=${router.query.query}${categoryQueryString}`);
+        router.push(`/search?${router.query.query == undefined ? "" : `query=${router.query.query}`}${categoryQueryString}`);
       }}
     >
       {({ values, resetForm }) => (
