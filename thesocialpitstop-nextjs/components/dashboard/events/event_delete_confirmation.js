@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Button, Modal } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { useDeleteItem } from "../../../global_api/api.ts";
@@ -10,7 +10,7 @@ import { EventIdContext } from "./events_component";
 const EventDeleteModal = ({ open, setOpen, userId }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const {eventId, setEventId} = useContext(EventIdContext);  
+  const { eventId, setEventId } = useContext(EventIdContext);
   const handleDelete = () => {
     deleteEvent({
       onCompleted: (data) => {
@@ -25,10 +25,10 @@ const EventDeleteModal = ({ open, setOpen, userId }) => {
       user_id: userId,
       item_type: eventId,
     },
-  refetchQueries: [{ query: GET_ALL_EVENTS_OF_USER }, "GetAllEvents"],
+    refetchQueries: [{ query: GET_ALL_EVENTS_OF_USER }, "GetAllEvents"],
   });
 
-    const style = {
+  const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -43,20 +43,22 @@ const EventDeleteModal = ({ open, setOpen, userId }) => {
   };
 
   return (
-    <Modal
+    <Dialog
       open={open}
       onClose={handleClose}
       aria-labelledby="edit-event-modal"
       aria-describedby="Modal to edit event"
     >
-      <Box sx={style}>
-        <h1>Confirm Delete?{eventId}</h1>
-        <>
-            <Button variant="contained" onClick={handleDelete}>Yes</Button>
-            <Button variant="contained" onClick={handleClose}>No</Button>
-        </>
-      </Box>
-    </Modal>
+      <DialogTitle id="alert-dialog-title">
+        {"Confirm Delete?"}
+      </DialogTitle>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleDelete} autoFocus>
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

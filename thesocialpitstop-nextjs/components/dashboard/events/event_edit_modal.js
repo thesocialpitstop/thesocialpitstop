@@ -10,14 +10,22 @@ import { CLOUDFRONT_URL } from "../../../constants/constants";
 import { UPDATE_EVENT } from "../../../graphql/mutations";
 import { GET_ALL_EVENTS_OF_USER, GET_EVENT } from "../../../graphql/queries";
 import { AddressAutocomplete } from "../profile/address_autocomplete";
-import { EventModalDiv, EventModalImage, EventModalInfoDiv, eventModalStyle, EventModalUploadSection } from "./event_modals.style";
+import {
+  EventModalDiv,
+  EventModalImage,
+  EventModalInfoDiv,
+  eventModalStyle,
+  EventModalUploadSection,
+} from "./event_modals.style";
 
 const EventEditModal = ({ open, setOpen, eventId, data }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { user } = useUser();
   const [event, setEvent] = useState();
-  const [src, setSrc] = useState(`https://ui-avatars.com/api/?name=${data?.event_name}`);
+  const [src, setSrc] = useState(
+    `https://ui-avatars.com/api/?name=${data?.event_name}`
+  );
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageChanged, setImageChanged] = useState(false);
   const { uploadToS3 } = useS3Upload();
@@ -44,7 +52,7 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
     if (eventData) {
       console.log(eventData);
       setEvent(eventData.getItem);
-      setSrc(`${CLOUDFRONT_URL}/${eventData?.getItem?.event_image}`)
+      setSrc(`${CLOUDFRONT_URL}/${eventData?.getItem?.event_image}`);
     }
   }, [eventData]);
 
@@ -57,7 +65,7 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
     enableReinitialize: true,
     onSubmit: async (values) => {
       console.log(imageChanged);
-      if(imageChanged) {
+      if (imageChanged) {
         await uploadToS3(selectedImage, {
           endpoint: {
             request: {
@@ -67,22 +75,23 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
               },
             },
           },
-        }).then((data) => {
-          console.log(data)
-          updateEvent({
-            variables: {
-              event_name: values.event_name,
-              event_details: values.event_details,
-              event_location: values.event_location,
-              event_image: data.key
-            },
-            onCompleted: (data) => {
-              console.log(data);
-              handleClose();
-            },
-          });
-        }).catch((error) => console.error(error))
-
+        })
+          .then((data) => {
+            console.log(data);
+            updateEvent({
+              variables: {
+                event_name: values.event_name,
+                event_details: values.event_details,
+                event_location: values.event_location,
+                event_image: data.key,
+              },
+              onCompleted: (data) => {
+                console.log(data);
+                handleClose();
+              },
+            });
+          })
+          .catch((error) => console.error(error));
       } else {
         updateEvent({
           variables: {
@@ -96,7 +105,6 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
           },
         });
       }
-      
     },
   });
 
@@ -108,7 +116,7 @@ const EventEditModal = ({ open, setOpen, eventId, data }) => {
       aria-describedby="Modal to edit event"
     >
       <Box sx={eventModalStyle}>
-      <h1>Edit Event</h1>
+        <h1>Edit Event</h1>
 
         <form onSubmit={formik.handleSubmit}>
           <EventModalDiv>
