@@ -64,7 +64,7 @@ const SearchPage = () => {
     if (router.query.category != undefined) {
       filterString = filterBuilder(router.query.category);
     }
-    algoliaSearchFunction(router.query.query, page, filterString).then(
+    algoliaSearchFunction(router.query.query == undefined ? "" : router.query.query, page, filterString).then(
       (items) => setItems(items)
     );
   }, [router.query.query, router.query.category]);
